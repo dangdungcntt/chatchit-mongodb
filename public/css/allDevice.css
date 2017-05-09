@@ -1,0 +1,201 @@
+a, a:hover, a:active, a:visited {
+	text-decoration: none;
+	color: #000;
+}
+
+.not-support-device {
+	display: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.scroll-bar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.scroll-bar::-webkit-scrollbar{
+	width:8px;
+}
+
+.scroll-bar:hover::-webkit-scrollbar {
+	width:8px;
+	border-radius:8px;
+}
+
+.scroll-bar::-webkit-scrollbar:hover {
+	background-color: #ccc;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+	background-color: #f1f0f0;
+	border-radius:8px;
+}
+
+.scroll-bar:hover::-webkit-scrollbar-thumb {
+	background-color:#828282;
+}
+
+.register {
+	margin: auto;
+	height: 100vh;
+	/*background-color: #999;*/
+	/*border: 2px solid #fff;*/
+	text-align: center;
+	position: relative;
+}
+
+.group-regis {
+	position: absolute;
+	top: 30%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.input-name {
+	color: gray;
+/*	padding: 6px 12px;
+	border: 1px solid #337ab7;
+	border-radius: 4px;
+	margin: auto;*/
+	width: 40%;
+}
+
+
+.chat {
+	height: 100vh;
+	position: relative;
+	display: flex;
+	flex-flow: column; 
+}
+
+/*css for top*/
+	.top {
+		flex: 0 1 35px;
+		width: 100%;
+		border-bottom: 1px solid #337ab7;
+	}
+
+	.top-left {
+		float: left;
+		width: 210px;
+		/*border-right: 1px solid #337ab7;*/
+	}
+
+	.top-middle {
+		position: relative;
+		height: 35px;
+		overflow: auto;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.top-right {
+		float: right;
+		width: 20%;
+	}
+
+	.btn-open-sidebar {
+		width: 184px;
+		padding: 9px 12px;
+		border: 1px solid transparent;
+		border-radius: 0px;
+		border-right: 1px solid #337ab7;
+	}
+
+	#display-user-name {
+		height: 1em;
+		position: absolute;
+		margin: auto; 
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		
+	}
+
+	.btn-logout {
+		float: right;
+		width: 100%;
+		padding: 9px 0;
+		border-radius: 0px;
+		border-top:  1px solid transparent;
+		border-right: 1px solid transparent;
+		border-bottom: 1px solid transparent;
+		border-left:  1px solid #337ab7;
+	}
+/*end css for top*/
+
+/*css for middle*/
+	.middle {
+		flex: 1 1 auto;
+		width: 100%;
+		overflow-y: scroll;
+		background-color: white;
+	}
+/*end css for middle*/
+
+/*css for bottom*/
+	.bottom {
+		position: relative;
+		min-height: 50px;
+		flex: 0 1 5vh;	
+		border-top: 1px solid #337ab7;
+	}
+/*end css for bottom*/
+
+.list-user-online {
+	width: 200px;
+	height: 100%;
+	margin: 0 0 0 8px;
+	/*margin-left: 5px; 	*/
+	
+}
+
+.item-user-online {
+	margin-top: 2px;
+	margin-bottom: 2px;
+	width: 164px;
+}
+
+.friend-name {
+	padding-left: 8px;
+	color: #9f9f9f;
+	clear: both;
+}
+
+.message {
+	clear: both;
+	max-width: 80%;
+	margin-bottom: 5px;
+	padding: 10px 15px;
+	border-radius: 5px;
+}
+
+.my-message {
+	border-bottom-right-radius: 0;
+	color: #ffffff;
+	float: right;
+	background: #0084ff;
+}
+
+.friend-message {
+	border-bottom-left-radius: 0;
+	color: #000000;
+	float: left;
+	background: #92fcec;
+	/*#92fcec*/
+	/*#f1f0f0*/
+}
+
+.notification {
+	text-align: center;
+	color: gray;
+	clear: both;
+}
+
+
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>COMING SOON!</title>
+	<link rel="shortcut icon" href="favicon.png">
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+	var hostname = location.protocol + '//' + location.host;
+	var socket = io(hostname);
+	socket.on('hello-client', (data) => {
+		alert(data.message);
+	})
+	</script>
+</head>
+<style type="text/css">
+	.coming-soon {
+		text-align: center;
+		font-size: 100px;
+		font-weight: bold;
+		color: #5bc0de;
+	}
+</style>
+<body>
+
+<div class="coming-soon">
+	COMING IN SUNDAY 5/14/2017!
+</div>
+
+</body>
+</html>
