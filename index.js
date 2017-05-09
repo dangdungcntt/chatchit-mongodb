@@ -34,12 +34,14 @@ io.on('connection', (socket) => {
 
 	socket.on('disconnect', () => {
 		let i = listId.indexOf(socket.id);
-        io.sockets.emit('server_send_a_client_has_left', {
-        	username: listUser[i],
-        	id: socket.id
-        });
-        listUser.splice(i, 1);
-        listId.splice(i, 1);
+        if (i > -1) {
+        	io.sockets.emit('server_send_a_client_has_left', {
+	        	username: listUser[i],
+	        	id: socket.id
+	        });
+	        listUser.splice(i, 1);
+	        listId.splice(i, 1);
+        }
     });
 
     socket.on("client_send_register", (data) => {
