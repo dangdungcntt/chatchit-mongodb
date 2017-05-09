@@ -5,7 +5,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
 	host: config.get('mysql.host'),
 	port: config.get('mysql.port'),
-	username: config.get('mysql.username'),
+	user: config.get('mysql.username'),
 	password: config.get('mysql.password'),
 	database: config.get('mysql.database')
 });

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+<form action="/login" method="POST">
+	<label>Username</label>
+	<input type="text" name="username">
+	<label>Password</label>
+	<input type="password" name="password">
+	<input type="submit" name="btnLogin" value="Login">
+</form>
+<%
+if (data && data.error) { %>
+	<div><%= data.error %></div>
+<% } %>
+</body>
+</html>

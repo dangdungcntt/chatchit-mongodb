@@ -9,5 +9,6 @@
 		"username": "root",
 		"password": "",
 		"database": "chatchit"
-	}
+	},
+	"secret_key_session": "secret_key_session"
 }
