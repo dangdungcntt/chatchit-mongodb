@@ -1,27 +1,14 @@
 'use strict';
-var q = require('q');
-var db = require('../common/database');
+// get an instance of mongoose and mongoose.Schema
+var mongoose = require('../common/database').mongoose;
+var Schema = mongoose.Schema;
 
-var connection = db.getConnection();
-
-function login(username, password) {
-	var defer = q.defer();
-
-	connection.query(
-		'SELECT * FROM users WHERE username = ? AND password = ?',
-		[username, password], 
-		(err, users) => {
-			if (err) {
-				defer.reject(err);
-			} else {
-				defer.resolve(users);
-			}			
-		}
-	);
-
-	return defer.promise;
-}
-
-module.exports = {
-	login
-};
+// set up a mongoose model and pass it using module.exports
+module.exports = mongoose.model('User', new Schema({ 
+    username: String, 
+    password: String, 
+    name: String,
+    email: String,
+    fbid: String,
+    admin: Boolean 
+}));

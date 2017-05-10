@@ -3,12 +3,7 @@
 		"host": "0.0.0.0",
 		"port": 3000
 	},
-	"mysql": {
-		"host": "localhost",
-		"port": 3306,
-		"username": "root",
-		"password": "",
-		"database": "chatchit"
-	},
-	"secret_key_session": "secret_key_session"
+	"database": "mongodb://dangdungcntt:Getthera1@ds127101.mlab.com:27101/chatchit",
+	"secret_key_session": "secret_key_session",
+	"secret_key_jwt": "secret_key_jwt"
 }
