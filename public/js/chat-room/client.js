@@ -12,7 +12,7 @@ socket.on('server_send_register_fail',  (data) => {
 
 socket.on('server_send_successful_registration_to_new_client',  (data) => {
     $("#box-chat").show();
-    $("#box-rigister").remove();
+    $("#box-register").remove();
     $("#input-message").focus();
     myId = data.id;
     myUsername = data.username;

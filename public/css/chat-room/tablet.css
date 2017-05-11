@@ -43,15 +43,16 @@
 	}
 
 	.input-message {
+		font-family: inherit;
 		position: absolute;
 		left: 209px;
-		padding: 0px 0px 0px 8px;
+		padding: 0px 0px 0px 12px;
 		border: 0px solid #337ab7;
 		border-left: 1px solid #337ab7;
 		line-height: 1.5em;
 		font-size: 18px;
 		margin: auto;
-		width: 48%;
+		width: calc(100% - 210px - 90px);
 		height: 100%;
 		overflow: auto;
 	}
@@ -61,21 +62,16 @@
 	}
 
 	.btn-send {
-		font-size: 18px;
-		color: #337ab7;
+		/*font-size: 18px;*/
+		/*color: #337ab7;*/
 		float: right;
-		padding: 15px 4%;
+		padding: 8px 20px 8px 10px;
 		border-radius: 0px;
 		border-top:  1px solid transparent;
 		border-right: 0px solid transparent;
 		border-bottom: 1px solid transparent;
-		border-left:  1px solid #337ab7;
+		border-left:  1px solid transparent;
 
-	}
-
-	.btn-send:hover {
-		color: #337ab7;
-		background: #e2e0e0;
 	}
 
 	.btn-turn-on-webcam {

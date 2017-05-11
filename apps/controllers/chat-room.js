@@ -7,7 +7,11 @@ router.get('/', (req, res) => {
 	// res.json({
 	// 	message: 'User page'
 	// });
-	res.render('chat-room/chat');
+	res.render('chat-room/chat', {
+		data: {
+			user: req.session.user
+		}
+	});
 });
 
 module.exports = router;

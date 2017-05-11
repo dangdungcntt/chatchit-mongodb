@@ -1,0 +1,63 @@
+@import url("../reset.css");
+
+@import url("../base.css");
+
+label, a {
+	text-decoration: none;
+	font-family: Segoe UI;
+	font-size: 14px;
+	font-weight: 600;
+	margin-left: 5px;
+	text-decoration: none;
+}
+.require {
+	color: red;
+	font-weight: bold;
+}
+.container {
+	/*position: relative;*/
+	height: 100vh;
+	background-color: #f9f9f9;
+}
+.box-login {
+	background-color: white;
+	/*position: absolute;*/
+	width: 350px;
+	height: auto;
+	margin: auto;
+	padding-bottom: 15px;
+/*			top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;*/
+	border: 1px solid #337ab7;
+	border-radius: 4px;
+	
+}
+.box-input {
+	margin-top: 20px;
+	margin-left: 20px; 
+	margin-bottom: 5px;
+}
+.txt {
+	margin: 5px 5px 15px 5px;
+	width: 262px;
+}
+.box-control {
+	margin: 5px 5px 15px 20px;
+	display: inline-block;
+}
+.btnLeft {
+	margin: 0px 2.5px 5px 5px;
+	width: 145px;
+}
+.btnRight {
+	background-color: white;
+	color: #717477;
+	margin: 0px 5px 5px 2.5px;
+	width: 145px;
+}
+.btnMid {
+	margin: 0px 5px 5px 5px;
+	width: 300px;
+}

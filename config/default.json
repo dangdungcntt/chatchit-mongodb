@@ -8,5 +8,8 @@
 	"jwt": {
 		"secret_key": "secret_key_jwt",
 		"expiresIn": 86400
+	},
+	"bcrypt": {
+		"salt": 10
 	}
 }

@@ -1,0 +1,64 @@
+<% 
+	var page = data.page;
+
+ %>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		<% if (page === 'register') { %>
+			<%= 'Join ChatChit' %>
+		<% } else { %>
+			<%= 'Login to ChatChit' %>
+		<% } %>
+	</title>
+	<link rel="shortcut icon" href="/images/favicon.png">
+<% include js-css %>
+<style type="text/css">
+	.alert {
+		display: none;
+		width: 350px;
+		padding: 15px;
+		position: absolute;
+		float: right;
+		vertical-align: middle;
+		top: 10px;
+		right: 10px;
+		text-align: center;
+		border-radius: 5px;
+		/*opacity: .8;*/
+		
+		color: white;
+		font-weight: bold;
+	}
+	#error-alert {
+		background: rgba(255,0,0,0.6);
+	}
+	#success-alert {
+		background: rgba(3, 216, 11, 0.6);
+	}
+</style>
+</head>
+<body>
+	<div class="alert" id="error-alert"></div>
+	<div class="alert" id="success-alert"></div>
+	<div class="container">
+		<div class="top" style="text-align: center; padding-top: 20px;">
+			<img width="100" height="100" src="/images/logo.png">
+			<h1 style="color: #5bc0de;">
+				<% if (page === 'register') { %>
+					<%= 'Join ChatChit' %>
+				<% } else { %>
+					<%= 'Login to ChatChit' %>
+				<% } %>
+			</h1>
+		</div>
+		<% if (page === 'register') { %>
+			<% include register %>
+		<% } else { %>
+			<% include login %>
+		<% } %>
+	</div>
+</body>
+</html>

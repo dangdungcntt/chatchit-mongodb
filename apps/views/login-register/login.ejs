@@ -1,0 +1,21 @@
+<div class="box-login">
+	<form>
+		<div class="box-input">
+			<input type="hidden" id="_shortidLogin" value="<%= data._shortid %>">
+			<label>Username</label>
+			<input type="text" class="large-input-text txt" id="username" placeholder="Username" 
+			<% if (data.newusername) {%>
+			value="<%= data.newusername %>"
+			<% } %>
+			>
+			<br>
+			<label>Password</label>
+			<input type="password" class="large-input-text txt" id="password" placeholder="Password">
+		</div>
+		<div class="box-control">
+			<input type="submit" class="large-btn btnLeft info" id="btnLogin" value="Login">
+        	<input onclick="location.href = '/register'" type="button" class="large-btn btnRight" id="btnRegister" value="Register">
+		</div>
+		<div class="text-center"><a href="#">Forgot password?</a></div>
+	</form>
+</div>

@@ -4,44 +4,10 @@
 	<title>Login</title>
 	<script src="js/jquery-3.2.1.min.js"></script>
 </head>
-<body>
-<form>
-	<label>Username</label>
-	<input type="text" id="username">
-	<label>Password</label>
-	<input type="password" id="password">
-	<input type="submit" id="btnLogin" name="btnLogin" value="Login">
-</form>
-<div id="error"></div>
-<%
-if (data && data.error) { %>
-	<div><%= data.error %></div>
-<% } %>
 <script type="text/javascript">
 	'use strict';
 	$(document).ready(() => {
 
-		let token = checkExistsToken();
-		if (token) {
-			let data = {
-				token: token
-			};
-			$.ajax({
-				url: '/checkToken',
-				type: 'POST',
-				data: data,
-				dataType: 'json',
-				success: (res) => {
-					if (res && res.status_code === 200) {
-						if (typeof(Storage) !== "undefined") {
-						    localStorage.setItem('token', res.token);
-						}
-						location.href = '/';
-					}
-				}
-			});
-		}
-		
 		$('form' ).submit(() => {
 			return false;
 		});
@@ -80,7 +46,38 @@ if (data && data.error) { %>
 		}
 		return false;
 	}
-	
+
+	let token = checkExistsToken();
+	if (token) {
+		let data = {
+			token: token
+		};
+		$.ajax({
+			url: '/checkToken',
+			type: 'POST',
+			data: data,
+			dataType: 'json',
+			success: (res) => {
+				if (res && res.status_code === 200) {
+					localStorage.setItem('token', res.token);
+					location.href = '/';
+				}
+			}
+		});
+	}
 </script>
+<body>
+<form>
+	<label>Username</label>
+	<input type="text" id="username">
+	<label>Password</label>
+	<input type="password" id="password">
+	<input type="submit" id="btnLogin" name="btnLogin" value="Login">
+</form>
+<div id="error"></div>
+<%
+if (data && data.error) { %>
+	<div><%= data.error %></div>
+<% } %>
 </body>
 </html>
