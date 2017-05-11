@@ -133,7 +133,7 @@ a, a:hover, a:active, a:visited {
 	.middle {
 		flex: 1 1 auto;
 		width: 100%;
-		overflow-y: scroll;
+		overflow-y: hidden;
 		background-color: white;
 	}
 /*end css for middle*/
@@ -168,6 +168,7 @@ a, a:hover, a:active, a:visited {
 }
 
 .message {
+	word-wrap: break-word;
 	clear: both;
 	max-width: 80%;
 	margin-bottom: 5px;

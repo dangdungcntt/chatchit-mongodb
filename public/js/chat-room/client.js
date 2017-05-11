@@ -1,4 +1,13 @@
 'use strict';
+
+let scrollBox = () => {
+    $("#box-message").scrollTop($("#box-message").prop("scrollHeight"));
+};
+
+let idNotJoin = () => {
+    return myId === -1;
+};
+
 var hostname = location.protocol + '//' + location.host;
 // console.log(hostname);
 var socket = io(hostname); // jshint ignore:line
@@ -38,7 +47,7 @@ socket.on('server_send_new_user_to_another_user', (data) => {
     $("#list-user-online").append('<a class="btn gray-color item-user-online" title="' + data.username + '" id="' + data.id + '">' + data.username + '</a>');
     let noti = '<div class="color-gray notification">' + data.username + ' join the conversation</div>';
     $("#box-message").append(noti);
-    scroll();
+    scrollBox();
     // }
 });
 
@@ -48,9 +57,12 @@ socket.on('server_send_messages_to_another_client',  (data) => {
 		return;
 	}
 	if (myUsername === data.username) {
-		let s = '<div class="message my-message">' + data.message + '</div>';
+        // let s = '<div class="message my-message">' + data.message + '</div>';
+		let s = '<div class="message my-message" id="create_by_dangdungcntt"></div>';
         $("#box-message").append(s);
-        scroll();
+        $("#create_by_dangdungcntt").text(data.message);
+        $("#create_by_dangdungcntt").removeAttr('id');
+        scrollBox();
         return;
 	}
 	// if (myId !== data.id) {
@@ -58,7 +70,7 @@ socket.on('server_send_messages_to_another_client',  (data) => {
         '<div class="message friend-message">' + data.message + '</div>';
     $("#box-message").append(s);
     new Audio('mp3/chat.mp3').play();
-    scroll();
+    scrollBox();
     // }
 });
 
@@ -81,7 +93,7 @@ socket.on('server_send_a_client_has_left', (data) => {
     $(n).hide();
     var noti = '<div class="color-gray notification">' + data.username + ' has left</div>';
     $("#box-message").append(noti);
-    scroll();
+    scrollBox();
     // }
 });
 
@@ -92,11 +104,11 @@ $(document).ready(() => {
 			$('#left').show();
 		}
 	});
-    // $(window).on('resize', () => {
-    //     var height = $(this).height() - 120;
-    //     $("#box-message").height(height);
-    //     scroll();
-    // }).trigger('resize');
+    $(window).on('resize', () => {
+        var height = $(this).height() - 103;
+        $("#box-message").height(height);
+        scrollBox();
+    }).trigger('resize');
 
     $("#box-chat").hide();
 
@@ -111,8 +123,10 @@ $(document).ready(() => {
     });
 
     $("#btnSend").click(() => {
-        var message = $("#input-message").val();
-        message = message.trim();
+        var message = document.getElementById('input-message').value;
+        // alert($("#input-message").val());
+        // var message = $("#input-message").val();
+        // message = message.trim();
         if (message !== '') {
         	socket.emit('client_send_messages', {id: myId, username: myUsername, message: message});
         }
@@ -143,12 +157,3 @@ $(document).ready(() => {
 //     }
 
 // })
-
-//anohter fuction
-function scroll() {
-    $("#box-message").scrollTop($("#box-message").prop("scrollHeight"));
-}
-
-function idNotJoin() {
-	return myId === -1;
-}

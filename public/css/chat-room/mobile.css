@@ -28,6 +28,7 @@
 		display: none;
 		background-color: #ffffff;
 		width: 209px;
+		height: 100%;
 		max-height: calc(100% - 90px);
 		border-right: 1px solid #337ab7;
 		border-bottom: 1px solid #337ab7;
@@ -37,6 +38,7 @@
 
 	.right {
 		padding: 5px 10px;
+		margin-right: 5px;
 		/*overflow-y: hidden;*/
 		overflow-y: scroll;
 		background-color: white;

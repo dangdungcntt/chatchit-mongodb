@@ -23,6 +23,7 @@
 
 	.right {
 		margin-left: 210px;
+		margin-right: 5px;
 		/*left: 210px;*/
 		/*float: left;*/
 		overflow-y: scroll;
