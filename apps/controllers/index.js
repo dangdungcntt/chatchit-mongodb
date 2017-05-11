@@ -1,9 +1,8 @@
 'use strict';
-var express = require('express');
-var config = require('config');
-var user_md = require('../models/user');
-var jwt = require('jsonwebtoken');
-var router = express.Router();
+let express = require('express');
+let user_md = require('../models/user');
+let jwt = require('../common/jwt');
+let router = express.Router();
 
 router.post('/checkToken', (req, res) => {
 	if (!req.body.token) {
@@ -11,18 +10,37 @@ router.post('/checkToken', (req, res) => {
 			status_code: 403
 		});
 	}
-	console.log(req.body);
-	let token = req.body.token;
-	jwt.verify(token, config.get('secret_key_jwt'), (err, decoded) => {
-		if (err) {
-	        return res.json({ 
-	        	status_code: 403
-	        });
-	    }
-	    req.session.user = decoded;
-	    return res.json({
-			status_code: 200,
-			token: token
+
+	jwt.verifyToken(req.body.token)
+	.then((decoded) => {
+		user_md.findOne({
+			username: decoded.username,
+			secret: decoded.secret
+		}, (err, user) => {
+			if (err || !user) {
+				return res.json({
+					status_code: 403,
+				});
+			}
+			let userData = {
+	        	username: user.username, 
+			    name: user.name,
+			    email: user.email,
+			    fbid: user.fbid,
+			    admin: user.admin,
+			    secret: user.secret
+	        };
+	        req.session.user = userData;
+	        let token = jwt.generateToken(userData);
+	        return res.json({
+				status_code: 200,
+				token
+			});
+		});
+	})
+	.catch((err) => { //jshint ignore:line
+		return res.json({
+			status_code: 403,
 		});
 	});
 });
@@ -53,17 +71,12 @@ router.post('/authenticate', (req, res) => {
 		    name: user.name,
 		    email: user.email,
 		    fbid: user.fbid,
-		    admin: user.admin
+		    admin: user.admin,
+		    secret: user.secret
         };
         //save user
         req.session.user = userData;
-		let token = jwt.sign(
-			userData, 
-			config.get('secret_key_jwt'), 
-			{
-	          expiresIn: 60 * 60 * 24 * 7
-	        }
-	    );
+		let token = jwt.generateToken(userData);
 		return res.json({
 			status_code: 200,
 			token
@@ -81,8 +94,9 @@ router.use((req, res, next) => {
 	next();
 });
 
+router.use('/chat-room', require('./chat-room'));
 router.use('/admin', require('./admin'));
-router.use('/user', require('./user'));
+router.use('/profile', require('./profile'));
 
 router.get('/', (req, res) => {
 	res.render('home', {
@@ -91,7 +105,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:string', (req, res) => {
-	res.render('signup');
+	res.render('comingsoon');
 });
 
 module.exports = router;

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <meta http-equiv="refresh" content="3; URL=./comingsoon.html"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ChatChit - By DangDung</title>
+	<link rel="shortcut icon" href="/images/favicon.png">
+	<% include chat-js-css %>
+</head>
+<body>
+<div class="not-support-device">
+	<h1>Not Support Device</h1>
+	<h3>Minimum size is 400x220</h3>
+</div>
+<div class="container">
+	<div class="register" id="box-rigister">
+		<div class="group-regis">
+			<h1 style="color: #5bc0de">ChatChit.Ga - By DangDung</h1>
+			<input type="text" class="large-btn input-name" id="username" placeholder="What is your name?">
+			<span class="">
+		        <button class="large-btn primary" id="btnRegister">Join</button>
+		    </span>
+		</div>
+    </div>
+	<div class="chat" id="box-chat">
+		<div class="top">
+		    <div class="top-left">	
+		        <a class="btn white btn-open-sidebar" id="btn-open-sidebar">Online <span class="label online-now" id="number-user-online">0</span></a>
+		    </div>
+		    <div class="top-right">
+		        <a class="btn white btn-logout" id="btn-logout" href="./">Logout</a>
+		    </div>
+		    <div class="top-middle">
+		       	<div id="display-user-name">Name</div>
+		    </div>
+		</div>
+		<div class="middle scroll-bar">
+			<div class="left" id="left">
+				<div class="list-user-online scroll-bar" id="list-user-online">
+					<!-- <a class="btn info item-user-online" title="aaa">Nguyen Dang Dung</a> -->
+				</div>
+			</div>
+			<div class="right scroll-bar" id="box-message">
+				<!-- <div class="friend-name">Dang Dung</div>
+				<div class="message friend-message">abc</div>
+				<div class="message my-message">abc</div> -->
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="control">
+				<a class="btn btn-turn-on-webcam" id="btn-turn-on-webcam">Turn on Webcam</a>
+				<input type="text" class="input-message" id="input-message" placeholder="Type message here">
+				<a class="btn btn-send" id="btnSend">SEND</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
