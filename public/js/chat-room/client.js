@@ -27,7 +27,7 @@ socket.on('server_send_registered', () => {
 
 socket.on('server_send_successful_registration_to_new_client',  (data) => {
     $("#box-chat").show();
-    // $("#box-register").remove();
+    $("#box-register").remove();
     $("#input-message").focus();
     myId = data.id;
     myUsername = data.username;

@@ -26,7 +26,7 @@ module.exports = (io) => {
 	        	return socket.emit('server_send_registered', username);
 	        }
 
-	        if (!helper.isAlphanumberic(username)) {
+	        if (!helper.isAlphanumeric(username)) {
 	        	return socket.emit('server_send_registered', username);
 	        }
 

@@ -21,7 +21,7 @@ router.use('/admin', require('./admin'));
 router.use('/profile', require('./profile'));
 
 router.get('/', (req, res) => {
-	res.render('home', {
+	res.render('home/home', {
 		data: req.session.user
 	});
 });

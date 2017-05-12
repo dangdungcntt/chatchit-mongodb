@@ -225,4 +225,13 @@ router.post('/refreshToken', (req, res) => {
 
 });
 
+router.post('/logout', (req, res) => {
+	if (req.session.user) {
+		req.session.user = undefined;
+	}
+	res.json({
+		status_code: 200
+	});
+});
+
 module.exports = router;

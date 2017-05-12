@@ -1,0 +1,94 @@
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+<style type="text/css">
+nav {
+  position: fixed;
+  width: 80%;
+/*  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;*/
+  /*overflow: hidden;*/
+  background-color: #333;
+}
+.fa {
+  line-height: 1em;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+ul:after {
+  display: block;
+  clear: both;
+  content: " ";
+}
+li {
+  display: inline-block;
+}
+li.left {
+  float: left;
+  border-right: 1px solid white;
+}
+li.right {
+  float: right;
+  border-left: 1px solid white;
+}
+li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: red;
+}
+li#login {
+  position: relative;
+}
+li#login form {
+  display: none;
+  position: absolute;
+  background-color: gray;
+  padding: 20px;
+  right: 0;
+}
+.settings {
+  position: absolute;
+  display: none;
+  right: 0;
+}
+li#login:hover .settings {
+  display: block;
+}
+.sub-item {
+  display: block;
+}
+</style>
+<nav>
+  <ul>
+    <li class="left"><a class="fa fa-home" href="index.jsp">&nbsp;Home</a></li>
+    <li class="left"><a class="fa fa-shopping-cart" href="#home">&nbsp;Carrello</a></li>
+    <li class="right"><a class="fa fa-user-plus" href="">&nbsp;Signup</a></li>
+    <li id="login" class="right">
+      <a class="fa fa-user-plus" href="">&nbsp;Login</a>
+      <!-- <form id="login_form" action="login" method="post">
+      <input id="login_username" class="login_field" name="username" type="text" placeholder="username" />
+      <br />
+      <input id="login_password" class="login_field" name="password" type="password" placeholder="password" />
+      <br />
+      <div id="submit-div">
+      <input type="submit" value="login" />
+      </div>
+      </form> -->
+      <ul class="settings">
+        <li class="sub-item">123444444444444</li>
+        <li class="sub-item">123</li>
+        <li class="sub-item">123</li>
+        <li class="sub-item">123</li>
+      </ul>
+    </li>
+  </ul>
+</nav>

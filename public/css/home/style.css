@@ -1,0 +1,17 @@
+.container {
+	width: 60%;
+	margin: auto;
+	margin-top: 50px;
+}
+.goTo {
+	cursor: pointer;
+	text-decoration: none;
+	color: red;
+}
+.goTo:visited, .goTo:active {
+	color: red;
+}
+
+.goTo:hover {
+	color: blue;
+}
