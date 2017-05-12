@@ -73,8 +73,10 @@ socket.on('server_send_messages_to_another_client',  (data) => {
 	}
 	// if (myId !== data.id) {
     let s = '<div class="friend-name">' + data.username + '</div>' +
-        '<div class="message friend-message">' + data.message + '</div>';
+        '<div class="message friend-message" id="create_by_dangdungcntt"></div>';
     $("#box-message").append(s);
+    $("#create_by_dangdungcntt").text(data.message);
+    $("#create_by_dangdungcntt").removeAttr('id');
     chatSound.play();
     scrollBox();
     // }
