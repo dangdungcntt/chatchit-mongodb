@@ -35,8 +35,8 @@
 		}, 3000);
 	};
 
-	let checkForm = () => {
-		if (!isAlphanumeric($('#username').val().trim())) {
+	let checkFormRegister = () => {
+		if (!isAlphanumeric($('#username').val())) {
 			return showError('Username can only contain a-z 0-9 . _');
 		}
 		if ($('#username').val().length < 6) {
@@ -52,13 +52,36 @@
 		return true;
 	};
 
-	$(document).ready(() => {
+	let checkFormLogin = () => {
+		if ($('#username').val().length < 6) {
+			return showError('Username must be at least 6 characters');
+		}
 
+		if (!isAlphanumeric($('#username').val())) {
+			return showError('Username can only contain a-z 0-9 . _');
+		}
+		
+		if ($('#password').val().length < 6) {
+			return showError('Password must be at least 6 characters');
+		}
+		return true;
+	};
+
+	$(document).ready(() => {
+		if ($('#username').val()) {
+			$('#password').focus();
+		}
+		
 		$('form' ).submit(() => {
 			return false;
 		});
 
 		$('#btnLogin').click(() => {
+
+			if (!checkFormLogin()) {
+				return;
+			}
+
 			let data = {
 				username: $('#username').val(),
 				password: $('#password').val(),
@@ -82,7 +105,7 @@
 						location.href = '/';
 					}, 2000);
 				} else {
-					$('#error').html(res.error);
+					showError(res.error);
 				}
 			})
 			.catch((err) => { //jshint ignore: line
@@ -92,7 +115,7 @@
 
 		$('#btnSubmitRegister').click(() => {
 
-			if (!checkForm()) {
+			if (!checkFormRegister()) {
 				return;
 			}
 			let data = {

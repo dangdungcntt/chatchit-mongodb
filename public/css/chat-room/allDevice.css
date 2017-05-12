@@ -162,7 +162,8 @@ a, a:hover, a:active, a:visited {
 }
 
 .friend-name {
-	padding-left: 8px;
+	padding-left: 3px;
+	margin-bottom: 3px;
 	color: #9f9f9f;
 	clear: both;
 }

@@ -8,20 +8,26 @@ let idNotJoin = () => {
     return myId === -1;
 };
 
-var hostname = location.protocol + '//' + location.host;
+let hostname = location.protocol + '//' + location.host;
 // console.log(hostname);
-var socket = io(hostname); // jshint ignore:line
-var myId = -1;
-var myUsername = "";
+let socket = io(hostname); // jshint ignore:line
+let myId = -1;
+let myUsername = "";
+let chatSound = new Audio('/mp3/chat.mp3');
 
 //client receive from server
 socket.on('server_send_register_fail',  (data) => {
     alert(data + " already exists");
 });
 
+socket.on('server_send_registered', () => {
+    alert('An error occurs');
+    location.href = '/';
+});
+
 socket.on('server_send_successful_registration_to_new_client',  (data) => {
     $("#box-chat").show();
-    $("#box-register").remove();
+    // $("#box-register").remove();
     $("#input-message").focus();
     myId = data.id;
     myUsername = data.username;
@@ -45,7 +51,7 @@ socket.on('server_send_new_user_to_another_user', (data) => {
     s++;
     $("#number-user-online").html(s);
     $("#list-user-online").append('<a class="btn gray-color item-user-online" title="' + data.username + '" id="' + data.id + '">' + data.username + '</a>');
-    let noti = '<div class="color-gray notification">' + data.username + ' join the conversation</div>';
+    let noti = '<div class="color-gray notification">' + data.username + ' has joined the conversation.</div>';
     $("#box-message").append(noti);
     scrollBox();
     // }
@@ -69,29 +75,24 @@ socket.on('server_send_messages_to_another_client',  (data) => {
     let s = '<div class="friend-name">' + data.username + '</div>' +
         '<div class="message friend-message">' + data.message + '</div>';
     $("#box-message").append(s);
-    new Audio('mp3/chat.mp3').play();
+    chatSound.play();
     scrollBox();
     // }
 });
 
-// socket.on("server_send_buzz",  (data) => {
-//     new Audio('mp3/buzz.mp3').play();
-//     var noti = "<div class='color-red notiphongchat clear'>" + data + " vừa buzz bạn</div>";
-//     $("#box-message").append(noti);
-//     scroll();
-// })
+
 
 socket.on('server_send_a_client_has_left', (data) => {
 	if (idNotJoin()) {
 		return;
 	}
     // if (myUsername !== data.username) {
-	var s = Number($("#number-user-online").html());
+	let s = Number($("#number-user-online").html());
     s--;
     $("#number-user-online").html(s);
-    var n = "#" + data.id;
-    $(n).hide();
-    var noti = '<div class="color-gray notification">' + data.username + ' has left</div>';
+    let n = "#" + data.id;
+    $(n).remove();
+    let noti = '<div class="color-gray notification">' + data.username + ' has left.</div>';
     $("#box-message").append(noti);
     scrollBox();
     // }
@@ -105,28 +106,16 @@ $(document).ready(() => {
 		}
 	});
     $(window).on('resize', () => {
-        var height = $(this).height() - 103;
+        let height = $(this).height() - 103;
         $("#box-message").height(height);
         scrollBox();
     }).trigger('resize');
 
     $("#box-chat").hide();
 
-    $("#btnRegister").click(() => {
-        var username = $("#username").val();
-        username = username.trim();
-        if (username !== "") {
-            socket.emit('client_send_register', username);
-        } else {
-            $("#username").val("");
-        }
-    });
-
     $("#btnSend").click(() => {
-        var message = document.getElementById('input-message').value;
-        // alert($("#input-message").val());
-        // var message = $("#input-message").val();
-        // message = message.trim();
+        let message = $("#input-message").val();
+        message = message.trim();
         if (message !== '') {
         	socket.emit('client_send_messages', {id: myId, username: myUsername, message: message});
         }
@@ -146,14 +135,3 @@ $(document).ready(() => {
         }
     });
 });
-
-// $(document).on("click", ".list-group-item", () {
-//     var targetId = $(this).attr("id");
-//     if (targetId != myid) {
-//         socket.emit("client_buzz_another_client", targetId);
-//         new Audio('mp3/buzz.mp3').play();
-//         var noti = "<div class='color-red notification'> Bạn vừa buzz " + $(this).html() + "</div>";
-//     	$("#box-message").append(noti);
-//     }
-
-// })

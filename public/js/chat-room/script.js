@@ -7,6 +7,7 @@ function isOnSideBar(target) {
 	];
 	var arrClassName = [
 	'list-user-online',
+	'list-user-online scroll-bar',
 	'btn-open-sidebar',
 	'left'
 	];
