@@ -1,0 +1,339 @@
+@import url("../reset.css");
+
+@import url("../base.css");
+
+.sprites {
+	background: url('../../images/imgSprites.png') no-repeat;
+}
+
+.scroll-bar {
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+
+.scroll-bar::-webkit-scrollbar{
+	display: none;
+}
+.scroll-bar:hover::-webkit-scrollbar {
+	width:8px;
+	border-radius:8px;
+	display: inherit;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+	border-radius:8px;
+}
+
+.scroll-bar:hover::-webkit-scrollbar-thumb {
+	background-color:#828282;
+}
+
+.container {
+	margin-top: 50px; 
+	width: 100%;
+	height: calc(100vh - 50px);
+}
+
+.mid {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+
+.left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 250px;
+	height: 100%;
+	float: left;
+	overflow-y: hidden;
+	border-right: 1px solid #ccc; 
+}
+
+.center {
+	margin: 0px 252px 0 252px;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+.box-message {
+	height: calc(100% - 50px);
+}
+
+.box-control {
+	height: 50px;
+	border-top: 1px solid #ccc;
+}
+
+.right {
+	position: absolute;
+	top: 0px;
+	right: 0;
+	bottom: 0;
+	width: 250px;
+	height: 100%;
+	float: right;
+	border-left: 1px solid #ccc;
+}
+
+.list-room-header {
+	height: 52px;
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #ccc;
+}
+
+.list-room-title {
+	white-space: nowrap;
+	overflow: hidden;
+	margin-left: 63px;
+	font-size: 18px;
+	font-weight: bold;
+	float: left;
+	padding: 16px 10px;
+	vertical-align: middle;
+}
+
+
+.btn-slide-left {
+	border: 0;
+	width: 40px;
+	height: 40px;
+	margin: 5px 15px 5px 5px;
+	/*margin-right: 10px;*/
+	float: right;
+	background-position: 0 0;
+}
+
+.list-room {
+	height: calc(100% - 54px);
+}
+
+
+.list-room-item {
+	background-color: #fafafa;
+	clear: both;
+	height: 50px;
+	padding: 10px 10px;
+	display: block;
+}
+
+.list-room-item:hover {
+	background-color: #ededed;
+}
+
+.room-logo {
+	float: left;
+	cursor: pointer;
+}
+
+.room-logo img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.room-info {
+	cursor: pointer;
+	float: left;
+	width: 160px;
+}
+.room-name {
+	color: black;
+	width: 100%;
+	font-size: 14px;
+	white-space: nowrap;
+	padding: 3px 12px 3px 12px;
+	font-weight: bold;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.room-id {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	color: gray;
+	font-size: 14px;
+	padding: 0px 12px 0px 12px;
+}
+
+.room-detail {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	color: gray;
+	font-style: italic;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 14px;
+	padding: 3px 12px 3px 12px;
+}
+
+.box-message {
+	background-color: white;
+}
+
+.message {
+	word-wrap: break-word;
+	max-width: 400px;
+	margin-bottom: 5px;
+	padding: 10px 15px;
+	border-radius: 8px;
+}
+
+.friend-name {
+	font-size: 90%;
+	padding-left: 3px;
+	margin-left: 82px;
+	margin-bottom: 5px;
+	padding-top: 15px;
+	color: #9f9f9f;
+	clear: both;
+
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-left: 10px; 
+	border-radius: 50%;
+}
+
+.friend-message {
+	margin-left: 10px; 
+	color: #000000;
+	float: left;
+	background: #92fcec;
+}
+
+.my-message {
+	margin-top: 35px;
+	margin-right: 10px;
+	clear: both;
+	color: #ffffff;
+	float: right;
+	background: #0084ff;
+}
+
+.input-message {
+	float: left;
+	font-family: inherit;
+	padding: 0px 0px 0px 12px;
+	border: 0px solid #337ab7;
+	line-height: 1.5em;
+	font-size: 18px;
+	margin: auto;
+	width: calc(100% - 70px);
+	height: 50px;
+	overflow: auto;
+}
+
+.input-message:focus {
+	outline-width: 0;
+}
+
+.btnSend {
+	width: 40px;
+	height: 40px;
+	margin: 5px;
+	float: right;
+	cursor: pointer;
+	background-position: -80px 0;
+}
+
+.list-user-header {
+	height: 52px;
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #ccc;
+}
+
+.list-user-title {
+	white-space: nowrap;
+	/*text-overflow: ellipsis;*/
+    overflow: hidden;
+	font-weight: bold;
+	font-size: 18px;
+	margin-left: 30px;
+	float: left;
+	padding: 16px 10px;
+	vertical-align: middle;
+}
+
+
+.btn-slide-right {
+	width: 40px;
+	height: 40px;
+	margin: 5px 5px 5px 5px;
+	float: left;
+	background-position: -40px 0;
+}
+
+.list-user {
+	height: calc(100% - 54px);
+}
+
+.list-user-item {
+	text-decoration: none;
+	background-color: #fafafa;
+	clear: both;
+	height: 32px;
+	padding: 10px 10px;
+	display: block;
+}
+
+.list-user-item:hover {
+	background-color: #ededed;
+}
+
+
+.user-avatar {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+.user-avatar img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.user-info {
+	cursor: pointer;
+	display: inline-block;
+	width: 160px;
+}
+.user-name {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	color: black;
+	width: 100%;
+	font-size: 14px;
+	white-space: nowrap;
+	padding: 0px 12px 4px 12px;
+	font-weight: bold;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.user-status {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	color: #48d44f;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 14px;
+	padding: 0px 12px 0px 12px;
+}

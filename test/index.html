@@ -1,44 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HOME</title>
-	<link rel="stylesheet" type="text/css" href="../public/css/reset.css">
+	<meta charset="utf-8">
+	<title>TEST</title>
+	<link rel="stylesheet" type="text/css" href="/css/nav.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/chat-room/style.css">
 </head>
-	<body>
-		<ul class="menu-bar">
-			<li class="menu-item item-left">
-				<a class="item-lv-1" href="/">ChatChit</a>
-			</li>
-			<li class="menu-item item-left">
-				<a class="item-lv-1" href="/chat-room">Chat Room</a>
-			</li><!-- 
-			<li class="menu-item item-left dropdown">
-				<a class="item-lv-1 dropbtn">Dropdown</a>
-				<div class="dropdown-content">
-					<a class="item-lv-2" href="#">Link 1</a>
-					<a class="item-lv-2" href="#">Link 2</a>
-					<a class="item-lv-2" href="#">Link 3</a>
+<body>
+<nav>
+    <ul>
+        <li class="menu">
+            <a href="#" class="menu-item">Chat chit</a>
+        </li>
+        <li class="menu">
+            <a href="#" class="menu-item">List room</a>
+        </li>
+        <li class="menu menu-right dropdown">
+            <a href="#" class="menu-item"><i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-content">
+                <li><a href="#" class="menu-item">Setting</a></li>
+   				<li style="height: 1px; border-bottom: 1px solid #ccc "></li>
+                <li><a href="#" class="menu-item">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+	<div class="mid">
+			<div class="left">
+				<div class="list-room-header">
+					<div class="list-room-title">List Room</div>
+					<img class="btn-slide-left sprites" src="/images/img_trans.gif">
 				</div>
-			</li>
-			<li class="menu-item item-left dropdown">
-				<a class="item-lv-1 dropbtn">Dropdown</a>
-				<div class="dropdown-content">
-					<a class="item-lv-2" href="#">Link 1</a>
-					<a class="item-lv-2" href="#">Link 2</a>
-					<a class="item-lv-2" href="#">Link 3</a>
+				<div class="list-room scroll-bar">
+					
+					<!-- <a href="#" class="list-room-item">
+						<div class="room-logo">
+							<img src="/images/room-logo.png">
+						</div>
+						<div class="room-info">
+							<div class="room-name">Room name</div>
+							<div class="room-id">Room id</div>
+							<div class="room-detail">Room detail</div>
+						</div>
+					</a> -->
 				</div>
-			</li> -->
-			<li class="menu-item item-right dropdown">
-				<a class="item-lv-1 dropbtn"><i class="fa fa-caret-down"></i></a>
-				<div class="dropdown-content settings">
-					<a class="item-lv-2" href="#">Settings</a>
-					<a class="item-lv-2" href="#">Logout</a>
+			</div>
+			<div class="center">
+				<div class="box-message scroll-bar">
+				
+					<!-- <div class="clear">
+						<div class="friend-name">Ngoan Nguyễn</div>
+						<img class="avatar" src="/images/avatar.jpg">
+						<div class="message friend-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div>
+					</div>
+					<div class="message my-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div> -->			
 				</div>
-			</li>
-			<li class="menu-item item-right">
-				<a class="item-lv-1" >Hi Dung</a>
-			</li>
-		</ul>
+				<div class="box-control">
+					<input type="text" class="input-message" id="input-message" placeholder="Type message here">
+					<img class="btnSend sprites" src="/images/img_trans.gif" title="Send">
+				</div>
+			</div>
+			<div class="right">
+				<div class="list-user-header">
+					<img class="btn-slide-right sprites" src='/images/img_trans.gif'>
+					<div class="list-user-title">Online now</div>
+				</div>
+				<div class="list-user scroll-bar">
+				
+					<!-- <a href="#" class="list-user-item">
+						<div class="user-avatar">
+							<img width="32" height="32" src="/images/avatar.jpg">
+						</div>
+						<div class="user-info">
+							<div class="user-name">Ngoan Nguyễn</div>
+							<div class="user-status">Online</div>
+						</div>
+					</a> -->
+				</div>		
+			</div>
+	</div>
+</div>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	'use strict';
+	for (let i = 1; i <= 30; i++) {
+		let s = '<a href="#" class="list-room-item" title="Room name"><div class="room-logo"><img src="/images/room-logo.png"></div><div class="room-info"><div class="room-name">Room nameRoom nameRoom nameRoom nameRoom name</div><div class="room-id">Room id</div><div class="room-detail">Room detail</div></div></a>';
+		$('.list-room').append(s);
+	}
 
-	</body>
+	for (let i = 1; i <= 30; i++) {
+		let s = '<div class="message my-message">Alo</div><div class="clear"><div class="friend-name">Ngoan Nguyễn</div><img class="avatar" src="/images/avatar.jpg"><div class="message friend-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div></div>';
+		$('.box-message').append(s);
+	}
+
+	for (var i = 1; i <= 30; i++) {
+		let s = '<a href="#" class="list-user-item" title="Ngoan Nguyễn"><div class="user-avatar"><img width="32" height="32" src="/images/avatar.jpg"></div><div class="user-info"><div class="user-name">Ngoan Nguyễn</div><div class="user-status">Online</div></div></a>';
+		$('.list-user').append(s);
+	}
+
+	$(document).ready(() => {		
+		let sttLeft = true;
+		let sttRight = true;
+		$('.btn-slide-left').click(() => {
+			if (sttLeft) {
+				$('.list-room-title').hide(600);
+				$('.room-info').hide(600);
+				$('.btn-slide-left').css('background-position', '-40px 0');
+				$('.left').animate({ 'width' : 70 }, 'slow');
+				$('.center').animate({ 'margin-left': 70 }, 'slow');
+			} else {
+				$('.btn-slide-left').css('background-position', '0 0');
+				$('.center').animate({ 'margin-left': 252 }, 'slow');
+				$('.left').animate({ 'width' : 250 }, 'slow');
+				setTimeout(() => {
+					$('.list-room-title').show(200);
+					$('.room-info').show(200);
+				}, 350);
+				
+			}
+			sttLeft = !sttLeft;
+		});
+		$('.btn-slide-right').click(() => {
+			if (sttRight) {
+				$('.list-user-title').hide(600);
+				$('.user-info').hide(600);
+				$('.btn-slide-right').css('background-position', '0 0');
+				$('.right').animate({ 'width' : 50 }, 'slow');
+				$('.center').animate({ 'margin-right': 52 }, 'slow');
+			} else {
+				$('.btn-slide-right').css('background-position', '-40px 0');
+				$('.right').animate({ 'width' : 250 }, 'slow');
+				$('.center').animate({ 'margin-right': 253 }, 'slow');
+				setTimeout(() => {
+					$('.list-user-title').show(200);
+					$('.user-info').show(200);
+				}, 300);
+			}
+			sttRight = !sttRight;
+		});
+		$(".dropdown").click(function(e){
+	        e.preventDefault();
+	        var $this = $(this).children(".dropdown-content");
+	        $(".dropdown-content:visible").not($this).slideToggle(100); //Close submenu already opened
+	        $this.slideToggle(100); //Open the new submenu
+	    });
+	    $(document).keyup((e) => { 
+	    	let input = $('#input-message');
+	    	if (input.is(":focus")) {
+	    		return;
+	    	}
+	    	input.focus();
+	    	let keyCode = e.keyCode;
+	    	let isNumber = (keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105);
+	    	let isCharacters = (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105);
+	    	if (isNumber || isCharacters) {
+	    		input.val(input.val() + e.key);
+	    	}
+		 });
+	});
+</script>
+</body>
 </html>

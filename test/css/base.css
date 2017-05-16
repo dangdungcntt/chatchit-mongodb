@@ -1,0 +1,132 @@
+.clear {
+	clear: both;
+}
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+.btn {
+	color: white;
+	white-space: nowrap;
+	user-select: none;
+    background-image: none;
+    cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.large-btn {
+	font-size: 14px;
+	color: white;
+	white-space: nowrap;
+	user-select: none;
+    background-image: none;
+    cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	display: inline-block;
+    padding: 12px 18px;
+    border: 1px solid #337ab7;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.label {
+	color: white;
+	padding: 2px 3px;
+	font-weight: bold;
+	border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.input-text {
+	/*color: white;*/
+	white-space: nowrap;
+	/*user-select: none;*/
+    background-image: none;
+    /*cursor: pointer;*/
+	/*text-align: center;*/
+	vertical-align: middle;
+	/*font-weight: bold;*/
+	display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.large-input-text {
+	font-size: 14px;
+	/*color: white;*/
+	white-space: nowrap;
+	/*user-select: none;*/
+    background-image: none;
+    /*cursor: pointer;*/
+	/*text-align: center;*/
+	vertical-align: middle;
+	/*font-weight: bold;*/
+	display: inline-block;
+    padding: 12px 18px;
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.primary {
+	background-color: #337ab7;
+}
+
+.primary:hover {
+	background-color: #286090;
+}
+
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */ 
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */ 
+.default:hover {background: #ddd;}
+
+.online-now {
+	background: #4fd26a;
+}
+
+.gray-color {
+	color: gray;
+}
+
+.red-color {
+	color: red;
+}
+
+.white {
+	color: #000000;
+	background-color: #ffffff;
+}
+
+.white:hover {
+	background-color: #e2e0e0;
+}
