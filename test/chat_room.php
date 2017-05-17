@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="chat_room.css">
 	</head>
 	<body>
-	<?php for ($i=0; $i < 50; $i++) { ?>
+	<?php for ($i=0; $i < 15; $i++) { ?>
 	
 		<a href="#">
 			<div class="chat_room">
@@ -19,5 +19,14 @@
 			</div>
 		</a>
 	<?php } ?>
+	<a href="#">
+		<div class="add_room">
+			<img src="add.png" alt="">
+			<div class="crop">
+				<b title="Sing-Bolero 68 - TalkTV Idol">tạo phòng</b><br>
+				<span class="text-muted" title="Kênh viết tí cho nó dài dài ra dài thật dài">sds</span>
+			</div>
+		</div>
+	</a>
 	</body>
 </html>
