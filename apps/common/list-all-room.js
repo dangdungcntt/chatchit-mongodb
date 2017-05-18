@@ -11,6 +11,24 @@ let checkRoomExists = (roomid) => {
 	return -1;
 }; 
 
+let getListRoom = () => {
+	return listAllRoom.slice(0);
+};
+
+let getListRoomOfUser = (username) => {
+	let listRoom = [];
+	let numRoom = listAllRoom.length;
+	for (let i = 0; i < numRoom; i++) {
+		for (let j = listAllRoom[i].length - 1; j >=0; j--) {
+			if (listAllRoom[i].listUser[j].username === username) {
+				listRoom.push(listAllRoom[i]);
+				break;
+			}
+		}
+	}
+	return listRoom;
+};
+
 let checkUserExists = (roomid, username) => {
 	let index = checkRoomExists(roomid);
 	if (index === -1) { return false; }
@@ -66,6 +84,8 @@ let removeAUserInRoom = (roomid, username) => {
 };
 module.exports = {
 	checkRoomExists,
+	getListRoom,
+	getListRoomOfUser,
 	checkUserExists,
 	getListUserOfRoom,
 	pushRoom,

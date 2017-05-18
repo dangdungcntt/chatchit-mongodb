@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>TEST</title>
+	<title>Room <%= data.roomid %> - ChatChit</title>
 	<% include ../base-js-css %>
 	<% include ../nav/js-css %>
 	<link rel="stylesheet" type="text/css" href="/css/room/style.css">
@@ -85,7 +85,7 @@
 		if (fbid !== '') {
 			return 'https://graph.facebook.com/' + fbid + '/picture?type=large&redirect=true&width=40&height=40';
 		} else {
-			return '/images/avatar_default.jpg';
+			return '/images/default_avatar.jpg';
 		}
 	};
 	let hostname = location.protocol + '//' + location.host;
@@ -100,12 +100,18 @@
 
 	socket.on('connect-successfully', (data) => {
 		socket.username = data.username;
+		socket.roomid = data.roomid;
 		data.listUser.forEach((user) => {
 			if (itsMe(user.username)) {
 				return;
 			}
 			let s = '<a href="#" id="' + user.username + '" class="list-user-item"><div class="user-avatar"><img width="32" height="32" src="' + getUrlAvatar(user.fbid) + '"></div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-status">Online</div></div></a>';
 			$('.list-user').append(s);
+		});
+		data.listRoom.forEach((room) => {
+			console.log(room);
+			let s = '<a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">' + room.listUser.length +  '</span></div></div></a>';
+			$('#list-room').append(s);
 		});
 		$('.loading').fadeOut(500, () => {
 			$('#content-room').slideDown(600);
@@ -147,15 +153,23 @@
 	});
 
 	socket.on('new-room-created', (room) => {
-		alert(10);
-		let s = 'a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail"><span id="online' + room.roomid + '">0</span></div></div></a>';
+		let s = '<a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">0</span></div></div></a>';
 		$('#list-room').append(s);
 	});
 
-	socket.on('abc', () => {
-		alert('abc');
+	let online = (roomid, aFlag) => {
+		let s = Number($("#online" + roomid).text());
+		s = s + aFlag;
+		$("#online" + roomid).text(s);
+	};
+
+	socket.on('a-user-joined-room', (roomid) => {
+		online(roomid, 1);
 	});
 
+	socket.on('a-user-leaved-room', (roomid) => {
+		online(roomid, -1);
+	});
 
 	$(document).ready(() => {
 		$("#btnSend").click(() => {

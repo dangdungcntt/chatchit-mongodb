@@ -1,6 +1,7 @@
 'use strict';
 let express = require('express');
 let account = require('./account');
+let config = require('config');
 // let multer = require('multer');
 let listAllRoom = require('../common/list-all-room');
 // let unirest = require('unirest');
@@ -44,7 +45,6 @@ router.use((req, res, next) => {
 });
 
 router.use('/room', require('./room'));
-router.use('/chat-room', require('./chat-room'));
 router.use('/admin', require('./admin'));
 router.use('/profile', require('./profile'));
 
@@ -61,6 +61,13 @@ router.get('/list-room', (req, res) => {
 	});
 });
 
+router.post('/default_room_image', (req, res) => {
+	res.json({
+		data: {
+			link: config.get('default.roomimage')
+		}
+	});
+});
 
 router.get('/create-room', (req, res) => {
 	let { username, name, fbid} = req.session.user;

@@ -7,10 +7,11 @@ module.exports = (io) => {
 	
 	nsListRoom.on('connection', (socket) => {
 		console.log('someone connected nsListRoom, id = ', socket.id);
+
+		socket.emit('send-list-room', listAllRoom.getListRoom());
 		socket.on('create-room', (room) => {
-			listAllRoom.pushRoom(room);
+			nsListRoom.emit('new-room-created', room);
 			nsRoom.emit('new-room-created', room);
-			io.emit('new-room-created', room);
 		});
 	});
 	
@@ -21,6 +22,8 @@ module.exports = (io) => {
 	  	socket.on('disconnect', () => {
 	  		if (listAllRoom.removeAUserInRoom(socket.roomid, socket.username)) {
 	  			nsRoom.to(socket.roomid).emit('a-user-disconnected', {username: socket.username, name: socket.name});
+	  			nsListRoom.emit('a-user-leaved-room', socket.roomid);
+	  			nsRoom.emit('a-user-leaved-room', socket.roomid);
 	  		}
 	  	});
 
@@ -33,6 +36,8 @@ module.exports = (io) => {
 	  		let exi = listAllRoom.checkUserExists(data.roomid, data.username);
 		  	let i = listAllRoom.checkRoomExists(data.roomid);
 		  	data.listUser = listAllRoom.getListUserOfRoom(i);
+
+		  	data.listRoom = listAllRoom.getListRoom();
 
 		  	let user = {username: socket.username, name: socket.name, fbid: data.fbid, count: 1};
 
@@ -47,6 +52,8 @@ module.exports = (io) => {
 		  		if (!exi) {
 		  			socket.broadcast.to(data.roomid).emit('a-user-connected', user);
 		  			nsListRoom.emit('a-user-joined-room', data.roomid);
+		  			socket.emit('a-user-leaved-room', data.roomid);
+		  			nsRoom.emit('a-user-joined-room', data.roomid);
 		  		}
 		  	});
 	  	});

@@ -2,9 +2,8 @@
 <html>
 <head>
 	<title>
-		Create Room
+		Create Room - ChatChit
 	</title>
-	<link rel="shortcut icon" href="/images/favicon.png">
 	<% include ../base-js-css %>
 	<% include ../nav/js-css %>
 	<link rel="stylesheet" type="text/css" href="/css/login-register/style.css">
@@ -30,8 +29,8 @@
 					<br>
 					<label>Room Id</label>
 					<input type="text" id="roomid"class="large-input-text txt"  placeholder="Room Id" value="<% if (data.roomid) { %><%= data.roomid %><% } %>" required>
-					<label>Room Image</label>
-					<input type="file" id="roomimage" class="large-input-text txt" placeholder="Room Id" required>
+					<label>Room Image</label><input type="checkbox" id="chkMyImage">
+					<input type="file" id="roomimage" class="large-input-text txt" placeholder="Room Id" disabled="disabled">
 				</div>
 				<div class="box-control">
 					<input type="submit" class="large-btn btnLeft info" id="btnCreateRoom" value="Create">
@@ -88,6 +87,17 @@
 		};
 
 		let upLoadFile = () => {
+			if (!$('#chkMyImage').is(':checked')) {
+				return $.ajax({
+			        url: '/default_room_image',
+			        type: 'POST',
+			        cache: false,
+			        dataType: 'json'// Set content type to false as jQuery will tell 
+				});
+			}
+			if (!checkFile(files[0])) {
+				return false;
+			}
 			let formData = new FormData();
 			formData.append("image", files[0]);
 		   	return $.ajax({
@@ -122,7 +132,7 @@
 		};
 
 		let submitForm = (e) => {
-			if (checkForm() && checkFile(files[0])) {
+			if (checkForm()) {
 				$('.loading').css('bottom','0');
 				$('#title').hide();
 				$('#imgLoading').show(); 
@@ -141,7 +151,10 @@
 						let hostname = location.protocol + '//' + location.host;
 						let socket = io(hostname + '/list-room'); // jshint ignore:line
 						socket.emit('create-room', resCreateRoom.room);
-						location.href = '/room/' + resCreateRoom.room.roomid;
+						setTimeout(() => {
+							window.location.replace('/room/' + resCreateRoom.room.roomid);
+						}, 500);
+						
 					} else {
 						$('.loading').css('bottom','');
 						$('#title').show();
@@ -163,6 +176,13 @@
 		$(document).ready(() => {
 			$('form').submit(submitForm);
 			$('input[type=file]').on('change', saveFile);
+			$('#chkMyImage').change(() => {
+				if ($('#chkMyImage').prop('checked')) {
+					$('#roomimage').removeAttr('disabled');
+				} else {
+					$('#roomimage').attr('disabled', 'disabled');
+				}
+			});
 		});
 
 		(() => {

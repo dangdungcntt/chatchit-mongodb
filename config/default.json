@@ -11,5 +11,9 @@
 	},
 	"bcrypt": {
 		"salt": 10
+	},
+	"default": {
+		"roomimage": "/images/default_room_image.jpg",
+		"avatar": "/images/default_avatar.jpg"
 	}
 }

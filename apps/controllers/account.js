@@ -118,6 +118,7 @@ router.post('/authenticate', (req, res) => {
 		    email: user.email,
 		    fbid: user.fbid,
 		    admin: user.admin,
+		    secret: user.secret
         };
         //save user
         req.session.user = userData;
@@ -157,7 +158,8 @@ router.post('/checkToken', (req, res) => {
 			    name: user.name,
 			    email: user.email,
 			    fbid: user.fbid,
-			    admin: user.admin
+			    admin: user.admin,
+			    secret: user.secret
 	        };
 	        req.session.user = userData;
 	        let token = jwt.generateToken(userData);
@@ -204,7 +206,8 @@ router.post('/refreshToken', (req, res) => {
 			    name: user.name,
 			    email: user.email,
 			    fbid: user.fbid,
-			    admin: user.admin
+			    admin: user.admin,
+			    secret: user.secret
 	        };
 	        req.session.user = userData;
 	        let token = jwt.generateToken(userData);

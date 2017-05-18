@@ -5,11 +5,8 @@
 }
 .goTo {
 	cursor: pointer;
-	text-decoration: none;
-	color: red;
-}
-.goTo:visited, .goTo:active {
-	color: red;
+	/*text-decoration: none;*/
+	/*color: red;*/
 }
 
 .goTo:hover {
