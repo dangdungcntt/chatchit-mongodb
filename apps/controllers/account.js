@@ -38,19 +38,21 @@ router.post('/register', (req, res) => {
 
 	user_md.findOne({ //check exists username
 		username: params.username,
-	}, (err, user) => {
+	})
+	.exec((err, user) => {
 		if (err || user) {
 			return res.json({
-					status_code: 345,
-					error: 'Username already exists'
+				status_code: 345,
+				error: 'Username already exists'
 			});
 		}
+		let name = params.name.trim().length === 0 ? params.username : params.name.trim();
 		var ac = new user_md({ 
 		    username: params.username, 
 		    password: bcrypt.hashPassword(params.password),
-		    name: 'undefined',
+		    name: name,
 		    email: params.email,
-		    fbid: 'undefined',
+		    fbid: '',
 		    admin: false,
 		    secret: shortid.generate()
 		});
@@ -76,11 +78,13 @@ router.get('/login', (req, res) => {
 	}
 	req.session._shortidLogin = shortid.generate(); 
 	let newusername = req.session.newusername;	
+	let redirectUrl = req.session.redirectUrl;
 	res.render('login-register/index', {
 		data: {
 			page: 'login',
 			_shortid: req.session._shortidLogin,
-			newusername
+			newusername,
+			redirectUrl
 		}
 	});
 });
@@ -114,7 +118,6 @@ router.post('/authenticate', (req, res) => {
 		    email: user.email,
 		    fbid: user.fbid,
 		    admin: user.admin,
-		    secret: user.secret
         };
         //save user
         req.session.user = userData;
@@ -154,8 +157,7 @@ router.post('/checkToken', (req, res) => {
 			    name: user.name,
 			    email: user.email,
 			    fbid: user.fbid,
-			    admin: user.admin,
-			    secret: user.secret
+			    admin: user.admin
 	        };
 	        req.session.user = userData;
 	        let token = jwt.generateToken(userData);
@@ -202,8 +204,7 @@ router.post('/refreshToken', (req, res) => {
 			    name: user.name,
 			    email: user.email,
 			    fbid: user.fbid,
-			    admin: user.admin,
-			    secret: user.secret
+			    admin: user.admin
 	        };
 	        req.session.user = userData;
 	        let token = jwt.generateToken(userData);

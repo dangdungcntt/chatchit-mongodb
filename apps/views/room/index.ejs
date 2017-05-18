@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>TEST</title>
+	<% include ../base-js-css %>
+	<% include ../nav/js-css %>
+	<link rel="stylesheet" type="text/css" href="/css/room/style.css">
+</head>
+<body>
+<div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
+	<img  src="/images/loading-chat.gif">
+</div>
+<div id="content-room" style="display: none;">
+	<% include ../nav/index %>
+
+	<div class="container">
+		<div class="mid">
+				<div class="left">
+					<div class="list-room-header">
+						<div class="list-room-title">List Room</div>
+						<img class="btn-slide-left sprites" src="/images/img_trans.gif">
+					</div>
+					<div id="list-room" class="list-room scroll-bar">
+						
+						<!-- <a href="#" class="list-room-item">
+							<div class="room-logo">
+								<img src="/images/room-logo.png">
+							</div>
+							<div class="room-info">
+								<div class="room-name">Room name</div>
+								<div class="room-id">Room id</div>
+								<div class="room-detail">Room detail</div>
+							</div>
+						</a> -->
+					</div>
+				</div>
+				<div class="center">
+					<div id="box-message" class="box-message scroll-bar">
+					
+						<!--<div class="clear">
+							<div class="friend-name">Ngoan Nguyễn</div>
+							<img class="avatar" src="/images/avatar.jpg">
+							<div class="message friend-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div>
+						</div>
+						<div class="message my-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div> -->			
+					</div>
+					<div class="box-control">
+						<input type="text" id="input-message" class="input-message"  placeholder="Type message here">
+						<img id="btnSend" class="btnSend sprites" src="/images/img_trans.gif" title="Send">
+					</div>
+				</div>
+				<div class="right">
+					<div class="list-user-header">
+						<img class="btn-slide-right sprites" src='/images/img_trans.gif'>
+						<div id="list-user-title" class="list-user-title">Online now</div>
+					</div>
+					<div class="list-user scroll-bar">
+					
+						<!-- <a href="#" class="list-user-item">
+							<div class="user-avatar">
+								<img width="32" height="32" src="/images/avatar.jpg">
+							</div>
+							<div class="user-info">
+								<div class="user-name">Ngoan Nguyễn</div>
+								<div class="user-status">Online</div>
+							</div>
+						</a> -->
+					</div>		
+				</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	'use strict';
+	let chatSound = new Audio('/mp3/chat.mp3');
+	let scrollBox = () => {
+	    $("#box-message").scrollTop($("#box-message").prop("scrollHeight"));
+	};
+	let itsMe = (username) =>{
+		return username === socket.username;
+	};
+
+	let getUrlAvatar = (fbid) => {
+		if (fbid !== '') {
+			return 'https://graph.facebook.com/' + fbid + '/picture?type=large&redirect=true&width=40&height=40';
+		} else {
+			return '/images/avatar_default.jpg';
+		}
+	};
+	let hostname = location.protocol + '//' + location.host;
+	let socket = io(hostname + '/room'); // jshint ignore:line
+
+	socket.emit('connect-me-to-room', { 
+		roomid: '<%= data.roomid %>', 
+		username: '<%= data.username %>',
+		name: '<%= data.name %>',
+		fbid: '<%= data.fbid %>'
+	});
+
+	socket.on('connect-successfully', (data) => {
+		socket.username = data.username;
+		data.listUser.forEach((user) => {
+			if (itsMe(user.username)) {
+				return;
+			}
+			let s = '<a href="#" id="' + user.username + '" class="list-user-item"><div class="user-avatar"><img width="32" height="32" src="' + getUrlAvatar(user.fbid) + '"></div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-status">Online</div></div></a>';
+			$('.list-user').append(s);
+		});
+		$('.loading').fadeOut(500, () => {
+			$('#content-room').slideDown(600);
+		});
+		socket.username = data.username;
+		$('#list-user-title').text('[' + data.roomid + ']');
+	});
+
+	socket.on('a-user-connected', (user) => {
+		console.log(user);
+		if (itsMe(user.username)) {
+			return;
+		}
+		let s = '<a href="#" id="' + user.username + '" class="list-user-item"><div class="user-avatar"><img width="32" height="32" src="' + getUrlAvatar(user.fbid) + '"></div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-status">Online</div></div></a>';
+		$('.list-user').append(s);
+	});
+
+	socket.on('a-user-disconnected', (data) => {
+		$('#' + data.username).remove();
+	});
+
+	socket.on('someone-send-message', (data) => {
+		console.log(data);
+		if (itsMe(data.username)) {
+			let s = '<div id="chatchit" class="message my-message"></div>';
+	        $("#box-message").append(s);
+	        $("#chatchit").text(data.message);
+	        $("#chatchit").removeAttr('id');
+	        scrollBox();
+	        return;
+	    }
+		
+	    let s = '<div class="clear"><div class="friend-name">' + data.name + '</div><img class="avatar" src="' + getUrlAvatar(data.fbid) + '"><div id="chatchit" class="message friend-message"></div></div>';
+	    $("#box-message").append(s);
+	    $("#chatchit").text(data.message);
+	    $("#chatchit").removeAttr('id');
+	    chatSound.play();
+	    scrollBox();
+	});
+
+	socket.on('new-room-created', (room) => {
+		alert(10);
+		let s = 'a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail"><span id="online' + room.roomid + '">0</span></div></div></a>';
+		$('#list-room').append(s);
+	});
+
+	socket.on('abc', () => {
+		alert('abc');
+	});
+
+
+	$(document).ready(() => {
+		$("#btnSend").click(() => {
+	        let message = $("#input-message").val();
+	        message = message.trim();
+	        if (message !== '') {
+	        	socket.emit('user-send-messages', message);
+	        }
+	        $("#input-message").val('');
+    	});
+
+    	$("#input-message").keyup((event) => {
+	        if (event.keyCode === 13) {
+	            $("#btnSend").click();
+	        }
+	    });
+	});
+
+	//LAYOUT
+	let sttLeft = true;
+	let sttRight = true;
+
+	let checkSize =() => {
+		if ($(this).width() < 1000) {
+				if (sttRight) { //dang mo?
+					$('.btn-slide-right').click();	
+				}
+			} else {
+				if (!sttRight) { //dang dong'
+					$('.btn-slide-right').click();	
+				}
+			}
+			if ($(this).width() < 700) {
+				if (sttLeft) { //dang mo?
+					$('.btn-slide-left').click();	
+				}
+			} else {
+				if (!sttLeft) { //dang dong'
+					$('.btn-slide-left').click();	
+				}
+			}
+	};
+	$(document).ready(() => {
+		checkSize();
+		$(window).on('resize', () => {
+			checkSize();
+			let height = $(this).height() - 103;
+	        $("#box-message").height(height);
+	        scrollBox();
+		});
+	    // $(window).on('resize', () => {
+	    //     
+	    // }).trigger('resize');	
+		
+		$('.btn-slide-left').click(() => {
+			if ($(window).width() > 1000 && sttLeft) {
+				return;
+			}
+			if (sttLeft) {
+				$('.list-room-title').hide(400);
+				$('.room-info').hide(400);
+				$('.btn-slide-left').css('background-position', '-40px 0');
+				$('.left').animate({ 'width' : 70 }, 400);
+				$('.center').animate({ 'margin-left': 70 }, 400);
+			} else {
+				if (sttRight && $(window).width() < 600) {
+					$('.btn-slide-right').click();
+				}
+				$('.btn-slide-left').css('background-position', '0 0');
+				$('.center').animate({ 'margin-left': 252 }, 400);
+				$('.left').animate({ 'width' : 250 }, 400);
+				setTimeout(() => {
+					$('.list-room-title').show(200);
+					$('.room-info').show(200);
+				}, 350);
+				
+			}
+			sttLeft = !sttLeft;
+		});
+		$('.btn-slide-right').click(() => {
+			if ($(window).width() > 1000 && sttRight) {
+				return;
+			}
+			if (sttRight) {
+				$('.list-user-title').hide(600);
+				$('.user-info').hide(600);
+				$('.btn-slide-right').css('background-position', '0 0');
+				$('.right').animate({ 'width' : 50 }, 'slow');
+				$('.center').animate({ 'margin-right': 52 }, 'slow');
+			} else {
+				if (sttLeft && $(window).width() < 600) {
+					$('.btn-slide-left').click();
+				}
+				$('.btn-slide-right').css('background-position', '-40px 0');
+				$('.right').animate({ 'width' : 250 }, 'slow');
+				$('.center').animate({ 'margin-right': 253 }, 'slow');
+				setTimeout(() => {
+					$('.list-user-title').show(200);
+					$('.user-info').show(200);
+				}, 300);
+			}
+			sttRight = !sttRight;
+		});
+	    $(document).keyup((e) => { 
+	    	let input = $('#input-message');
+	    	if (input.is(":focus")) {
+	    		return;
+	    	}
+	    	input.focus();
+	    	let keyCode = e.keyCode;
+	    	let isNumber = (keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105);
+	    	let isCharacters = (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105);
+	    	if (isNumber || isCharacters) {
+	    		input.val(input.val() + e.key);
+	    	}
+		 });
+	});
+</script>
+</body>
+</html>

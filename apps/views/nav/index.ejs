@@ -1,0 +1,24 @@
+<nav>
+    <ul>
+        <li class="menu">
+            <a href="/" class="menu-item">Chat chit</a>
+        </li>
+        <li class="menu">
+            <a href="/list-room/" class="menu-item">List room</a>
+        </li>
+        <li class="menu menu-right dropdown">
+            <a href="#" class="menu-item"><i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-content">
+                <li><a href="#" class="menu-item">Setting</a></li>
+   				<li style="height: 1px; border-bottom: 1px solid #ccc "></li>
+                <li><a id="btnLogout" class="menu-item">Logout</a></li>
+            </ul>
+        </li>
+        <li class="menu menu-right">
+            <a href="/profile/<%= data.username  %>" class="menu-item">Hi <%= data.name  %></a>
+        </li>
+    </ul>
+</nav>
+<script type="text/javascript">
+"use strict";$(document).ready(()=>{$("#btnLogout").click(()=>{$.ajax({url:"/logout",type:"post"}).then(()=>{"undefined"!==typeof Storage&&(localStorage.removeItem("token"),localStorage.removeItem("refreshToken"));location.href="/";});});$(".dropdown").click(function(a){a.preventDefault();var b=$(this).children(".dropdown-content");$(".dropdown-content:visible").not(b).slideToggle(100),b.slideToggle(100);});});
+</script>

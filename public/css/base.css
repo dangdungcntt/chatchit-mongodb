@@ -130,3 +130,26 @@
 .white:hover {
 	background-color: #e2e0e0;
 }
+
+.scroll-bar {
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+
+.scroll-bar::-webkit-scrollbar{
+	display: none;
+}
+.scroll-bar:hover::-webkit-scrollbar {
+	width:8px;
+	border-radius:8px;
+	display: inherit;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+	border-radius:8px;
+}
+
+.scroll-bar:hover::-webkit-scrollbar-thumb {
+	background-color:#828282;
+}

@@ -1,0 +1,26 @@
+<form enctype="multipart/form-data" name='imageform' role="form"    ="imageform" method="post" action="upload_ajax.php">
+    <div class="form-group">
+        <div id="select_file">Select a file</div>
+        <input class='file' type="file" style="display: none " class="form-control" name="images_up" id="images_up" placeholder="Please choose your image">
+        <div id="my_file"></div>
+        <span class="help-block"></span>
+    </div>
+    <div id="loader" style="display: none;">
+        Please wait image uploading to server....
+    </div>
+    <input type="submit" value="Upload" name="image_upload" id="image_upload" class="btn"/>
+</form>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	'use strict';
+	$('#select_file').click(function() {
+    $('#images_up').trigger('click');
+    $('#images_up').change(function() {
+        var filename = $('#images_up').val();
+        if (filename.substring(3,11) == 'fakepath') {
+            filename = filename.substring(12);
+        } // Remove c:\fake at beginning from localhost chrome
+        $('#my_file').html(filename);
+   });
+});
+</script>

@@ -1,21 +1,24 @@
 <div class="box-login">
 	<form>
 		<div class="box-input">
-			<input type="hidden" id="_shortidRegister" value="<%= data._shortid %>">
+			<input type="hidden" id="_shortidRegister" value="<%= data._shortid %>" />
 			<label>Username</label><label class="require"> *</label>
-			<input type="text" class="large-input-text txt" id="username" placeholder="Username">
-			<br>
+			<input type="text" class="large-input-text txt" id="username" placeholder="Username" required />
+			<br />
 			<label>Password</label><label class="require"> *</label>
-			<input type="password" class="large-input-text txt" id="password" placeholder="Password">
-			<br>
+			<input type="password" class="large-input-text txt" id="password" placeholder="Password" required />
+			<br />
 			<label>Re-Password</label><label class="require"> *</label>
-			<input type="password" class="large-input-text txt" id="repassword" placeholder="Re-Password">
-			<br>
+			<input type="password" class="large-input-text txt" id="repassword" placeholder="Re-Password" />
+			<br />
+			<label>Full name</label><label class="require"> *</label>
+			<input type="text" class="large-input-text txt" id="name" placeholder="Full name" />
+			<br />
 			<label>Email</label>
-			<input type="email" class="large-input-text txt" id="email" placeholder="Email">
+			<input type="email" class="large-input-text txt" id="email" placeholder="Email" />
 		</div>
 		<div class="box-control">
-			<input type="submit" class="large-btn btnMid info" id="btnSubmitRegister" value="Register">
+			<input type="submit" class="large-btn btnMid info" id="btnSubmitRegister" value="Register" />
 		</div>
 		<div class="text-center"><label>Have an account,</label> <a href="/login">login now.</a></div>
 	</form>
