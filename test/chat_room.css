@@ -24,3 +24,13 @@
 	white-space:nowrap;
 	text-overflow:ellipsis;
 }
+.add_room{
+	width: 187px;
+	float: left;
+	text-align-last: center;
+	background: #82807e;
+	color: white;
+}
+.add_room:hover {
+	opacity: 0.7;
+}
