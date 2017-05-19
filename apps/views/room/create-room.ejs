@@ -126,7 +126,7 @@
 				type: 'POST',
 				data: data,
 				dataType: 'json',
-				async: false,
+				// async: false,
 				cache: false,
 			});
 		};
@@ -153,7 +153,7 @@
 						socket.emit('create-room', resCreateRoom.room);
 						setTimeout(() => {
 							window.location.replace('/room/' + resCreateRoom.room.roomid);
-						}, 500);
+						}, 1000);
 						
 					} else {
 						$('.loading').css('bottom','');
