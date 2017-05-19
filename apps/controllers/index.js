@@ -4,7 +4,6 @@ let account = require('./account');
 let config = require('config');
 // let multer = require('multer');
 let listAllRoom = require('../common/list-all-room');
-// let unirest = require('unirest');
 let router = express.Router();
 
 
