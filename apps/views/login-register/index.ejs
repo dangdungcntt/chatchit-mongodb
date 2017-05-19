@@ -246,7 +246,9 @@ if (token) {
 		if (res && res.status_code === 200) {
 			localStorage.setItem('token', res.token);
 			localStorage.setItem('refreshToken', res.refreshToken);
-			location.href = '<%= redirectUrl %>';
+			setTimeout(() => {
+				location.href = '<%= redirectUrl %>';
+			}, 1000);
 		} else if (res && res.status_code === 410){
 			let refresh = {
 				refreshToken: localStorage.getItem('refreshToken')
@@ -267,10 +269,14 @@ if (token) {
 		if (res && res.status_code === 200) {
 			localStorage.setItem('token', res.token);
 			localStorage.setItem('refreshToken', res.refreshToken);
-			location.href = '<%= redirectUrl %>';
+			setTimeout(() => {
+				location.href = '<%= redirectUrl %>';
+			}, 1000);
 		} else {
-			$('.loading').css('background','');
-			$('.loading').fadeOut(200);
+			if (typeof res !== 'undefined') {
+				$('.loading').css('background','');
+				$('.loading').fadeOut(200);
+			}
 		}
 	})
 	.catch((err) => { //jshint ignore: line
