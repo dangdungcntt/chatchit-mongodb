@@ -116,6 +116,9 @@
 		});
 		$('.loading').fadeOut(500, () => {
 			$('#content-room').slideDown(600);
+			setTimeout(() => {
+				checkSize($(window).width());
+			}, 1000);
 		});
 		socket.username = data.username;
 		$('#list-user-title').text('[' + data.roomid + ']');
@@ -192,8 +195,8 @@
 	let sttLeft = true;
 	let sttRight = true;
 
-	let checkSize =() => {
-		if ($(this).width() < 1000) {
+	let checkSize =(width) => {
+		if (width < 1000) {
 				if (sttRight) { //dang mo?
 					$('.btn-slide-right').click();	
 				}
@@ -202,7 +205,7 @@
 					$('.btn-slide-right').click();	
 				}
 			}
-			if ($(this).width() < 700) {
+			if (width < 700) {
 				if (sttLeft) { //dang mo?
 					$('.btn-slide-left').click();	
 				}
@@ -213,9 +216,8 @@
 			}
 	};
 	$(document).ready(() => {
-		checkSize();
 		$(window).on('resize', () => {
-			checkSize();
+			checkSize($(this).width());
 			let height = $(this).height() - 103;
 	        $("#box-message").height(height);
 	        scrollBox();
