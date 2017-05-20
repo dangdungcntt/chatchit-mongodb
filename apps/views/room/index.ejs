@@ -53,7 +53,7 @@
 				<div class="right">
 					<div class="list-user-header">
 						<img class="btn-slide-right sprites" src='/images/img_trans.gif'>
-						<div id="list-user-title" class="list-user-title">Online now</div>
+						<div id="list-user-title" class="list-user-title" title="<%= data.roomname %>"><%= data.roomname %></div>
 					</div>
 					<div class="list-user scroll-bar">
 					
@@ -106,12 +106,12 @@
 			if (itsMe(user.username)) {
 				return;
 			}
-			let s = '<a href="#" id="' + user.username + '" class="list-user-item"><div class="user-avatar"><img width="32" height="32" src="' + getUrlAvatar(user.fbid) + '"></div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-status">Online</div></div></a>';
+			let s = '<a href="#" id="' + user.username + '" class="list-user-item" title="' + user.name + '"><div class="user-avatar"><img width="32" height="32" src="' + getUrlAvatar(user.fbid) + '"></div><div class="user-info"><div class="user-name">' + user.name + '</div><div class="user-status">Online</div></div></a>';
 			$('.list-user').append(s);
 		});
 		data.listRoom.forEach((room) => {
 			console.log(room);
-			let s = '<a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">' + room.listUser.length +  '</span></div></div></a>';
+			let s = '<a href="/room/' + room.roomid + '" class="list-room-item" title="' + room.roomname + '"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">' + room.listUser.length +  '</span></div></div></a>';
 			$('#list-room').append(s);
 		});
 		$('.loading').fadeOut(500, () => {
@@ -121,7 +121,7 @@
 			}, 1000);
 		});
 		socket.username = data.username;
-		$('#list-user-title').text('[' + data.roomid + ']');
+		// $('#list-user-title').text('[' + data.roomname + ']');
 	});
 
 	socket.on('a-user-connected', (user) => {
@@ -174,7 +174,33 @@
 		online(roomid, -1);
 	});
 
+	let sttLeft = true;
+	let sttRight = true;
+
+	let checkSize = (width) => {
+		if (width < 1000) {
+			if (sttRight) { //dang mo?
+				$('.btn-slide-right').click();	
+			}
+		} else {
+			if (!sttRight) { //dang dong'
+				$('.btn-slide-right').click();	
+			}
+		}
+		if (width < 700) {
+			if (sttLeft) { //dang mo?
+				$('.btn-slide-left').click();	
+			}
+		} else {
+			if (!sttLeft) { //dang dong'
+				$('.btn-slide-left').click();	
+			}
+		}
+	};
+
 	$(document).ready(() => {
+
+		//send to server
 		$("#btnSend").click(() => {
 	        let message = $("#input-message").val();
 	        message = message.trim();
@@ -189,42 +215,14 @@
 	            $("#btnSend").click();
 	        }
 	    });
-	});
 
-	//LAYOUT
-	let sttLeft = true;
-	let sttRight = true;
-
-	let checkSize =(width) => {
-		if (width < 1000) {
-				if (sttRight) { //dang mo?
-					$('.btn-slide-right').click();	
-				}
-			} else {
-				if (!sttRight) { //dang dong'
-					$('.btn-slide-right').click();	
-				}
-			}
-			if (width < 700) {
-				if (sttLeft) { //dang mo?
-					$('.btn-slide-left').click();	
-				}
-			} else {
-				if (!sttLeft) { //dang dong'
-					$('.btn-slide-left').click();	
-				}
-			}
-	};
-	$(document).ready(() => {
+    	//layout
 		$(window).on('resize', () => {
 			checkSize($(this).width());
 			let height = $(this).height() - 103;
 	        $("#box-message").height(height);
 	        scrollBox();
 		});
-	    // $(window).on('resize', () => {
-	    //     
-	    // }).trigger('resize');	
 		
 		$('.btn-slide-left').click(() => {
 			if ($(window).width() > 1000 && sttLeft) {
@@ -251,6 +249,7 @@
 			}
 			sttLeft = !sttLeft;
 		});
+
 		$('.btn-slide-right').click(() => {
 			if ($(window).width() > 1000 && sttRight) {
 				return;
@@ -275,6 +274,7 @@
 			}
 			sttRight = !sttRight;
 		});
+
 	    $(document).keyup((e) => { 
 	    	let input = $('#input-message');
 	    	if (input.is(":focus")) {

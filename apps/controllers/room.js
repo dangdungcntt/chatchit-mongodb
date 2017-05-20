@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 	let roomid = req.params.id;
 	let { username, name, fbid } = req.session.user;
-	// console.log(req.session.user);
 	if (listAllRoom.checkRoomExists(roomid) === -1) {
 		return res.render('room/create-room', {
 			data: {
@@ -24,10 +23,11 @@ router.get('/:id', (req, res) => {
 			}
 		});
 	}
-	
+	let roomname = listAllRoom.getRoomNameById(roomid);
 	res.render('room', {
 		data: {
 			roomid,
+			roomname,
 			username,
 			name,
 			fbid

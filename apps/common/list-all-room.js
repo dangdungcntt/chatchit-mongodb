@@ -15,6 +15,11 @@ let getListRoom = () => {
 	return listAllRoom.slice(0);
 };
 
+let getRoomNameById = (roomid) => {
+	let i = checkRoomExists(roomid);
+	return listAllRoom[i].roomname;
+};
+
 let getListRoomOfUser = (username) => {
 	let listRoom = [];
 	let numRoom = listAllRoom.length;
@@ -85,6 +90,7 @@ let removeAUserInRoom = (roomid, username) => {
 module.exports = {
 	checkRoomExists,
 	getListRoom,
+	getRoomNameById,
 	getListRoomOfUser,
 	checkUserExists,
 	getListUserOfRoom,
