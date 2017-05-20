@@ -12,6 +12,7 @@ module.exports = (io) => {
 		socket.on('create-room', (room) => {
 			nsListRoom.emit('new-room-created', room);
 			nsRoom.emit('new-room-created', room);
+			socket.emit('created');
 		});
 	});
 	

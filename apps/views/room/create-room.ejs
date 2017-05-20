@@ -57,6 +57,7 @@
 			}
 			return false;
 		};
+
 		let checkForm = () => {
 			if (!isAlphanumeric($('#roomid').val())) {
 				return showError('Room id can only contain a-z 0-9 . _');
@@ -66,6 +67,7 @@
 			}
 			return true;
 		};
+
 		let files;
 
 		let checkFile = (file) => {
@@ -83,7 +85,6 @@
 			if (!checkFile(e.target.files[0])) {
 				return;
 			}
-			
 		};
 
 		let upLoadFile = () => {
@@ -151,9 +152,12 @@
 						let hostname = location.protocol + '//' + location.host;
 						let socket = io(hostname + '/list-room'); // jshint ignore:line
 						socket.emit('create-room', resCreateRoom.room);
-						setTimeout(() => {
-							window.location.replace('/room/' + resCreateRoom.room.roomid);
-						}, 1000);
+						socket.on('created', () => {
+							setTimeout(() => {
+								window.location.replace('/room/' + resCreateRoom.room.roomid);
+							}, 500);
+						});
+						
 						
 					} else {
 						$('.loading').css('bottom','');
