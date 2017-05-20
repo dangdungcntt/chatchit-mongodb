@@ -6,6 +6,63 @@
 	<% include ../base-js-css %>
 	<% include ../nav/js-css %>
 	<link rel="stylesheet" type="text/css" href="/css/room/style.css">
+	<style type="text/css">
+		.popupEmoji {
+			position: absolute;
+		    top: -308px;
+		    right: 8px;
+		    z-index: 5;
+		    border: 1px solid #ccc;
+		    border-radius: 8px;
+		    padding: 8px;
+		    background-color: white;
+		    box-shadow: 0 0 10px #ccc;
+		}
+
+		.arrow-popupEmoji {
+		    width: 30px;
+		    height: 30px;
+		    position: absolute;
+		    bottom: -15px;
+		    right: 44px;
+		    transform: rotate(45deg);
+		    background-color: white;
+		    border-bottom: 1px solid #ccc;
+		    border-right: 1px solid #ccc;
+		    border-radius: 8px;
+		    z-index: -1;
+		    /*box-shadow: 0 0 10px #ccc;*/
+		}
+
+		.content-popupEmoji {
+		    width: 237px;
+		    height: 250px;
+		    /*background-color: yellow;*/
+		    z-index: 5;
+		    border-radius: 5px;
+		}
+
+		.emoji-item {
+			font-size: 26px;
+			line-height: 1.5em;
+		}
+
+		.tabsEmoji {
+			margin-top: 12px;
+    		margin-bottom: 3px;
+		}
+
+		.tab-emoji-selected, .tab-emoji-item:hover {
+			background: #ccc;
+		}
+
+		.tab-emoji-item {
+			margin-top: 5px;
+		    padding: 5px;
+		    border-radius: 5px;
+		    cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 <div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
@@ -38,16 +95,167 @@
 				<div class="center">
 					<div id="box-message" class="box-message scroll-bar">
 					
-						<!--<div class="clear">
-							<div class="friend-name">Ngoan Nguyễn</div>
-							<img class="avatar" src="/images/avatar.jpg">
-							<div class="message friend-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div>
+						<div class="clear">
+							<div class="friend-name">Nguyễn Đăng Dũng</div>
+							<img class="avatar" src="/images/default_avatar.jpg">
+							<div class="message friend-message"><span>💛 </span>💚 💙 💜 🖤 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😜 😝 😛 🤑 🤗 🤓 😎 🤡 🤠 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😤 😠 😡 😶 😐 😑 😯 😦 😧 😮 😲 😵 😳 😱 😨 😰 😢 😥 🤤 😭 😓 😪 😴 🙄 🤔 🤥 😬 🤐 🤢 🤧 😷 🤒 🤕 😈 👿</div>
 						</div>
-						<div class="message my-message">BelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBelloBello</div> -->			
+						<div class="message my-message">😍😍😍😍😍😍😍😍😍</div> 			
 					</div>
 					<div class="box-control">
+						<div style="display: none;" id="popupEmoji" class="popupEmoji">
+							<div class="arrow-popupEmoji"></div>
+							<div class="content-popupEmoji scroll-bar">
+								<span class="emoji-item">😀</span>
+								<span class="emoji-item">😃</span>
+								<span class="emoji-item">😄</span>
+								<span class="emoji-item">😁</span>
+								<span class="emoji-item">😆</span>
+								<span class="emoji-item">😅</span>
+								<span class="emoji-item">😂</span>
+								<span class="emoji-item">🤣</span>
+								<span class="emoji-item">😊</span>
+								<span class="emoji-item">😇</span>
+								<span class="emoji-item">🙂</span>
+								<span class="emoji-item">🙃</span>
+								<span class="emoji-item">😉</span>
+								<span class="emoji-item">😌</span>
+								<span class="emoji-item">😍</span>
+								<span class="emoji-item">😘</span>
+								<span class="emoji-item">😗</span>
+								<span class="emoji-item">😙</span>
+								<span class="emoji-item">😚</span>
+								<span class="emoji-item">😋</span>
+								<span class="emoji-item">😜</span>
+								<span class="emoji-item">😝</span>
+								<span class="emoji-item">😛</span>
+								<span class="emoji-item">🤑</span>
+								<span class="emoji-item">🤗</span>
+								<span class="emoji-item">🤓</span>
+								<span class="emoji-item">😎</span>
+								<span class="emoji-item">🤡</span>
+								<span class="emoji-item">🤠</span>
+								<span class="emoji-item">😏</span>
+								<span class="emoji-item">😒</span>
+								<span class="emoji-item">😞</span>
+								<span class="emoji-item">😔</span>
+								<span class="emoji-item">😟</span>
+								<span class="emoji-item">😕</span>
+								<span class="emoji-item">🙁</span>
+								<span class="emoji-item">☹️</span>
+								<span class="emoji-item">😣</span>
+								<span class="emoji-item">😖</span>
+								<span class="emoji-item">😫</span>
+								<span class="emoji-item">😩</span>
+								<span class="emoji-item">😤</span>
+								<span class="emoji-item">😠</span>
+								<span class="emoji-item">😡</span>
+								<span class="emoji-item">😶</span>
+								<span class="emoji-item">😐</span>
+								<span class="emoji-item">😑</span>
+								<span class="emoji-item">😯</span>
+								<span class="emoji-item">😦</span>
+								<span class="emoji-item">😧</span>
+								<span class="emoji-item">😮</span>
+								<span class="emoji-item">😲</span>
+								<span class="emoji-item">😵</span>
+								<span class="emoji-item">😳</span>
+								<span class="emoji-item">😱</span>
+								<span class="emoji-item">😨</span>
+								<span class="emoji-item">😰</span>
+								<span class="emoji-item">😢</span>
+								<span class="emoji-item">😥</span>
+								<span class="emoji-item">🤤</span>
+								<span class="emoji-item">😭</span>
+								<span class="emoji-item">😓</span>
+								<span class="emoji-item">😪</span>
+								<span class="emoji-item">😴</span>
+								<span class="emoji-item">🙄</span>
+								<span class="emoji-item">🤔</span>
+								<span class="emoji-item">🤥</span>
+								<span class="emoji-item">😬</span>
+								<span class="emoji-item">🤐</span>
+								<span class="emoji-item">🤢</span>
+								<span class="emoji-item">🤧</span>
+								<span class="emoji-item">😷</span>
+								<span class="emoji-item">🤒</span>
+								<span class="emoji-item">🤕</span>
+								<span class="emoji-item">😈</span>
+								<span class="emoji-item">👿</span>
+								<span class="emoji-item">👹</span>
+								<span class="emoji-item">👺</span>
+								<span class="emoji-item">💩</span>
+								<span class="emoji-item">👻</span>
+								<span class="emoji-item">💀</span>
+								<span class="emoji-item">☠️</span>
+								<span class="emoji-item">👽</span>
+								<span class="emoji-item">👾</span>
+								<span class="emoji-item">🤖</span>
+								<span class="emoji-item">🎃</span>
+								<span class="emoji-item">😺</span>
+								<span class="emoji-item">😸</span>
+								<span class="emoji-item">😹</span>
+								<span class="emoji-item">😻</span>
+								<span class="emoji-item">😼</span>
+								<span class="emoji-item">😽</span>
+								<span class="emoji-item">🙀</span>
+								<span class="emoji-item">😿</span>
+								<span class="emoji-item">😾</span>
+								<span class="emoji-item">👐</span>
+								<span class="emoji-item">🙌</span>
+								<span class="emoji-item">👏</span>
+								<span class="emoji-item">🙏</span>
+								<span class="emoji-item">🤝</span>
+								<span class="emoji-item">👍</span>
+								<span class="emoji-item">👎</span>
+								<span class="emoji-item">👊</span>
+								<span class="emoji-item">✊</span>
+								<span class="emoji-item">🤛</span>
+								<span class="emoji-item">🤜</span>
+								<span class="emoji-item">🤞</span>
+								<span class="emoji-item">✌️</span>
+								<span class="emoji-item">🤘</span>
+								<span class="emoji-item">👌</span>
+								<span class="emoji-item">👈</span>
+								<span class="emoji-item">👉</span>
+								<span class="emoji-item">👆</span>
+								<span class="emoji-item">👇</span>
+								<span class="emoji-item">☝️</span>
+								<span class="emoji-item">✋</span>
+								<span class="emoji-item">🤚</span>
+								<span class="emoji-item">🖐</span>
+								<span class="emoji-item">🖖</span>
+								<span class="emoji-item">👋</span>
+								<span class="emoji-item">🤙</span>
+								<span class="emoji-item">💪</span>
+								<span class="emoji-item">🖕</span>
+								<span class="emoji-item">✍️</span>
+								<span class="emoji-item">🤳</span>
+								<span class="emoji-item">💅</span>
+								<span class="emoji-item">🖖</span>
+								<span class="emoji-item">💄</span>
+								<span class="emoji-item">💋</span>
+								<span class="emoji-item">👄</span>
+								<span class="emoji-item">👅</span>
+								<span class="emoji-item">👂</span>
+								<span class="emoji-item">👃</span>
+								<span class="emoji-item">👣</span>
+							</div>
+							<div class="tabsEmoji">
+								<span class="tab-emoji-item tab-emoji-selected">😀</span>
+								<span class="tab-emoji-item">🐱</span>
+								<span class="tab-emoji-item">⚽️</span>
+								<span class="tab-emoji-item">⌚️</span>
+							</div>
+						</div>
+					
 						<input type="text" id="input-message" class="input-message"  placeholder="Type message here">
-						<img id="btnSend" class="btnSend sprites" src="/images/img_trans.gif" title="Send">
+						<img id="btnSend" class="btnControl btnSend sprites" src="/images/img_trans.gif" title="Send">
+						<img id="btnEmoji" class="btnControl btnEmoji sprites" src="/images/img_trans.gif" title="Emoji">
+						<label for="chooseImage">
+							<img id="btnAddImage" class="btnControl btnAddImage sprites" src="/images/img_trans.gif" title="Add Image" />
+						</label>
+						<input type="file" id="chooseImage" hidden="hidden" accept="image/*" />
 					</div>
 				</div>
 				<div class="right">
@@ -110,7 +318,6 @@
 			$('.list-user').append(s);
 		});
 		data.listRoom.forEach((room) => {
-			console.log(room);
 			let s = '<a href="/room/' + room.roomid + '" class="list-room-item" title="' + room.roomname + '"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">' + room.listUser.length +  '</span></div></div></a>';
 			$('#list-room').append(s);
 		});
@@ -233,13 +440,13 @@
 				$('.room-info').hide(400);
 				$('.btn-slide-left').css('background-position', '-40px 0');
 				$('.left').animate({ 'width' : 70 }, 400);
-				$('.center').animate({ 'margin-left': 70 }, 400);
+				$('.center').animate({ 'margin-left': 71 }, 400);
 			} else {
 				if (sttRight && $(window).width() < 600) {
 					$('.btn-slide-right').click();
 				}
 				$('.btn-slide-left').css('background-position', '0 0');
-				$('.center').animate({ 'margin-left': 252 }, 400);
+				$('.center').animate({ 'margin-left': 251 }, 400);
 				$('.left').animate({ 'width' : 250 }, 400);
 				setTimeout(() => {
 					$('.list-room-title').show(200);
@@ -275,19 +482,9 @@
 			sttRight = !sttRight;
 		});
 
-	    $(document).keyup((e) => { 
-	    	let input = $('#input-message');
-	    	if (input.is(":focus")) {
-	    		return;
-	    	}
-	    	input.focus();
-	    	let keyCode = e.keyCode;
-	    	let isNumber = (keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105);
-	    	let isCharacters = (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105);
-	    	if (isNumber || isCharacters) {
-	    		input.val(input.val() + e.key);
-	    	}
-		 });
+		$('#btnEmoji').click(() => {
+			$('#popupEmoji').toggle();
+		});
 	});
 </script>
 </body>

@@ -23,7 +23,6 @@
 		<div class="box-login">
 			<form id="formCreateRoom">
 				<div class="box-input">
-					<input type="hidden" id="_shortidLogin" name="_shortidCreateRoom" value="<%= data._shortid %>">
 					<label>Room Name</label>
 					<input type="text" id="roomname" class="large-input-text txt" placeholder="Room Name" required>
 					<br>
@@ -178,6 +177,7 @@
 
 
 		$(document).ready(() => {
+			$('#roomname').focus();
 			$('form').submit(submitForm);
 			$('input[type=file]').on('change', saveFile);
 			$('#chkMyImage').change(() => {

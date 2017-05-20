@@ -41,6 +41,8 @@
 .box-control {
 	height: 50px;
 	border-top: 1px solid #ccc;
+	/*border-left: 1px solid #ccc;*/
+	position: relative;
 }
 
 .right {
@@ -156,6 +158,7 @@
 
 .message {
 	word-wrap: break-word;
+	line-height: 1.5em;
 	max-width: 40%;
 	margin-bottom: 5px;
 	padding: 10px 15px;
@@ -205,7 +208,7 @@
 	line-height: 1.5em;
 	font-size: 18px;
 	margin: auto;
-	width: calc(100% - 70px);
+	width: calc(100% - 160px);
 	height: 50px;
 	overflow: auto;
 }
@@ -214,12 +217,23 @@
 	outline-width: 0;
 }
 
-.btnSend {
+.btnControl {
 	width: 40px;
 	height: 40px;
-	margin: 5px;
+	margin: 5px 3px;
 	float: right;
 	cursor: pointer;
+}
+
+.btnAddImage {
+	background-position: -160px 0;
+}
+
+.btnEmoji {
+	background-position: -120px 0;
+}
+
+.btnSend {
 	background-position: -80px 0;
 }
 
