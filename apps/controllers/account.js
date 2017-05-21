@@ -1,6 +1,6 @@
 'use strict';
 let express = require('express');
-let user_md = require('../models/user');
+let User = require('../models/user');
 let shortid = require('shortid');
 let jwt = require('../helpers/jwt');
 let bcrypt = require('../helpers/bcrypt');
@@ -36,7 +36,7 @@ router.post('/register', (req, res) => {
 		return res.json(check);
 	}
 
-	user_md.findOne({ //check exists username
+	User.findOne({ //check exists username
 		username: params.username,
 	})
 	.exec((err, user) => {
@@ -47,7 +47,7 @@ router.post('/register', (req, res) => {
 			});
 		}
 		let name = params.name.trim().length === 0 ? params.username : params.name.trim();
-		var ac = new user_md({ 
+		var ac = new User({ 
 		    username: params.username, 
 		    password: bcrypt.hashPassword(params.password),
 		    name: name,
@@ -97,7 +97,7 @@ router.post('/authenticate', (req, res) => {
 				error: ''
 			});
 	}
-	user_md.findOne({
+	User.findOne({
 		username: params.username,
 	}, (err, user) => {
 		if (err || !user) {
@@ -144,7 +144,7 @@ router.post('/checkToken', (req, res) => {
 
 	jwt.verifyToken(req.body.token)
 	.then((decoded) => {
-		user_md.findOne({
+		User.findOne({
 			username: decoded.username,
 			secret: decoded.secret
 		}, (err, user) => {
@@ -193,7 +193,7 @@ router.post('/refreshToken', (req, res) => {
 	}
 	jwt.verifyToken(req.body.refreshToken)
 	.then((decoded) => {
-		user_md.findOne({
+		User.findOne({
 			username: decoded.username,
 		}, (err, user) => {
 			if (err || !user) {

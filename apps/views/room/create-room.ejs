@@ -89,7 +89,7 @@
 		let upLoadFile = () => {
 			if (!$('#chkMyImage').is(':checked')) {
 				return $.ajax({
-			        url: '/default_room_image',
+			        url: '/api/default_room_image',
 			        type: 'POST',
 			        cache: false,
 			        dataType: 'json'// Set content type to false as jQuery will tell 

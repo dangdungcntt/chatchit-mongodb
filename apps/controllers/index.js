@@ -1,7 +1,6 @@
 'use strict';
 let express = require('express');
 let account = require('./account');
-let config = require('config');
 let listAllRoom = require('../common/list-all-room');
 let router = express.Router();
 
@@ -16,9 +15,11 @@ router.use((req, res, next) => {
 	next();
 });
 
-router.use('/room', require('./room'));
+router.use('/api', require('./api'));
 router.use('/admin', require('./admin'));
 router.use('/profile', require('./profile'));
+router.use('/room', require('./room'));
+
 
 router.get('/', (req, res) => {
 	res.render('home', {
@@ -30,14 +31,6 @@ router.get('/', (req, res) => {
 router.get('/list-room', (req, res) => {
 	res.render('list-room', {
 		data: req.session.user,
-	});
-});
-
-router.post('/default_room_image', (req, res) => {
-	res.json({
-		data: {
-			link: config.get('default.roomimage')
-		}
 	});
 });
 
