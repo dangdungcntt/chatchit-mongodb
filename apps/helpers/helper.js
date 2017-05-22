@@ -10,28 +10,28 @@ let isAlphanumeric = (text) => {
 let checkUsernamePassword = (user) => {
 	if (!isAlphanumeric(user.username)) {
 		return {
-			status_code: 403,
+			status_code: 345,
 			error: 'Username can only contain a-z 0-9 . _'
 		};
 	}
 
 	if (user.username.length < 6) {
 		return {
-			status_code: 403,
+			status_code: 345,
 			error: 'Username must be at least 6 characters'
 		};
 	}
 
 	if (user.password.length < 6) {
 		return {
-			status_code: 403,
+			status_code: 345,
 			error: 'Password must be at least 6 characters'
 		};
 	}
 	
 	if (user.password !== user.repassword) {
 		return {
-			status_code: 403,
+			status_code: 345,
 			error: 'Re-Password does not match'
 		};
 	}

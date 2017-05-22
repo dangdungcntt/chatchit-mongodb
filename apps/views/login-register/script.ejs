@@ -1,7 +1,10 @@
-'use strict';
-
+<script type="text/javascript">
+	'use strict';
 	let checkExistsToken = () => {
-		if (typeof(Storage) !== "undefined") {
+		if ($('#btnSubmitRegister').length) {
+			return false;
+		}
+		if (typeof(Storage) !== 'undefined') {
 			let token = localStorage.getItem('token');
 			if (token) {
 				return token;
@@ -17,7 +20,7 @@
 		}
 		return false;
 	};
-	
+
 	let showError = (err) => {
 		$('#error-alert').html(err);
 		$('#error-alert').slideDown(300);
@@ -27,18 +30,11 @@
 		return false;
 	};
 
-	let showSuccess = (msg) => {
-		$('#success-alert').html(msg);
-		$('#success-alert').slideDown(300);
-		setTimeout(() => {
-			$('#success-alert').slideUp(300);
-		}, 3000);
-	};
-
 	let checkFormRegister = () => {
 		if (!isAlphanumeric($('#username').val())) {
 			return showError('Username can only contain a-z 0-9 . _');
 		}
+
 		if ($('#username').val().length < 6) {
 			return showError('Username must be at least 6 characters');
 		}
@@ -46,9 +42,11 @@
 		if ($('#password').val().length < 6) {
 			return showError('Password must be at least 6 characters');
 		}
+
 		if ($('#password').val() !== $('#repassword').val()) {
 			return showError('Re-Password does not match');
 		}
+
 		return true;
 	};
 
@@ -64,6 +62,7 @@
 		if ($('#password').val().length < 6) {
 			return showError('Password must be at least 6 characters');
 		}
+
 		return true;
 	};
 
@@ -81,7 +80,8 @@
 			if (!checkFormLogin()) {
 				return;
 			}
-
+			$('.loading').show();
+			$('#logo').attr('src','/images/loading.gif');
 			let data = {
 				username: $('#username').val(),
 				password: $('#password').val(),
@@ -95,21 +95,24 @@
 			})
 			.then((res) => {
 				if (res && res.status_code === 200) {
-					if (typeof(Storage) !== "undefined") {
+					if (typeof(Storage) !== 'undefined') {
 					    // Code for localStorage/sessionStorage.
 					    localStorage.setItem('token', res.token);
 					    localStorage.setItem('refreshToken', res.refreshToken);
 					}
-					showSuccess('Success');
 					setTimeout(() => {
-						location.href = '/';
-					}, 2000);
+						location.href = '<%= redirectUrl %>' ;
+					}, 1000);
 				} else {
+					$('.loading').hide();
+					$('#logo').attr('src','/images/logo.png');
 					showError(res.error);
 				}
 			})
 			.catch((err) => { //jshint ignore: line
 				showError('Undefined error');
+				$('.loading').hide();
+				$('#logo').attr('src','/images/logo.png');
 			});
 		});
 
@@ -118,10 +121,13 @@
 			if (!checkFormRegister()) {
 				return;
 			}
+			$('.loading').show();
+			$('#logo').attr('src','/images/loading.gif');
 			let data = {
 				username: $('#username').val(),
 				password: $('#password').val(),
 				repassword: $('#repassword').val(),
+				name: $('#name').val(),
 				email: $('#email').val(),
 				_shortidRegister: $('#_shortidRegister').attr('value')
 			};
@@ -133,14 +139,17 @@
 			})
 			.then((res) => {
 				if (res && res.status_code === 200) {
-					showSuccess('Success');
 					setTimeout(() => {
 						location.href = '/login';
-					}, 1500);
+					}, 100);
 				} else {
+					$('.loading').hide();
+					$('#logo').attr('src','/images/logo.png');
 					showError(res.error);
 				}
 			}).catch((err) => { //jshint ignore: line
+				$('.loading').hide();
+				$('#logo').attr('src','/images/logo.png');
 				showError('Undefined error');
 			});
 		});
@@ -162,7 +171,9 @@
 			if (res && res.status_code === 200) {
 				localStorage.setItem('token', res.token);
 				localStorage.setItem('refreshToken', res.refreshToken);
-				location.href = '/';
+				setTimeout(() => {
+					location.href = '<%= redirectUrl %>';
+				}, 1000);
 			} else if (res && res.status_code === 410){
 				let refresh = {
 					refreshToken: localStorage.getItem('refreshToken')
@@ -173,16 +184,32 @@
 					data: refresh,
 					dataType: 'json',
 				});
+			} else {
+				$('.loading').css('background','');
+				$('.loading').fadeOut(200);
 			}
+			
 		})
 		.then((res) => {
 			if (res && res.status_code === 200) {
 				localStorage.setItem('token', res.token);
 				localStorage.setItem('refreshToken', res.refreshToken);
-				location.href = '/';
+				setTimeout(() => {
+					location.href = '<%= redirectUrl %>';
+				}, 1000);
+			} else {
+				if (typeof res !== 'undefined') {
+					$('.loading').css('background','');
+					$('.loading').fadeOut(200);
+				}
 			}
 		})
 		.catch((err) => { //jshint ignore: line
-
+			$('.loading').css('background','');
+			$('.loading').fadeOut(200);
 		});
+	} else {
+		$('.loading').css('background','');
+		$('.loading').fadeOut(200);
 	}
+</script>

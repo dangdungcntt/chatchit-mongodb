@@ -37,4 +37,3 @@ var server = app.listen(process.env.PORT || port, () => {
 
 var io = require('socket.io')(server);
 require('./apps/common/socketcontrol')(io);
-
