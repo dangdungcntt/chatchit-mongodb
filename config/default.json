@@ -3,8 +3,8 @@
 		"host": "0.0.0.0",
 		"port": 3000
 	},
-	// "database": "mongodb://dangdungcntt:Getthera1@ds127101.mlab.com:27101/chatchit",
-	"database": "mongodb://localhost/chatchit",
+	"database": "mongodb://dangdungcntt:Getthera1@ds127101.mlab.com:27101/chatchit",
+	//"database": "mongodb://localhost/chatchit",
 	"secret_key_session": "secret_key_session",
 	"jwt": {
 		"secret_key": "secret_key_jwt",
