@@ -92,46 +92,46 @@
 	};
 
 	let submitForm = (e) => {
-		if (checkForm()) {
-			$('.loading').css('bottom','0');
-			$('#title').hide();
-			$('#imgLoading').show(); 
-			e.preventDefault();
-			upLoadFile()
-			.then((resUpload) => {
-				return createRoom(resUpload);
-			})
-			.then((resCreateRoom) => {
-				if (resCreateRoom && resCreateRoom.status_code === 345) {
-					$('.loading').css('bottom','');
-					$('#title').show();
-					$('#imgLoading').hide();
-					showError(resCreateRoom.error);
-				} else if (resCreateRoom && resCreateRoom.status_code === 200) {
-					let hostname = location.protocol + '//' + location.host;
-					let socket = io(hostname + '/list-room'); // jshint ignore:line
-					socket.emit('create-room', resCreateRoom.room);
-					socket.on('created', () => {
-						setTimeout(() => {
-							window.location.replace('/room/' + resCreateRoom.room.roomid);
-						}, 500);
-					});
-					
-					
-				} else {
-					$('.loading').css('bottom','');
-					$('#title').show();
-					$('#imgLoading').hide();
-					showError('Undefined error');
-				}
-			})
-			.catch((err) => {
+		if (!checkForm()) {
+			return false;
+		}
+
+		$('.loading').css('bottom','0');
+		$('#title').hide();
+		$('#imgLoading').show(); 
+		e.preventDefault();
+		upLoadFile()
+		.then((resUpload) => {
+			return createRoom(resUpload);
+		})
+		.then((resCreateRoom) => {
+			if (resCreateRoom && resCreateRoom.status_code === 345) {
 				$('.loading').css('bottom','');
 				$('#title').show();
 				$('#imgLoading').hide();
-				return showError(err.responseJSON.data.error.message);
-			});
-		}
+				showError(resCreateRoom.error);
+			} else if (resCreateRoom && resCreateRoom.status_code === 200) {
+				let hostname = location.protocol + '//' + location.host;
+				let socket = io(hostname + '/list-room'); // jshint ignore:line
+				socket.emit('create-room', resCreateRoom.room);
+				socket.on('created', () => {
+					setTimeout(() => {
+						window.location.replace('/room/' + resCreateRoom.room.roomid);
+					}, 500);
+				});	
+			} else {
+				$('.loading').css('bottom','');
+				$('#title').show();
+				$('#imgLoading').hide();
+				showError('Undefined error');
+			}
+		})
+		.catch((err) => {
+			$('.loading').css('bottom','');
+			$('#title').show();
+			$('#imgLoading').hide();
+			return showError(err.responseJSON.data.error.message);
+		});
 		return false;
 	};
 

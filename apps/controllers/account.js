@@ -4,9 +4,7 @@ let User = require('../models/user');
 let shortid = require('shortid');
 let jwt = require('../helpers/jwt');
 let bcrypt = require('../helpers/bcrypt');
-
 let helper = require('../helpers/helper');
-
 
 let router = express.Router();
 
@@ -25,12 +23,14 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
 	let params = req.body;
+
 	if (params._shortidRegister !== req.session._shortidRegister) {
 		return res.json({
-				status_code: 403,
-				error: ''
+			status_code: 403,
+			error: ''
 		});
 	}
+
 	let check = helper.checkUsernamePassword(params);
 	if (check.status_code !== 200) {
 		return res.json(check);
@@ -46,6 +46,7 @@ router.post('/register', (req, res) => {
 				error: 'Username already exists'
 			});
 		}
+
 		let name = params.name.trim().length === 0 ? params.username : params.name.trim();
 		var ac = new User({ 
 		    username: params.username, 
@@ -93,9 +94,9 @@ router.post('/authenticate', (req, res) => {
 	let params = req.body;
 	if (params._shortidLogin !== req.session._shortidLogin) {
 		return res.json({
-				status_code: 345,
-				error: ''
-			});
+			status_code: 345,
+			error: ''
+		});
 	}
 	User.findOne({
 		username: params.username,
@@ -191,6 +192,7 @@ router.post('/refreshToken', (req, res) => {
 			status_code: 345
 		});
 	}
+	
 	jwt.verifyToken(req.body.refreshToken)
 	.then((decoded) => {
 		User.findOne({
