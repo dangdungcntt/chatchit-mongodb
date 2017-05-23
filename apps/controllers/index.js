@@ -17,6 +17,7 @@ router.use((req, res, next) => {
 
 router.use('/api', require('./api'));
 router.use('/admin', require('./admin'));
+router.use('/messages', require('./messages'));
 router.use('/profile', require('./profile'));
 router.use('/room', require('./room'));
 

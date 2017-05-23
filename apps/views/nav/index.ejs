@@ -1,3 +1,10 @@
+<%  let urlAvatar = '';
+    if (data.fbid !== '') {
+        urlAvatar = 'https://graph.facebook.com/' + data.fbid + '/picture?type=large&redirect=true&width=40&height=40';
+    } else {
+        urlAvatar = '/images/default_avatar.jpg';
+    }
+%>
 <nav>
     <ul>
         <li class="menu">
@@ -10,7 +17,7 @@
             <a href="/list-room/" class="menu-item">List Room</a>
         </li>
         <li class="menu menu-right dropdown">
-            <a href="#" class="menu-item"><i class="fa fa-caret-down"></i></a>
+            <a class="menu-item"><i class="fa fa-caret-down"></i></a>
             <ul class="dropdown-content">
                 <li><a href="#" class="menu-item">Setting</a></li>
    				<li style="height: 1px; border-bottom: 1px solid #ccc "></li>
@@ -18,7 +25,11 @@
             </ul>
         </li>
         <li class="menu menu-right">
-            <a href="/profile/<%= data.username  %>" class="menu-item">Hi <%= data.name  %></a>
+            <!-- <div class="group-menu-item"> -->
+                <a href="/profile/<%= data.username  %>" class="group-menu-item"><img src="<%= urlAvatar %>" class="avatar-topbar"><span class="user-name-topbar"><%= data.name  %></span></a>
+                 <div class="clear"></div>
+            <!-- </div> -->
+            
         </li>
     </ul>
 </nav>
