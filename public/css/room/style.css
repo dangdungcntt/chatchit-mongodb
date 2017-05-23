@@ -200,6 +200,33 @@
 	background: #0084ff;
 }
 
+.friend-image {
+	margin-left: 10px;
+    /* color: #000000; */
+    float: left;
+    background: url('/images/loading-emoji.gif') center center no-repeat;
+    padding: 0;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: calc(40% + 30px);
+    box-shadow: 0 0 10px #ccc;
+}
+
+.my-image {
+	margin-top: 35px;
+	margin-right: 10px;
+	clear: both;
+	/*color: #ffffff;*/
+    background: url('/images/loading-emoji.gif') center center no-repeat;
+	float: right;
+	padding: 0;
+	min-width: 100px;
+    min-height: 100px;
+    max-width: calc(40% + 30px);
+    box-shadow: 0 0 10px #ccc;
+	/*background: #0084ff;*/
+}
+
 .input-message {
 	float: left;
 	font-family: inherit;

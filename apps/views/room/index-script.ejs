@@ -81,6 +81,27 @@
 	    scrollBox();
 	});
 
+	socket.on('someone-send-image', (data) => {
+		if (itsMe(data.username)) {
+			let s = '<img id="' + data.time + '" class="message my-image" src="/images/img_trans.gif" />';
+	        $("#box-message").append(s);
+	        scrollBox();
+	        return;
+	    }
+		
+	    let s = '<div class="clear"><div class="friend-name">' + data.name + '</div><img class="avatar" src="' + getUrlAvatar(data.fbid) + '"><img id="' + data.time + '" class="message friend-image" src="/images/img_trans.gif" /></div>';
+	    $("#box-message").append(s);
+	    // chatSound.play();
+	    scrollBox();
+	});
+
+	socket.on('update-src-for-image', (data) => {
+		$('#' + data.time).css('background', 'none');
+		$('#' + data.time).attr('src', data.link);
+		$('#' + data.time).removeAttr('id');
+		scrollBox();
+	});
+
 	socket.on('new-room-created', (room) => {
 		let s = '<a href="#" class="list-room-item"><div class="room-logo"><img src="' + room.roomimage + '"></div><div class="room-info"><div class="room-name">' + room.roomname + '</div><div class="room-id">' + room.roomid + '</div><div class="room-detail">Online <span id="online' + room.roomid + '">0</span></div></div></a>';
 		$('#list-room').append(s);
@@ -247,6 +268,51 @@
 				});
 			}
 		});
-
 	});
+
+	let checkFile = (file) => {
+		if (file.size > 2097152) {
+			alert('Max image size is 2MB');
+			return false;
+		}
+		if (!file.type.includes('image')) {
+			alert('Only image file');
+			return false;
+		}
+		return true;
+	};
+
+	let uploadFile = (e) => {
+		let file = e.target.files[0];
+		if (checkFile(file)) {
+			let time = new Date().getTime();
+			socket.emit('user-send-image', time);
+			let formData = new FormData();
+			formData.append("image", file);
+		   	$.ajax({
+		        url: 'https://api.imgur.com/3/image',
+		        type: 'POST',
+		        headers: {
+		        	"Authorization": "Bearer d40929979fec8c5fdadfde10a3436e367ddb6cdb"
+		        },
+		        data: formData,
+		        cache: false,
+		        dataType: 'json',
+		        processData: false, // Don't process the files
+		        contentType: false, // Set content type to false as jQuery will tell 
+			})
+			.then((resUpload) => {
+				socket.emit('update-src-for-image', {
+					time,
+					link: resUpload.data.link
+				});
+			})
+			.catch((err) => { //jshint ignore: line
+				// console.log(err);
+				alert('Cannot upload file');
+			});
+		}
+	};
+
+	$('#chooseImage').on('change', uploadFile);
 </script>

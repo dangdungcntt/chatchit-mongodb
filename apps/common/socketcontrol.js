@@ -60,7 +60,25 @@ module.exports = (io) => {
 	  	});
 
 	  	socket.on('user-send-messages', (message) => {
-	  		nsRoom.to(socket.roomid).emit('someone-send-message', {username: socket.username, name: socket.name, message, fbid: socket.fbid});
+	  		nsRoom.to(socket.roomid).emit('someone-send-message', {
+	  			username: socket.username,
+	  			name: socket.name,
+	  			message, 
+	  			fbid: socket.fbid
+	  		});
+	  	});
+
+	  	socket.on('user-send-image', (time) => {
+	  		nsRoom.to(socket.roomid).emit('someone-send-image', {
+	  			username: socket.username,
+	  			name: socket.name,
+	  			time, 
+	  			fbid: socket.fbid
+	  		});
+	  	});
+
+	  	socket.on('update-src-for-image', (data) => {
+	  		nsRoom.to(socket.roomid).emit('update-src-for-image', data);
 	  	});
 	});
 

@@ -77,7 +77,7 @@
 	let createRoom = (resUpload) => {
 		let data = {
 			roomid: $('#roomid').val(),
-			roomname: $('#roomname').val(),
+			roomname: $('<div/>').text($('#roomname').val()).html(),
 			roomimage: resUpload.data.link,
 			master: '<%= data.username %>'
 		};
