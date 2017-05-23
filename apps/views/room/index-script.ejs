@@ -91,7 +91,7 @@
 		
 	    let s = '<div class="clear"><div class="friend-name">' + data.name + '</div><img class="avatar" src="' + getUrlAvatar(data.fbid) + '"><img id="' + data.time + '" class="message friend-image" src="/images/img_trans.gif" /></div>';
 	    $("#box-message").append(s);
-	    // chatSound.play();
+	    // 
 	    scrollBox();
 	});
 
@@ -99,6 +99,7 @@
 		$('#' + data.time).css('background', 'none');
 		$('#' + data.time).attr('src', data.link);
 		$('#' + data.time).removeAttr('id');
+		chatSound.play();
 		scrollBox();
 	});
 
