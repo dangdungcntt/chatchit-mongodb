@@ -156,48 +156,67 @@
 	background-color: white;
 }
 
+.wrapper-messages {
+	max-width: 45%;
+	position: relative;
+}
+
 .message {
 	word-wrap: break-word;
 	line-height: 1.5em;
-	max-width: 40%;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
 	padding: 10px 15px;
 	border-radius: 8px;
+}
+
+.box-friend-messages {
+	margin-left: 10px; 
+	color: #000000;
+	float: left;
 }
 
 .friend-name {
 	font-size: 90%;
 	padding-left: 3px;
-	margin-left: 82px;
+	margin-left: 72px;
 	margin-bottom: 5px;
-	padding-top: 15px;
+	/*padding-top: 8px;*/
 	color: #9f9f9f;
-	clear: both;
+}
 
+.friend-avatar {
+	position: absolute;
+	bottom: 0;
+	/*background-color: #f00;*/
+	/*float: left;*/
 }
 
 .avatar {
+	vertical-align: bottom;
 	width: 50px;
 	height: 50px;
-	float: left;
-	margin-left: 10px; 
+	/*float: left;*/
+	/*margin-left: 10px; */
 	border-radius: 50%;
 }
 
-.friend-message {
-	margin-left: 10px; 
-	color: #000000;
-	float: left;
+.friend-messages {
+	margin-left: 60px;
+}
+
+.friend-color {
 	background: #92fcec;
 }
 
-.my-message {
-	margin-top: 35px;
-	margin-right: 10px;
-	clear: both;
+.box-my-messages {
+	margin-top: 18px;
+	margin-right: 10px; 
 	color: #ffffff;
 	float: right;
-	background: #0084ff;
+}
+
+.my-color {
+	background-color: #0084ff;
 }
 
 .friend-image {

@@ -18,6 +18,7 @@
 	};
 	let hostname = location.protocol + '//' + location.host;
 	let socket = io(hostname + '/room'); // jshint ignore:line
+	console.log(socket);
 
 	socket.emit('connect-me-to-room', { 
 		roomid: '<%= data.roomid %>', 
