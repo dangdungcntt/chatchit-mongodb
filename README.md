@@ -1,9 +1,19 @@
-# chatchit
-------------------------------
-v1.1.1
-- Thêm emoji
-- Gửi hình ảnh
-------------------------------
-v1.1.0
-- Giao diện phòng chat mới
-- Tạo phòng, xem danh sách phòng
+## ChatChit
+ChatChit is realtime web application. It can help you chat with your friends, send emoji icon, images. Writen in nodejs, backed by socket.io, mongodb,..
+## Installation
+ChatChit requires nodejs and mongodb.
+```
+$ git clone https://github.com/dangdungcntt/chatchit-mongodb.git
+$ cd chatchit-mongodb
+$ npm install
+```
+## Config
+You must have a ConnectionString of Mongodb and replace it in config/default.json
+```
+"database": "Your ConnectionString of Mongodb",
+```
+Start the application with
+```
+npm start
+```
+
