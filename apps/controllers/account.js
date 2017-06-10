@@ -11,8 +11,8 @@ let router = express.Router();
 router.get('/register', (req, res) => {
 	if (req.session.user) {
 		return res.redirect('/');
-	}	
-	req.session._shortidRegister = shortid.generate(); 
+	}
+	req.session._shortidRegister = shortid.generate();
 	res.render('login-register/index', {
 		data: {
 			page: 'register',
@@ -39,46 +39,46 @@ router.post('/register', (req, res) => {
 	User.findOne({ //check exists username
 		username: params.username,
 	})
-	.exec((err, user) => {
-		if (err || user) {
-			return res.json({
-				status_code: 345,
-				error: 'Username already exists'
-			});
-		}
-
-		let name = params.name.trim().length === 0 ? params.username : params.name.trim();
-		var ac = new User({ 
-		    username: params.username, 
-		    password: bcrypt.hashPassword(params.password),
-		    name: name,
-		    email: params.email,
-		    fbid: '',
-		    admin: false,
-		    secret: shortid.generate()
-		});
-
-		ac.save((err) => {
-			if (err) {
+		.exec((err, user) => {
+			if (err || user) {
 				return res.json({
 					status_code: 345,
-					error: 'Undefined error'
+					error: 'Username already exists'
 				});
 			}
-			req.session.newusername = params.username;
-			res.json({
-				status_code: 200,
+
+			let name = params.name.trim().length === 0 ? params.username : params.name.trim();
+			var ac = new User({
+				username: params.username,
+				password: bcrypt.hashPassword(params.password),
+				name: name,
+				email: params.email,
+				fbid: '',
+				admin: false,
+				secret: shortid.generate()
+			});
+
+			ac.save((err) => {
+				if (err) {
+					return res.json({
+						status_code: 345,
+						error: 'Undefined error'
+					});
+				}
+				req.session.newusername = params.username;
+				res.json({
+					status_code: 200,
+				});
 			});
 		});
-	});
 });
 
 router.get('/login', (req, res) => {
 	if (req.session.user) {
 		return res.redirect('/');
 	}
-	req.session._shortidLogin = shortid.generate(); 
-	let newusername = req.session.newusername;	
+	req.session._shortidLogin = shortid.generate();
+	let newusername = req.session.newusername;
 	let redirectUrl = req.session.redirectUrl;
 	res.render('login-register/index', {
 		data: {
@@ -114,26 +114,26 @@ router.post('/authenticate', (req, res) => {
 			});
 		}
 		let userData = {
-        	username: user.username, 
-		    name: user.name,
-		    email: user.email,
-		    fbid: user.fbid,
-		    admin: user.admin,
-		    secret: user.secret
-        };
-        //save user
-        req.session.user = userData;
+			username: user.username,
+			name: user.name,
+			email: user.email,
+			fbid: user.fbid,
+			admin: user.admin,
+			secret: user.secret
+		};
+		//save user
+		req.session.user = userData;
 		let token = jwt.generateToken(userData);
 		let refreshToken = jwt.generateToken({
-        	username: user.username
-        }, 86400 * 30); //second param is expiresIn
+			username: user.username
+		}, 86400 * 30); //second param is expiresIn
 		return res.json({
 			status_code: 200,
 			token,
 			refreshToken
 		});
 	});
-	
+
 });
 
 router.post('/checkToken', (req, res) => {
@@ -144,46 +144,46 @@ router.post('/checkToken', (req, res) => {
 	}
 
 	jwt.verifyToken(req.body.token)
-	.then((decoded) => {
-		User.findOne({
-			username: decoded.username,
-			secret: decoded.secret
-		}, (err, user) => {
-			if (err || !user) {
+		.then((decoded) => {
+			User.findOne({
+				username: decoded.username,
+				secret: decoded.secret
+			}, (err, user) => {
+				if (err || !user) {
+					return res.json({
+						status_code: 345,
+					});
+				}
+				let userData = {
+					username: user.username,
+					name: user.name,
+					email: user.email,
+					fbid: user.fbid,
+					admin: user.admin,
+					secret: user.secret
+				};
+				req.session.user = userData;
+				let token = jwt.generateToken(userData);
+				let refreshToken = jwt.generateToken({
+					username: user.username,
+				}, 86400 * 30);
 				return res.json({
-					status_code: 345,
+					status_code: 200,
+					token,
+					refreshToken
+				});
+			});
+		})
+		.catch((err) => { //jshint ignore:line
+			if (err.expiredAt) { //token expired
+				return res.json({
+					status_code: 410, //send code expired
 				});
 			}
-			let userData = {
-	        	username: user.username, 
-			    name: user.name,
-			    email: user.email,
-			    fbid: user.fbid,
-			    admin: user.admin,
-			    secret: user.secret
-	        };
-	        req.session.user = userData;
-	        let token = jwt.generateToken(userData);
-	        let refreshToken = jwt.generateToken({
-	        	username: user.username, 
-	        }, 86400 * 30);
-	        return res.json({
-				status_code: 200,
-				token,
-				refreshToken
-			});
-		});
-	})
-	.catch((err) => { //jshint ignore:line
-		if (err.expiredAt) { //token expired
 			return res.json({
-				status_code: 410, //send code expired
+				status_code: 345,
 			});
-		}
-		return res.json({
-			status_code: 345,
 		});
-	});
 });
 
 router.post('/refreshToken', (req, res) => {
@@ -192,42 +192,42 @@ router.post('/refreshToken', (req, res) => {
 			status_code: 345
 		});
 	}
-	
+
 	jwt.verifyToken(req.body.refreshToken)
-	.then((decoded) => {
-		User.findOne({
-			username: decoded.username,
-		}, (err, user) => {
-			if (err || !user) {
+		.then((decoded) => {
+			User.findOne({
+				username: decoded.username,
+			}, (err, user) => {
+				if (err || !user) {
+					return res.json({
+						status_code: 345,
+					});
+				}
+				let userData = {
+					username: user.username,
+					name: user.name,
+					email: user.email,
+					fbid: user.fbid,
+					admin: user.admin,
+					secret: user.secret
+				};
+				req.session.user = userData;
+				let token = jwt.generateToken(userData);
+				let refreshToken = jwt.generateToken({
+					username: user.username,
+				}, 86400 * 30);
 				return res.json({
-					status_code: 345,
+					status_code: 200,
+					token,
+					refreshToken
 				});
-			}
-			let userData = {
-	        	username: user.username, 
-			    name: user.name,
-			    email: user.email,
-			    fbid: user.fbid,
-			    admin: user.admin,
-			    secret: user.secret
-	        };
-	        req.session.user = userData;
-	        let token = jwt.generateToken(userData);
-	        let refreshToken = jwt.generateToken({
-	        	username: user.username, 
-	        }, 86400 * 30);
-	        return res.json({
-				status_code: 200,
-				token,
-				refreshToken
+			});
+		})
+		.catch((err) => { //jshint ignore:line
+			return res.json({
+				status_code: 345,
 			});
 		});
-	})
-	.catch((err) => { //jshint ignore:line
-		return res.json({
-			status_code: 345,
-		});
-	});
 
 });
 
