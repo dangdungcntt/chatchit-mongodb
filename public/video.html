@@ -1,0 +1,19 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="http://vjs.zencdn.net/4.12.15/video-js.css">
+    <script type="text/javascript" src="http://vjs.zencdn.net/4.12.15/video.js"></script>
+    <script>videojs.options.flash.swf = "http://www.flashls.org/videojs/video-js.swf";</script>
+</head>
+
+<body>
+    <video id="video" class="video-js vjs-default-skin" controls preload="auto" autoplay="true" width="640" height="360"
+          data-setup='{"techOrder": ["flash"]}'>
+        <source src='http://qtn3zhdqpk.vcdn.com.vn/hls/vrrvvh8/index.m3u8' type='video/mp4' />
+    </video>
+    
+    <script>
+        video = document.querySelector('video');
+        player = videojs(video);
+    </script>
+</body>
+</html>
