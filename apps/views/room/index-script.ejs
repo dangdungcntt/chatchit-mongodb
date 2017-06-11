@@ -125,14 +125,20 @@
 		}
 	};
 
+	let addZero = (number) => {
+		return number < 10 ? `0${number}` : number;
+	};
+
 	socket.on('someone-send-message', (data) => {
 		let lastMess = $('.wrapper-messages:last-child');
+		let date = new Date();
+		let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
 		if (itsMe(data.username)) {
-			let s1 = '<div id="chatchit" class="message my-color"></div>';
+			let s1 = `<div id="chatchit" class="message my-color" title="${timeSent}"></div>`;
 			let s2 = `
 					<div class="wrapper-messages my-wrapper-messages box-my-messages clearfix">
 						<div class="my-messages">
-							<div id="chatchit" class="message my-color"></div>
+							${s1}
 						</div>
 					</div>
 				`;
@@ -140,15 +146,15 @@
 			scrollBox();
 			return;
 		}
-		let s1 = '<div id="chatchit" class="message friend-color"></div>';
+		let s1 = `<div id="chatchit" class="message friend-color" title="${timeSent}"></div>`;
 		let s2 = `
 			<div sender="${data.username}" class="wrapper-messages box-friend-messages clearfix">
 				<div class="friend-name">${data.name}</div>
 				<div class="friend-avatar">
-					<img class="avatar" src="${getUrlAvatar(data.fbid)}">
+					<img class="avatar" src="${getUrlAvatar(data.fbid)}" />
 				</div>
 				<div class="friend-messages">
-					<div id="chatchit" class="message friend-color"></div>
+					${s1}
 				</div>
 			</div>
 		`;
@@ -159,8 +165,10 @@
 
 	socket.on('someone-send-image', (data) => {
 		let lastMess = $('.wrapper-messages:last-child');
+		let date = new Date();
+		let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
 		if (itsMe(data.username)) {
-			let s1 = `<img id="${data.time}" class="message message-image my-image" src="/images/img_trans.gif" alt="image" />`;
+			let s1 = `<img id="${data.time}" class="message message-image my-image" src="/images/img_trans.gif" alt="image" title="${timeSent}" />`;
 			let s2 = `
 				<div class="wrapper-messages my-wrapper-messages box-my-messages clearfix">
 					<div class="my-messages">
@@ -172,7 +180,7 @@
 			scrollBox();
 			return;
 		}
-		let s1 = `<img id="${data.time}" class="message message-image" src="/images/img_trans.gif" alt="image" />`;
+		let s1 = `<img id="${data.time}" class="message message-image" src="/images/img_trans.gif" alt="image" title="${timeSent}" />`;
 		let s2 = `
 			<div sender="${data.username}" class="wrapper-messages box-friend-messages clearfix">
 				<div class="friend-name">${data.name}</div>
@@ -193,7 +201,9 @@
 		targetImage.css('background', 'none');
 		targetImage.attr('src', data.link);
 		targetImage.removeAttr('id');
-		chatSound.play();
+		if (!targetImage.hasClass('my-image')) {
+			chatSound.play();
+		}
 		setTimeout(() => {
 			scrollBox();
 		}, 1500);
@@ -205,7 +215,7 @@
 			show = 'style="display: none;"';
 		}
 		let s = `
-			<a href="#" class="list-room-item">
+			<a href="/room/${room.roomid}" class="list-room-item">
 				<div class="room-logo">
 					<img src="${room.roomimage}">
 				</div>
