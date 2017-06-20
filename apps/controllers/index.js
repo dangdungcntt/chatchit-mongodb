@@ -36,7 +36,7 @@ router.get('/list-room', (req, res) => {
 });
 
 router.get('/create-room', (req, res) => {
-	let { username, name, fbid} = req.session.user;
+	let { username, name, fbid } = req.session.user;
 	res.render('room/create-room', {
 		data: {
 			username,
