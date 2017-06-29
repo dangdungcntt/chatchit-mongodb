@@ -1,6 +1,4 @@
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-	'use strict';
+'use strict';
 	let chatSound = new Audio('/mp3/chat.mp3');
 	let joinroomSound = new Audio('/mp3/joinroom.mp3');
 	let scrollBox = () => {
@@ -21,12 +19,7 @@
 	let socket = io(`${hostname}/room`); // jshint ignore:line
 	console.log(socket);
 
-	socket.emit('connect-me-to-room', {
-		roomid: '<%= data.roomid %>',
-		username: '<%= data.username %>',
-		name: '<%= data.name %>',
-		fbid: '<%= data.fbid %>'
-	});
+	socket.emit('connect-me-to-room', data);
 
 	socket.on('connect-successfully', (data) => {
 		socket.username = data.username;
@@ -66,7 +59,7 @@
 			$('#list-room').append(s);
 		});
 		$('.loading').fadeOut(500, () => {
-			$('#content-room').slideDown(600);
+			$('.container').slideDown(600);
 			setTimeout(() => {
 				checkSize($(window).width());
 			}, 1000);
@@ -205,9 +198,12 @@
 		if (!targetImage.hasClass('my-image')) {
 			chatSound.play();
 		}
-		setTimeout(() => {
-			scrollBox();
-		}, 1500);
+    targetImage.on('load', () => {
+      setTimeout(() => {
+        scrollBox();
+      }, 500);
+    })
+		
 	});
 
 	socket.on('new-room-created', (room) => {
@@ -441,5 +437,3 @@
 	};
 
 	$('#chooseImage').on('change', uploadFile);
-
-</script>

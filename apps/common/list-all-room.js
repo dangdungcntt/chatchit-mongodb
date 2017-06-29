@@ -46,6 +46,7 @@ let checkUserExists = (roomid, username) => {
 };
 
 let getListUserOfRoom = (index) => {
+  console.log(index);
 	return listAllRoom[index].listUser.slice(0);
 };
 

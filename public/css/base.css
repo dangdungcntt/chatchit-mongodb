@@ -41,6 +41,11 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+input:not([type="checkbox"]) {
+  box-sizing: border-box;
+}
+
 .clearfix {
 	clear: both;
 	display: block;
@@ -62,6 +67,12 @@ table {
 
 .text-right {
 	text-align: right;
+}
+
+.has-menu-bar {
+  margin-top: 50px; 
+  height: calc(100vh - 52px);
+  position: relative;
 }
 .btn {
 	color: white;
@@ -101,7 +112,7 @@ table {
 	padding: 2px 3px;
 	font-weight: bold;
 	border: 1px solid transparent;
-    border-radius: 4px;
+  border-radius: 4px;
 }
 
 .input-text {
@@ -122,19 +133,14 @@ table {
 
 .large-input-text {
 	font-size: 14px;
-	/*color: white;*/
 	white-space: nowrap;
-	/*user-select: none;*/
-    background-image: none;
-    /*cursor: pointer;*/
-	/*text-align: center;*/
+  background-image: none;
 	vertical-align: middle;
-	/*font-weight: bold;*/
 	display: inline-block;
-    padding: 12px 18px;
-    border: 1px solid #337ab7;
-    border-radius: 4px;
-    overflow: hidden;
+  padding: 12px 18px;
+  border: 1px solid #337ab7;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .primary {
@@ -145,6 +151,28 @@ table {
 	background-color: #286090;
 }
 
+.alert-top-right {
+    display: none;
+    width: 350px;
+    padding: 15px;
+    position: absolute;
+    float: right;
+    vertical-align: middle;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.error-alert {
+    background: rgba(255, 0, 0, 0.6);
+}
+
+.success-alert {
+    background: rgba(3, 216, 11, 0.6);
+}
 
 .success {background-color: #4CAF50;} /* Green */
 .success:hover {background-color: #46a049;}
@@ -158,8 +186,8 @@ table {
 .danger {background-color: #f44336;} /* Red */ 
 .danger:hover {background: #da190b;}
 
-.default {background-color: #e7e7e7; color: black;} /* Gray */ 
-.default:hover {background: #ddd;}
+.default {background-color: white; color: #717477;} /* Gray */ 
+.default:hover {background: #eee;}
 
 .online-now {
 	background: #4fd26a;
@@ -171,15 +199,6 @@ table {
 
 .red-color {
 	color: red;
-}
-
-.white {
-	color: #000000;
-	background-color: #ffffff;
-}
-
-.white:hover {
-	background-color: #e2e0e0;
 }
 
 .scroll-bar {

@@ -13,9 +13,8 @@ router.get('/register', (req, res) => {
 		return res.redirect('/');
 	}
 	req.session._shortidRegister = shortid.generate();
-	res.render('login-register/index', {
+	res.render('pages/register', {
 		data: {
-			page: 'register',
 			_shortid: req.session._shortidRegister
 		}
 	});
@@ -80,9 +79,8 @@ router.get('/login', (req, res) => {
 	req.session._shortidLogin = shortid.generate();
 	let newusername = req.session.newusername;
 	let redirectUrl = req.session.redirectUrl;
-	res.render('login-register/index', {
+	res.render('pages/login', {
 		data: {
-			page: 'login',
 			_shortid: req.session._shortidLogin,
 			newusername,
 			redirectUrl

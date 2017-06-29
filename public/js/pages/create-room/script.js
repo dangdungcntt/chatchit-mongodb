@@ -1,6 +1,4 @@
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-	'use strict';
+'use strict';
 	let showError = (err) => {
 		$('#error-alert').html(err);
 		$('#error-alert').slideDown(300);
@@ -98,8 +96,7 @@
 		}
 
 		$('.loading').css('bottom', '0');
-		$('#title').hide();
-		$('#imgLoading').show();
+		$('#imgLoading').attr('src', '/images/loading.gif');
 		e.preventDefault();
 		upLoadFile()
 			.then((resUpload) => {
@@ -108,8 +105,7 @@
 			.then((resCreateRoom) => {
 				if (resCreateRoom && resCreateRoom.status_code === 345) {
 					$('.loading').css('bottom', '');
-					$('#title').show();
-					$('#imgLoading').hide();
+					$('#imgLoading').css('visibility', 'hidden');
 					showError(resCreateRoom.error);
 				} else if (resCreateRoom && resCreateRoom.status_code === 200) {
 					let hostname = location.protocol + '//' + location.host;
@@ -122,15 +118,13 @@
 					});
 				} else {
 					$('.loading').css('bottom', '');
-					$('#title').show();
-					$('#imgLoading').hide();
+					$('#imgLoading').css('visibility', 'hidden');
 					showError('Undefined error');
 				}
 			})
 			.catch((err) => {
 				$('.loading').css('bottom', '');
-				$('#title').show();
-				$('#imgLoading').hide();
+				$('#imgLoading').css('visibility', 'hidden');
 				return showError(err.responseJSON.data.error.message);
 			});
 		return false;
@@ -149,5 +143,3 @@
 			}
 		});
 	});
-
-</script>

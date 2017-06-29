@@ -1,0 +1,105 @@
+<div class="page-room">
+	<div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
+		<img src="/images/loading-chat.gif">
+	</div>
+  <div class="container" style="display: none;">
+    <div class="mid">
+      <div class="left">
+        <div class="list-room-header">
+          <div class="list-room-title">List Room</div>
+          <img class="btn-slide-left sprites" src="/images/img_trans.gif">
+        </div>
+        <div id="list-room" class="list-room scroll-bar">
+          <!-- <a href="#" class="list-room-item">
+          <div class="room-logo">
+            <img src="/images/room-logo.png">
+          </div>
+          <div class="room-info">
+            <div class="room-name">Room name</div>
+            <div class="room-id">Room id</div>
+            <div class="room-detail">Room detail</div>
+          </div>
+        </a> -->
+        </div>
+      </div>
+      <div class="center">
+        <div id="box-message" class="box-message scroll-bar">
+          <!--<div class="wrapper-messages box-friend-messages clearfix">
+            <div class="friend-name">Nguyễn Đăng Dũng</div>
+            <div class="friend-avatar">
+              <img class="avatar" src="/images/default_avatar.jpg">
+            </div>
+            <div class="friend-messages">
+              <div class="message friend-color">💚 💙 💜 🖤 💔 ❣️ 💕 </div>
+              <img class="message message-image" src="/images/test.jpg" alt="">
+            </div>
+          </div>
+          <div class="wrapper-messages box-my-messages clearfix">
+            <div class="my-messages">
+              <img class="message message-image" src="/images/test.jpg" alt="">
+            </div>
+          </div>
+          <div class="wrapper-messages box-friend-messages clearfix">
+            <div class="friend-name">Nguyễn Đăng Dũng</div>
+            <div class="friend-avatar">
+              <img class="avatar" src="/images/default_avatar.jpg">
+            </div>
+            <div class="friend-messages">
+              <img class="message message-image" src="/images/test.jpg" alt="">
+            </div>
+          </div>-->
+        </div>
+        <div class="box-control">
+          <div style="display: none;" id="popupEmoji" class="popupEmoji">
+            <div class="arrow-popupEmoji"></div>
+            <div class="content-popupEmoji scroll-bar">
+            </div>
+            <div class="tabsEmoji">
+              <span class="tab-emoji-item tab-emoji-selected" emoji-type="face">😀</span>
+              <span class="tab-emoji-item" emoji-type="animal">🐱</span>
+              <span class="tab-emoji-item" emoji-type="activity">⚽️</span>
+              <span class="tab-emoji-item" emoji-type="food">🍓</span>
+            </div>
+          </div>
+          <input type="text" id="input-message" class="input-message" placeholder="Type message here">
+          <img id="btnSend" class="btnControl btnSend sprites" src="/images/img_trans.gif" title="Send">
+          <img id="btnEmoji" class="btnControl btnEmoji sprites" src="/images/img_trans.gif" title="Emoji">
+          <label for="chooseImage">
+          <img id="btnAddImage" class="btnControl btnAddImage sprites" src="/images/img_trans.gif" title="Add Image" />
+          <input type="file" id="chooseImage" hidden="hidden" accept="image/*" />
+        </label>
+        </div>
+      </div>
+      <div class="right">
+        <div class="list-user-header">
+          <img class="btn-slide-right sprites" src='/images/img_trans.gif'>
+          <div id="list-user-title" class="list-user-title" title="<%= data.roomname %>">
+            <%= data.roomname %>
+          </div>
+        </div>
+        <div class="list-user scroll-bar">
+          <!-- <a href="#" class="list-user-item">
+          <div class="user-avatar">
+            <img width="32" height="32" src="/images/avatar.jpg">
+          </div>
+          <div class="user-info">
+            <div class="user-name">Ngoan Nguyễn</div>
+            <div class="user-status">Online</div>
+          </div>
+        </a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../base-js %>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script>
+  let data = {
+    roomid: '<%= data.roomid %>',
+    username: '<%= data.username %>',
+    name: '<%= data.name %>',
+    fbid: '<%= data.fbid %>'
+  }
+</script>
+<script type="text/javascript" src="/js/pages/room/script.js"></script>

@@ -1,6 +1,4 @@
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-	'use strict';
+'use strict';
 
 	let hostname = `${location.protocol}//${location.host}`;
 	let socket = io(`${hostname}/list-room`); // jshint ignore:line
@@ -41,5 +39,3 @@
 	socket.on('a-user-leaved-room', (roomid) => {
 		online(roomid, -1);
 	});
-
-</script>

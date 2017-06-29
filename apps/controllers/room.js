@@ -13,18 +13,20 @@ router.get('/:id', (req, res) => {
 	let roomid = req.params.id;
 	let { username, name, fbid } = req.session.user;
 	if (listAllRoom.checkRoomExists(roomid) === -1) {
-		return res.render('room/create-room', {
+		return res.render('layout/1column', {
+      page: 'create-room',
 			data: {
 				roomid,
 				username,
 				name,
 				fbid,
-				message: 'Room ' + roomid + ' does not exists.<br>Create a new room now!'
+				message: 'Create ' + roomid + ' room now!'
 			}
 		});
 	}
 	let roomname = listAllRoom.getRoomNameById(roomid);
-	res.render('room', {
+	res.render('layout/1column', {
+    page: 'room',
 		data: {
 			roomid,
 			roomname,

@@ -28,6 +28,7 @@ module.exports = (io) => {
 		});
 
 		socket.on('connect-me-to-room', (data) => {
+      console.log(data.roomid);
 			socket.roomid = data.roomid;
 			socket.username = data.username;
 			socket.name = data.name;

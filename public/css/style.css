@@ -1,0 +1,617 @@
+/* nav */
+nav {
+	position: fixed;
+	top: 0;
+    width: 100%;
+    z-index: 10;
+}
+nav  ul {
+    list-style-type:none;
+    background-color: #2196F3;
+}
+
+.menu {
+    display:inline-block;
+    position:relative;
+}
+
+.menu-item {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 16px 16px;
+  display: block;
+
+  /*width: 80px;*/
+}
+
+.menu-item:hover, .group-menu-item:hover {
+  background: #f00;
+}
+
+.group-menu-item {
+  padding: 0px;
+  height: 48px;
+  display: inline-block;
+}
+
+.group-menu-item .user-name-topbar {
+  float: left;
+  padding: 16px 5px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.group-menu-item .avatar-topbar {
+  float: left;
+  display: inline-block;
+  margin: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.dropdown-content {
+	list-style: none;
+	background: #f9f9f9;
+	position: absolute;
+  display: none;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content li {
+	color: black;
+	display: block;
+}
+
+.dropdown-content li a {
+	color: black;
+}
+
+.menu-left {
+	float: left;
+}
+
+.menu-right {
+	float: right;
+	
+}
+
+.menu-right > ul {
+	right: 0;
+}
+
+/* login, register page */
+
+.page-login label {
+	text-decoration: none;
+	font-family: Segoe UI;
+	font-size: 14px;
+	font-weight: 600;
+	margin-left: 5px;
+	text-decoration: none;
+}
+
+.page-login .box-login {
+  z-index: 1;
+}
+.page-login .require {
+	color: red;
+	font-weight: bold;
+}
+.page-login .container {
+	height: 100%;
+	background-color: #f9f9f9;
+}
+.page-login .box-login {
+	background-color: white;
+	width: 350px;
+	height: auto;
+	margin: auto;
+	padding-bottom: 15px;
+	border: 1px solid #337ab7;
+	border-radius: 4px;
+	
+}
+.page-login .box-input {
+	margin: 20px 20px 5px 20px;
+}
+.page-login .box-input input:not([type="checkbox"]) {
+  margin: 5px 5px 15px 5px;
+	width: 302px;
+}
+.page-login .box-control {
+	margin: 5px 5px 15px 20px;
+	display: inline-block;
+}
+.page-login .box-control .btn-2-col {
+	width: 145px;
+}
+.page-login .box-control .btn-1-col {
+  margin: 0px 5px 5px 5px;
+  width: 302px
+}
+.page-login .box-control .btn-2-col:nth-child(odd) {
+	margin: 0px 2.5px 5px 5px;
+}
+.page-login .box-control .btn-2-col:nth-child(even) {
+	margin: 0px 2.5px 5px 5px;
+}
+
+/* list-room page */
+.page-list-room .container {
+	margin-top: 50px;
+}
+
+.page-list-room .text-muted{color: #777;}
+.page-list-room .chat_room{
+	font-family: "Roboto", sans-serif;
+	margin: 5px;
+	margin-bottom: 20px;
+	padding: 3px;
+	line-height: 30px;
+	float: left;
+	color: black;
+	text-decoration: none;
+	font-size: 14px;
+	width: 187px;
+	border: 1px solid #2196F3;
+	height: 175px;
+}
+.page-list-room .chat_room img{
+	height: 105px;
+	width: 187px;
+}
+.page-list-room .chat_room img:hover {opacity: 0.7;}
+.page-list-room .crop {
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.page-list-room #addRoom {
+	background: url('../../images/addRoom.png') center center no-repeat;
+	background-color: #efeaea;
+}
+
+.page-list-room #addRoom:hover {
+	background-color: #e5e0e0;
+	background-image: url('../../images/addRoomHover.png');
+}
+
+/* room */
+.page-room .sprites {
+	background:url(../../images/imgSprites.png) no-repeat
+}
+
+.page-room .container {
+	margin-top:50px;
+	width:100%;
+	height:calc(100vh - 50px)
+}
+
+.page-room .mid {
+	position:relative;
+	height:100%;
+	overflow:hidden
+}
+
+.page-room .left {
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	width:250px;
+	height:100%;
+	float:left;
+	overflow-y:hidden;
+	border-right:1px solid #ccc
+}
+
+.page-room .center {
+	margin:0 252px;
+	height:100%;
+	overflow-y:hidden
+}
+
+.page-room .box-message {
+	height:calc(100% - 50px)
+}
+
+.page-room .box-control {
+	height:50px;
+	border-top:1px solid #ccc;
+	position:relative
+}
+
+.page-room .right {
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	width:250px;
+	height:100%;
+	float:right;
+	border-left:1px solid #ccc
+}
+
+.page-room .list-room-header {
+	height:52px;
+	width:100%;
+	clear:both;
+	border-bottom:1px solid #ccc
+}
+
+.page-room .list-room-title {
+	white-space:nowrap;
+	overflow:hidden;
+	margin-left:63px;
+	font-size:18px;
+	font-weight:700;
+	float:left;
+	padding:16px 10px;
+	vertical-align:middle
+}
+
+.page-room .btn-slide-left {
+	border:0;
+	width:40px;
+	height:40px;
+	margin:5px 15px 5px 5px;
+	float:right;
+	background-position:0 0
+}
+
+.page-room .list-room {
+	height:calc(100% - 54px)
+}
+
+.page-room .list-room-item {
+	background-color:#fafafa;
+	clear:both;
+	height:50px;
+	padding:10px;
+	display:block
+}
+
+.page-room .list-room-item:hover {
+	background-color:#ededed
+}
+
+.page-room .room-logo {
+	float:left;
+	cursor:pointer
+}
+
+.page-room .room-logo img {
+	width:50px;
+	height:50px;
+	border-radius:50%
+}
+
+.page-room .room-info {
+	cursor:pointer;
+	float:left;
+	width:160px
+}
+
+.page-room .room-name {
+	color:#000;
+	width:100%;
+	font-size:14px;
+	white-space:nowrap;
+	padding:3px 12px;
+	font-weight:700;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden
+}
+
+.page-room .room-id {
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color:gray;
+	font-size:14px;
+	padding:0 12px
+}
+
+.page-room .room-detail {
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color:gray;
+	font-style:italic;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	font-size:14px;
+	padding:3px 12px
+}
+
+.page-room .box-message {
+	background-color:#fff
+}
+
+.page-room .wrapper-messages {
+	max-width:45%;
+	position:relative
+}
+
+.page-room .my-wrapper-messages {
+	max-width:calc(45% - 50px)
+}
+
+.page-room .message {
+	display:table;
+	word-break:break-all;
+	word-wrap:break-word;
+	line-height:1.5em;
+	margin-bottom:3px;
+	padding:10px 15px;
+	border-radius:8px
+}
+
+.page-room .message-image {
+	background:url(/images/loading-emoji.gif) center center no-repeat;
+	padding:0;
+	min-width:100px;
+	min-height:100px;
+	max-width:calc(100% - 4px);
+	border:2px solid #eee;
+	border-radius:10px
+}
+
+.page-room .my-image {
+	float:right;
+	clear:both
+}
+
+.page-room .box-my-messages {
+	margin-top:18px;
+	margin-right:10px;
+	color:#fff;
+	float:right
+}
+
+.page-room .my-color {
+	background-color:#0084ff;
+	float:right;
+	clear:both
+}
+
+.page-room .box-friend-messages {
+	margin-left:10px;
+	color:#000;
+	float:left
+}
+
+.page-room .friend-name {
+	font-size:90%;
+	padding-left:3px;
+	margin-left:72px;
+	margin-bottom:5px;
+	color:#9f9f9f
+}
+
+.page-room .friend-avatar {
+	position:absolute;
+	bottom:0
+}
+
+.page-room .avatar {
+	vertical-align:bottom;
+	width:50px;
+	height:50px;
+	border-radius:50%
+}
+
+.page-room .friend-messages {
+	margin-left:60px
+}
+
+.page-room .friend-color {
+	background:#92fcec
+}
+
+.page-room .input-message {
+	float:left;
+	font-family:inherit;
+	padding:0 0 0 12px;
+	border:0 solid #337ab7;
+	line-height:1.5em;
+	font-size:18px;
+	margin:auto;
+	width:calc(100% - 160px);
+	height:50px;
+	overflow:auto
+}
+
+.page-room .input-message:focus {
+	outline-width:0
+}
+
+.page-room .btnControl {
+	width:40px;
+	height:40px;
+	margin:5px 3px;
+	float:right;
+	cursor:pointer
+}
+
+.page-room .btnAddImage {
+	background-position:-160px 0
+}
+
+.page-room .btnEmoji {
+	background-position:-120px 0
+}
+
+.page-room .btnSend {
+	background-position:-80px 0
+}
+
+.page-room .list-user-header {
+	height:52px;
+	width:100%;
+	clear:both;
+	border-bottom:1px solid #ccc
+}
+
+.page-room .list-user-title {
+	width:calc(100% - 60px);
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	font-weight:700;
+	font-size:18px;
+	float:left;
+	padding:16px 5px;
+	vertical-align:middle
+}
+
+.page-room .btn-slide-right {
+	width:40px;
+	height:40px;
+	margin:5px;
+	float:left;
+	background-position:-40px 0
+}
+
+.page-room .list-user {
+	height:calc(100% - 54px)
+}
+
+.page-room .list-user-item {
+	text-decoration:none;
+	background-color:#fafafa;
+	clear:both;
+	height:32px;
+	padding:10px;
+	display:block
+}
+
+.page-room .list-user-item:hover {
+	background-color:#ededed
+}
+
+.page-room .user-avatar {
+	display:inline-block;
+	width:32px;
+	height:32px;
+	cursor:pointer
+}
+
+.page-room .user-avatar img {
+	width:32px;
+	height:32px;
+	border-radius:50%
+}
+
+.page-room .user-info {
+	cursor:pointer;
+	display:inline-block;
+	width:160px
+}
+
+.page-room .user-name {
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color:#000;
+	width:100%;
+	font-size:14px;
+	white-space:nowrap;
+	padding:0 12px 4px;
+	font-weight:700;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden
+}
+
+.page-room .user-status {
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color:#48d44f;
+	font-weight:700;
+	font-style:italic;
+	font-size:14px;
+	padding:0 12px
+}
+
+.page-room .popupEmoji {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: -308px;
+  right: 8px;
+  z-index: 5;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: white;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.page-room .arrow-popupEmoji {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: -15px;
+  right: 44px;
+  transform: rotate(45deg);
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: -1;
+  /*box-shadow: 0 0 10px #ccc;*/
+}
+
+.page-room .content-popupEmoji {
+  width: 215px;
+  height: 250px;
+  z-index: 5;
+  border-radius: 5px;
+}
+
+.page-room .emoji-item {
+  display: inline-block;
+  font-size: 26px;
+  line-height: 1.5em;
+  cursor: pointer;
+  min-width: 35.69px;
+  max-width: 35.69px;
+  text-align: center;
+}
+
+.page-room .tabsEmoji {
+  margin-top: 12px;
+  margin-bottom: 3px;
+}
+
+.tab-emoji-selected,
+.page-room .tab-emoji-item:hover {
+  background: #ccc;
+}
+
+.page-room .tab-emoji-item {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.page-room .emoji-type-content {
+  display: none;
+}
+
+.page-room .emoji-type-selected {
+  display: block;
+}
