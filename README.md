@@ -6,11 +6,12 @@ ChatChit requires nodejs and mongodb.
 $ git clone https://github.com/dangdungcntt/chatchit-mongodb.git
 $ cd chatchit-mongodb
 $ npm install
+$ cp .env.example .env
 ```
 ## Config
-You must have a ConnectionString of Mongodb and replace it in config/default.json
+You must have a ConnectionString of Mongodb and replace it in .env
 ```
-"database": "Your ConnectionString of Mongodb",
+DB_STRING_URL=Your ConnectionString of Mongodb
 ```
 Start the application with
 ```

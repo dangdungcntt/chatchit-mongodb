@@ -1,6 +1,7 @@
 node_modules
 original_icons
 note
+.env
 # Created by https://www.gitignore.io/api/sublimetext
 
 ### SublimeText ###

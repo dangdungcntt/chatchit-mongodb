@@ -2,7 +2,7 @@
 var config = require('config');
 var mongoose = require('mongoose');
 
-mongoose.connect(config.get('database'));
+mongoose.connect(process.env.DB_STRING_URL);
 mongoose.Promise = require('bluebird');
 
 module.exports = {

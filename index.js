@@ -1,8 +1,9 @@
 'use strict';
-var express = require('express');
-var session = require('express-session');
-var config = require('config');
-var bodyParser = require('body-parser');
+require('dotenv').config();
+let express = require('express');
+let session = require('express-session');
+let config = require('config');
+let bodyParser = require('body-parser');
 
 var app = express();
 
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 //session
 app.set('trust proxy', 1); //trust first proxy
 app.use(session({
-	secret: config.get('secret_key_session'),
+	secret: process.env.SECRET_KEY_SESSION || config.get('secret_key_session'),
 	resave: false,
 	saveUninitialized: true,
 	cookie: { secure: false }
@@ -30,10 +31,10 @@ app.use(controllers);
 
 
 // var host = config.get('server.host');
-var port = config.get('server.port');
-var server = app.listen(process.env.PORT || port, () => {
+let port = process.env.PORT || config.get('server.port');
+let server = app.listen(port, () => {
 	console.log('Server running on PORT ' + port);
 });
 
-var io = require('socket.io')(server);
+let io = require('socket.io')(server);
 require('./apps/common/socketcontrol')(io);
