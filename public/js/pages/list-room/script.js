@@ -1,6 +1,6 @@
 'use strict';
 
-	let hostname = `${location.protocol}//${location.host}`;
+	let hostname = location.protocol + '//' + location.host;
 	let socket = io(`${hostname}/list-room`); // jshint ignore:line
 
 	socket.on('send-list-room', (listRoom) => {
