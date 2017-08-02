@@ -1,17 +1,12 @@
 {
   "name": "chatchit-mongodb",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-  },
+  "scripts": {},
+  "env": {},
+  "formation": {},
   "addons": [
 
   ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }]
 }

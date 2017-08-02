@@ -1,7 +1,7 @@
 <div class="page-room">
-	<div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
-		<img src="/images/loading-chat.gif">
-	</div>
+  <div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
+    <img src="/images/loading-chat.gif">
+  </div>
   <div class="container" style="display: none;">
     <div class="mid">
       <div class="left">
@@ -93,13 +93,14 @@
   </div>
 </div>
 <% include ../../base-js %>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script>
-  let data = {
-    roomid: '<%= data.roomid %>',
-    username: '<%= data.username %>',
-    name: '<%= data.name %>',
-    fbid: '<%= data.fbid %>'
-  }
-</script>
-<script type="text/javascript" src="/js/pages/room/script.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script>
+    let data = {
+      roomid: '<%= data.roomid %>',
+      username: '<%= data.username %>',
+      name: '<%= data.name %>',
+      fbid: '<%= data.fbid %>'
+    }
+
+  </script>
+  <script type="text/javascript" src="/js/pages/room/script.js"></script>

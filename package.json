@@ -26,5 +26,6 @@
     "nodemon": "^1.11.0",
     "shortid": "^2.2.8",
     "socket.io": "^1.7.3"
-  }
+  },
+  "repository": "https://github.com/dangdungcntt/chatchit-mongodb"
 }
