@@ -453,3 +453,9 @@ let uploadFile = (e) => {
 };
 
 $('#chooseImage').on('change', uploadFile);
+
+//script for video call
+$('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
+  const targetId = $(e.target).closest('.list-user-item').attr('id');
+  window.open('/call/' + socket.roomid + '/' + targetId, targetId, "width=800,height=450");
+})

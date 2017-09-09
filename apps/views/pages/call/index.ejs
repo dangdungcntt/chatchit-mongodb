@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>List Room - ChatChit</title>
+  <link rel="shortcut icon" href="/images/favicon.png">
+  <link rel="stylesheet" type="text/css" href="/css/base.css">
+  <link rel="stylesheet" type="text/css" href="/css/call.css">
+  <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+  <script src="/js/pages/call/peer.js"></script>
+</head>
+
+<body>
+    <video id="remoteStream" src="/mp3/data.MP4"></video>
+    <video id="localStream"></video>
+  <% include ../../base-js %>
+  <script>
+      let data = {
+        roomid: '<%= data.roomid %>',
+        username: '<%= data.username %>',
+        name: '<%= data.name %>',
+        fbid: '<%= data.fbid %>',
+        iduser: '<%= data.iduser %>'
+      }
+    </script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/pages/call/script.js"></script>
+</body>
+</html>
+

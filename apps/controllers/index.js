@@ -22,5 +22,6 @@ router.use('/admin', require('./admin'));
 router.use('/messages', require('./messages'));
 router.use('/profile', require('./profile'));
 router.use('/room', require('./room'));
+router.use('/call', require('./call'));
 
 module.exports = router;

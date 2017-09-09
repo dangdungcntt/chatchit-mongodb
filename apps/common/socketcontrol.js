@@ -3,7 +3,17 @@
 module.exports = (io) => {
   let listAllRoom = require('../common/list-all-room');
   let nsRoom = io.of('/room');
+  let nsCall = io.of('/call');
   let nsListRoom = io.of('/list-room');
+
+  nsCall.on('connection', (socket) => {
+    console.log('someone connected nsCall, id = ', socket.id);
+
+    socket.on('CALL_ME_TO', (data) => {
+      const {roomid} = data;
+      nsRoom.emit('A_USER_CALLING', data);
+    });
+  })
 
   nsListRoom.on('connection', (socket) => {
     console.log('someone connected nsListRoom, id = ', socket.id);
