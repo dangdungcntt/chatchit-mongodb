@@ -14,9 +14,6 @@ peer.on('call', call => {
 });
 
 $(document).ready(() => {
-  openStream()
-  .then(stream => playStream('localStream', stream));
-
   socket.on('USER_CANCEL_CALL', (data) => {
     console.log(data)
     alert('User cancel call');
