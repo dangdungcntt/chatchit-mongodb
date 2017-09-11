@@ -1,5 +1,11 @@
 peer.on('open', id => {
   myid = id;
+  openStream()
+  .then(stream => {
+      call.answer(stream);
+      playStream('localStream', stream);
+      call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
+  });
   socket.emit('CALL_ME_TO', {...data, callerId: id});
 });
 

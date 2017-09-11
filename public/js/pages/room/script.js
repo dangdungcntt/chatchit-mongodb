@@ -461,7 +461,7 @@ $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
 })
 
 socket.on('A_USER_CALLING', data => {
-  console.log(data);
+  // console.log(data);
   if (itsMe(data.iduser)) {
     $('#modalCalling').show();
     $('.modal-footer #btnAnswer').on('click', () => {
