@@ -39,5 +39,5 @@ const peer = new Peer({
     host: 'dangdung-peer.herokuapp.com', 
     secure: true, 
     port: 443, 
-    config: customConfig 
+    config: {'iceServers': customConfig} 
 });
