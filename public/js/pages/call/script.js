@@ -5,20 +5,19 @@ let myid;
 let customConfig;
 
 // Call Xirsys ICE servers
-$.ajax ({
-  url: "https://global.xirsys.net/_turn/ChatChit/",
-  type: "PUT",
-  async: false,
-  headers: {
-    "Authorization": "Basic " + btoa("dangdungcntt:2655cd46-96a5-11e7-8791-9354bcb0cf6a")
-  },
-  success: function (res){
-    console.log("ICE List: "+res.v.iceServers);
-    customConfig = res.v.iceServers;
-    console.log(customConfig);
-  },
-  async: false
-});
+// $.ajax ({
+//   url: "https://global.xirsys.net/_turn/ChatChit/",
+//   type: "PUT",
+//   async: false,
+//   headers: {
+//     "Authorization": "Basic " + btoa("dangdungcntt:2655cd46-96a5-11e7-8791-9354bcb0cf6a")
+//   },
+//   success: function (res){
+//     console.log("ICE List: "+res.v.iceServers);
+//     customConfig = res.v.iceServers;
+//     console.log(customConfig);
+//   }
+// });
 
 
 function openStream() {
@@ -40,5 +39,5 @@ const peer = new Peer({
     host: 'dangdung-peer.herokuapp.com', 
     secure: true, 
     port: 443, 
-    config: customConfig 
+    // config: customConfig 
 });
