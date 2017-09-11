@@ -459,3 +459,18 @@ $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
   const targetId = $(e.target).closest('.list-user-item').attr('id');
   window.open('/call/' + socket.roomid + '/' + targetId, targetId, "width=800,height=450");
 })
+
+socket.on('A_USER_CALLING', data => {
+  console.log(data);
+  if (itsMe(data.iduser)) {
+    $('#modalCalling').show();
+    $('.modal-footer #btnAnswer').on('click', () => {
+      $('#modalCalling').hide();
+      window.open(`/answer/${data.roomid}/${data.iduser}/${data.callerId}`, data.iduser, "width=800,height=450");
+    });
+    $('.modal-footer #btnCancel').on('click', () => {
+      $('#modalCalling').hide();
+      socket.emit('USER_CANCEL_CALL', data);
+    });
+  }
+})

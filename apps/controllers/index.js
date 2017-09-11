@@ -23,5 +23,6 @@ router.use('/messages', require('./messages'));
 router.use('/profile', require('./profile'));
 router.use('/room', require('./room'));
 router.use('/call', require('./call'));
+router.use('/answer', require('./answer'));
 
 module.exports = router;

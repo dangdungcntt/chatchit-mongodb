@@ -1,4 +1,24 @@
 <div class="page-room">
+  <!-- Modal -->
+  <div id="modalCalling" class="modal fade">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <p>Cuộc gọi đến</p>
+        </div>
+        <div class="modal-body">
+            <img class="avatar" src="/images/default_avatar.jpg"><b>Nguyễn Đăng Dũng</b> đang gọi
+        </div>
+        <div class="modal-footer">
+          <button id="btnAnswer" type="button" class="btn primary">Trả lời</button>
+          <button id="btnCancel" type="button" class="btn danger">Từ chối</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Modal -->
   <div class="loading" style="padding-top: 200px; text-align: center; top: 20%; ">
     <img src="/images/loading-chat.gif">
   </div>
@@ -93,6 +113,7 @@
   </div>
 </div>
 <% include ../../base-js %>
+  <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script>
     let data = {

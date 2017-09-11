@@ -350,3 +350,47 @@ input:not([type="checkbox"]) {
 .scroll-bar:hover::-webkit-scrollbar-thumb {
   background-color: #828282;
 }
+
+.modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 10;
+  min-height: 100%;
+  background: rgba(90, 87, 87, 0.54);
+  display: none;
+}
+
+.modal-dialog {
+  width: 300px;
+  margin: auto;
+  margin-top: 10vh; 
+  background: white;
+  border-radius: 10px;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 10px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e5e5e5;
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+  background: #f6f7f9;
+  color: #1d2129;
+  font-weight: bold;
+}
+
+.modal-body {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-body .avatar {
+  vertical-align: middle !important;
+}
+
+.modal-footer {
+  text-align: center;
+}

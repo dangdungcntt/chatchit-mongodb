@@ -11,7 +11,11 @@ module.exports = (io) => {
 
     socket.on('CALL_ME_TO', (data) => {
       const {roomid} = data;
-      nsRoom.emit('A_USER_CALLING', data);
+      nsRoom.to(roomid).emit('A_USER_CALLING', data);
+    });
+
+    socket.on('USER_CANCEL_CALL', (data) => {
+      nsCall.emit('USER_CANCEL_CALL', data);
     });
   })
 
@@ -41,7 +45,6 @@ module.exports = (io) => {
     });
 
     socket.on('connect-me-to-room', (data) => {
-      console.log(data.roomid);
       socket.roomid = data.roomid;
       socket.username = data.username;
       socket.name = data.name;
@@ -97,6 +100,10 @@ module.exports = (io) => {
 
     socket.on('update-src-for-image', (data) => {
       nsRoom.to(socket.roomid).emit('update-src-for-image', data);
+    });
+
+    socket.on('USER_CANCEL_CALL', (data) => {
+      nsCall.emit('USER_CANCEL_CALL', data);
     });
   });
 };
