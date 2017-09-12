@@ -1,21 +1,22 @@
 'use strict';
 var express = require('express');
-
+var listAllRoom = require('../common/list-all-room');
 var router = express.Router();
 
-router.get('/:roomid/:iduser/:callerId', (req, res) => {
+router.get('/:roomid/:targetUsername/:callerId', (req, res) => {
   const {
-    roomid, iduser, callerId
+    roomid, targetUsername, callerId
   } = req.params;
   let {
     username,
     name,
     fbid
   } = req.session.user;
+  const target = listAllRoom.getUserInfoInRoom(roomid, targetUsername);
   res.render('pages/call/answer', {
     data: {
       roomid, username,
-      name, fbid, iduser, callerId
+      name, fbid, callerId, target
     }
   });
 });

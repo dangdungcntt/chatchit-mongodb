@@ -4,6 +4,19 @@ let socket = io(`${hostname}/call`); // jshint ignore:line
 let myid; 
 let customConfig;
 
+let getUrlAvatar = (fbid, w = 40, h = 40) => {
+  if (fbid !== '') {
+    return `https://graph.facebook.com/${fbid}/picture?type=large&redirect=true&width=${w}&height=${h}`;
+  } else {
+    return '/images/default_avatar.jpg';
+  }
+};
+const fillTargetInfo = (fbid, name) => {
+  $('.target-info #avatar').attr('src', getUrlAvatar(fbid, 150, 150));
+  $('.target-info #name').text(name);
+};
+fillTargetInfo(data.target.fbid, data.target.name);
+
 // // Call Xirsys ICE servers
 $.ajax ({
   url: "https://global.xirsys.net/_turn/ChatChit/",

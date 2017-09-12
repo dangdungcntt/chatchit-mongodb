@@ -1,5 +1,37 @@
-.page-call {
-  position: relative;
+.target {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, #ff9966, #ff5e62);
+}
+
+.target .target-info {
+  width: 250px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.target .target-info #avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid #fff; 
+}
+
+.target .target-info #name {
+  font-weight: bold;
+  font-size: 24px;
+  color: #fff;
+  margin: 15px 0;
+}
+
+.target .target-info #status {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #fff;
 }
 
 #localStream{

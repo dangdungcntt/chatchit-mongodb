@@ -12,12 +12,12 @@ let checkRoomExists = (roomid) => {
 };
 
 let getListRoom = () => {
-  return listAllRoom.slice(0);
+  return [...listAllRoom];
 };
 
 let getRoomNameById = (roomid) => {
   let i = checkRoomExists(roomid);
-  return listAllRoom[i].roomname;
+  return i == -1 ? 'Undefined' : listAllRoom[i].roomname;
 };
 
 let getListRoomOfUser = (username) => {
@@ -48,8 +48,7 @@ let checkUserExists = (roomid, username) => {
 };
 
 let getListUserOfRoom = (index) => {
-  console.log(index);
-  return listAllRoom[index].listUser.slice(0);
+  return [...listAllRoom[index].listUser];
 };
 
 let pushRoom = (room) => {
@@ -57,7 +56,7 @@ let pushRoom = (room) => {
 };
 
 let pushUserToRoom = (index, user) => {
-  if (index < 0 || index >= listAllRoom.lenth) {
+  if (index < 0 || index >= listAllRoom.length) {
     return false;
   }
   listAllRoom[index].listUser.push(user);
@@ -90,7 +89,18 @@ let removeAUserInRoom = (roomid, username) => {
     }
   }
   return false;
+};
 
+const getUserInfoInRoom = (roomid, username) => {
+  const index = checkRoomExists(roomid);
+  if (index === -1) return {};
+  const listUser = getListUserOfRoom(index);
+  for (let i = listUser.length - 1; i >= 0; i--) {
+    if (listUser[i].username === username) {
+      return listUser[i];
+    }
+  }
+  return {};
 };
 module.exports = {
   checkRoomExists,
@@ -102,5 +112,6 @@ module.exports = {
   pushRoom,
   pushUserToRoom,
   addUserInRoom,
-  removeAUserInRoom
+  removeAUserInRoom,
+  getUserInfoInRoom
 };

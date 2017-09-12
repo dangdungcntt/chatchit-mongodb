@@ -1,23 +1,7 @@
 'use strict';
 let chatSound = new Audio('/mp3/chat.mp3');
 let joinroomSound = new Audio('/mp3/joinroom.mp3');
-let scrollBox = () => {
-  $("#box-message").scrollTop($("#box-message").prop("scrollHeight"));
-};
-let itsMe = (username) => {
-  return username === socket.username;
-};
-
-let getUrlAvatar = (fbid) => {
-  if (fbid !== '') {
-    return `https://graph.facebook.com/${fbid}/picture?type=large&redirect=true&width=40&height=40`;
-  } else {
-    return '/images/default_avatar.jpg';
-  }
-};
-let hostname = `${location.protocol}//${location.host}`;
-let socket = io(`${hostname}/room`); // jshint ignore:line
-console.log(socket);
+let callingSound = new Audio('/mp3/calling.mp3');
 
 socket.emit('connect-me-to-room', data);
 
@@ -65,7 +49,6 @@ socket.on('connect-successfully', (data) => {
     }, 1000);
   });
   socket.username = data.username;
-  // $('#list-user-title').text('[' + data.roomname + ']');
 });
 
 socket.on('a-user-connected', (user) => {
@@ -91,37 +74,9 @@ socket.on('a-user-connected', (user) => {
   $('.list-user').append(s);
 });
 
-socket.on('a-user-disconnected', (data) => {
-  $(`#${data.username}`).remove();
+socket.on('a-user-disconnected', (user) => {
+  $(`#${user.username}`).remove();
 });
-
-let appendDataForMe = (data, s1, s2, lastMess) => {
-  if (lastMess.hasClass('box-my-messages')) {
-    lastMess.children().append(s1);
-    $("#chatchit").text(data.message);
-    $("#chatchit").removeAttr('id');
-  } else {
-    $("#box-message").append(s2);
-    $("#chatchit").text(data.message);
-    $("#chatchit").removeAttr('id');
-  }
-};
-
-let appendDataForFriend = (data, s1, s2, lastMess) => {
-  if (lastMess.attr('sender') === data.username) {
-    lastMess.children('.friend-messages').append(s1);
-    $("#chatchit").text(data.message);
-    $("#chatchit").removeAttr('id');
-  } else {
-    $("#box-message").append(s2);
-    $("#chatchit").text(data.message);
-    $("#chatchit").removeAttr('id');
-  }
-};
-
-let addZero = (number) => {
-  return number < 10 ? `0${number}` : number;
-};
 
 socket.on('someone-send-message', (data) => {
   let lastMess = $('.wrapper-messages:last-child');
@@ -228,12 +183,6 @@ socket.on('new-room-created', (room) => {
   $('#list-room').append(s);
 });
 
-let online = (roomid, aFlag) => {
-  let s = Number($(`#online${roomid}`).text());
-  s = s + aFlag;
-  $(`#online${roomid}`).text(s);
-};
-
 socket.on('a-user-joined-room', (roomid) => {
   online(roomid, 1);
 });
@@ -245,33 +194,7 @@ socket.on('a-user-leaved-room', (roomid) => {
 let sttLeft = true;
 let sttRight = true;
 
-let checkSize = (width) => {
-  if (width < 1000) {
-    $('.btn-slide-left').css('visibility', '');
-    $('.btn-slide-right').css('visibility', '');
-    if (sttRight) { //dang mo?
-      $('.btn-slide-right').click();
-    }
-  } else {
-    $('.btn-slide-left').css('visibility', 'hidden');
-    $('.btn-slide-right').css('visibility', 'hidden');
-    if (!sttRight) { //dang dong'
-      $('.btn-slide-right').click();
-    }
-  }
-  if (width < 700) {
-    if (sttLeft) { //dang mo?
-      $('.btn-slide-left').click();
-    }
-  } else {
-    if (!sttLeft) { //dang dong'
-      $('.btn-slide-left').click();
-    }
-  }
-};
-
 $(document).ready(() => {
-
   //send to server
   $("#btnSend").click(() => {
     $('#popupEmoji').hide();
@@ -374,7 +297,7 @@ $(document).ready(() => {
     $('#input-message').focus();
   });
 
-  $('.tab-emoji-item').click(function () {
+  $('.tab-emoji-item').click(() => {
     let emojiType = $(this).attr('emoji-type');
     $('.tab-emoji-selected').removeClass('tab-emoji-selected');
     $('.emoji-type-selected').removeClass('emoji-type-selected');
@@ -406,71 +329,43 @@ $(document).ready(() => {
         });
     }
   });
+
+  $('#chooseImage').on('change', uploadFile);
+
+  //script for video call
+  $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
+    const targetUsername = $(e.target).closest('.list-user-item').attr('id');
+    window.open(
+      `/call/${socket.roomid}/${targetUsername}`, 
+      targetUsername, "width=800,height=450"
+    );
+  })
+
+  socket.on('A_USER_CALLING', (data) => {
+    const {
+      username, fbid, name, target, roomid, callerId
+    } = data;
+    if (itsMe(target.username)) {
+      fillModalCalling(fbid, name);
+      callingSound.loop = true;
+      callingSound.play();
+      $('#modalCalling').show();
+      $('.modal-footer #btnAnswer').on('click', () => {
+        callingSound.pause();
+        $('#modalCalling').hide();
+        window.open(
+          `/answer/${roomid}/${username}/${callerId}`, 
+          username, "width=800,height=450"
+        );
+      });
+      $('.modal-footer #btnCancel').on('click', () => {
+        callingSound.pause();
+        $('#modalCalling').hide();
+        socket.emit('USER_CANCEL_CALL', data);
+      });
+    }
+  });
 });
 
-let checkFile = (file) => {
-  if (file.size > 2097152) {
-    alert('Max image size is 2MB');
-    return false;
-  }
-  if (!file.type.includes('image')) {
-    alert('Only image file');
-    return false;
-  }
-  return true;
-};
 
-let uploadFile = (e) => {
-  let file = e.target.files[0];
-  if (checkFile(file)) {
-    let time = new Date().getTime();
-    socket.emit('user-send-image', time);
-    let formData = new FormData();
-    formData.append("image", file);
-    $.ajax({
-        url: 'https://api.imgur.com/3/image',
-        type: 'POST',
-        headers: {
-          "Authorization": "Client-ID c495b49b842a03e"
-        },
-        data: formData,
-        cache: false,
-        dataType: 'json',
-        processData: false, // Don't process the files
-        contentType: false, // Set content type to false as jQuery will tell 
-      })
-      .then((resUpload) => {
-        socket.emit('update-src-for-image', {
-          time,
-          link: resUpload.data.link
-        });
-      })
-      .catch((err) => { //jshint ignore: line
-        // console.log(err);
-        alert('Cannot upload file');
-      });
-  }
-};
 
-$('#chooseImage').on('change', uploadFile);
-
-//script for video call
-$('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
-  const targetId = $(e.target).closest('.list-user-item').attr('id');
-  window.open('/call/' + socket.roomid + '/' + targetId, targetId, "width=800,height=450");
-})
-
-socket.on('A_USER_CALLING', data => {
-  // console.log(data);
-  if (itsMe(data.iduser)) {
-    $('#modalCalling').show();
-    $('.modal-footer #btnAnswer').on('click', () => {
-      $('#modalCalling').hide();
-      window.open(`/answer/${data.roomid}/${data.iduser}/${data.callerId}`, data.iduser, "width=800,height=450");
-    });
-    $('.modal-footer #btnCancel').on('click', () => {
-      $('#modalCalling').hide();
-      socket.emit('USER_CANCEL_CALL', data);
-    });
-  }
-})
