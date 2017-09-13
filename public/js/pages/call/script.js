@@ -1,8 +1,11 @@
 let hostname = `${location.protocol}//${location.host}`;
 let socket = io(`${hostname}/call`); // jshint ignore:line
 
-let myid; 
-let customConfig;
+let myid, customConfig, timeoutClose, intervalClose;
+
+const updateUrl = (url) => {
+  history.pushState(null, null, url);
+};
 
 let getUrlAvatar = (fbid, w = 40, h = 40) => {
   if (fbid !== '') {
@@ -15,6 +18,27 @@ const fillTargetInfo = (fbid, name) => {
   $('.target-info #avatar').attr('src', getUrlAvatar(fbid, 150, 150));
   $('.target-info #name').text(name);
 };
+const fillTargetStatus = (status) => {
+  $('.target').show();
+  $('.target-info #status').text(status);
+};
+const updateEndTime = (seconds) => {
+  $('.target-info #end-time').show();
+  $('.target-info #end-time #time').text(seconds);
+};
+const disconnectToTarget = () => {
+  fillTargetStatus('Mất kết nối, đang chờ kết nối lại');
+  let seconds = 15;
+  updateEndTime(seconds);
+  intervalClose = setInterval(() => {
+    updateEndTime(--seconds);
+  }, 1000);
+  timeoutClose = setTimeout(() => {
+    clearInterval(intervalClose);
+    alert('Cuộc gọi đã kết thúc');
+    window.close();
+  }, 15000);
+}
 fillTargetInfo(data.target.fbid, data.target.name);
 
 // // Call Xirsys ICE servers
@@ -34,7 +58,12 @@ $.ajax ({
 
 
 function openStream() {
-    const config = { audio: false, video: true };
+    const config = {
+      audio: false,
+      video: { 
+        facingMode: "user"
+      }
+    };
     return navigator.mediaDevices.getUserMedia(config);
 }
 

@@ -354,7 +354,7 @@ $(document).ready(() => {
         callingSound.pause();
         $('#modalCalling').hide();
         window.open(
-          `/answer/${roomid}/${username}/${callerId}`, 
+          `/call/${roomid}/${username}/${callerId}`, 
           username, "width=800,height=450"
         );
       });
@@ -363,6 +363,17 @@ $(document).ready(() => {
         $('#modalCalling').hide();
         socket.emit('USER_CANCEL_CALL', data);
       });
+    }
+  });
+  socket.on('A_USER_ENDCALL', (data) => {
+    const {
+      target, name
+    } = data;
+    if (itsMe(target.username)) {
+      if (($('#modalCalling').css('display') === 'block')) {
+        $('.modal-footer #btnCancel').click();
+        alert('Bạn đã lỡ 1 cuộc gọi từ ' + name);
+      }
     }
   });
 });

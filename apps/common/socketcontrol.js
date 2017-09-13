@@ -1,7 +1,8 @@
 'use strict';
 // let helper = require('../helpers/helper');
 module.exports = (io) => {
-  let listAllRoom = require('../common/list-all-room');
+  let listAllRoom = require('./list-all-room');
+  let listInCall = require('./list-in-call');
   let nsRoom = io.of('/room');
   let nsCall = io.of('/call');
   let nsListRoom = io.of('/list-room');
@@ -10,8 +11,45 @@ module.exports = (io) => {
     console.log('someone connected nsCall, id = ', socket.id);
 
     socket.on('CALL_ME_TO', (data) => {
-      const {roomid} = data;
+      let check =  false;
+      let mess = '';
+      if (listInCall.checkUserInCall(data.username)) {
+        check = true;
+        mess += data.name + ' đang trong cuộc gọi khác\n';
+      }
+      if (listInCall.checkUserInCall(data.target.username)) {
+        check = true;
+        mess += data.target.name + ' đang trong cuộc gọi khác';
+      }
+      if (check) {
+        socket.emit('CANNOT_CALL_NOW', mess);
+        return;
+      }
+      const { username, name, roomid, target } = data;
+      listInCall.pushUser(username);
+      listInCall.pushUser(target.username);
+      socket.name = name;
+      socket.target = target;
+      socket.roomid = roomid;
+      socket.username = username;
       nsRoom.to(roomid).emit('A_USER_CALLING', data);
+    });
+
+    socket.on('ADD_ME_TO_LIST_IN_CALL', (data) => {
+      const { username, name, roomid, target } = data;
+      listInCall.pushUser(username);
+      listInCall.pushUser(target.username);
+      socket.name = name;
+      socket.target = target;
+      socket.roomid = roomid;
+      socket.username = username;
+    })
+
+    socket.on('disconnect', (data) => {
+      const { username, name, roomid, target } = socket;
+      username ? listInCall.removeUser(username) : null;
+      target ? listInCall.removeUser(target.username) : null;
+      nsRoom.to(roomid).emit('A_USER_ENDCALL', {name, target});
     });
 
     socket.on('USER_CANCEL_CALL', (data) => {

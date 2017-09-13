@@ -9,7 +9,7 @@
 
 .target .target-info {
   width: 250px;
-  margin: 80px auto;
+  margin: 80px auto 0 auto;
   text-align: center;
 }
 
@@ -27,11 +27,16 @@
   margin: 15px 0;
 }
 
-.target .target-info #status {
+.target .target-info #status,
+.target .target-info #end-time {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 15px;
   color: #fff;
+}
+
+.target .target-info #end-time {
+  display: none;
 }
 
 #localStream{
