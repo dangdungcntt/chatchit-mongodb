@@ -125,3 +125,12 @@ const fillModalCalling = (fbid, name) => {
   $('#modalCalling .avatar').attr('src', getUrlAvatar(fbid));
   $('#modalCalling .modal-body b').text(name);
 };
+
+const openPopupCenter = (url, w, h) => {
+  const left = Number((screen.width/2)-(w/2));
+  const top = Number((screen.height/2)-(h/2) - 50);
+  return window.open(
+    url, '', 
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=1, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left
+  );
+};

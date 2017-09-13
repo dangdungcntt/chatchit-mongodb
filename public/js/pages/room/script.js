@@ -335,10 +335,11 @@ $(document).ready(() => {
   //script for video call
   $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
     const targetUsername = $(e.target).closest('.list-user-item').attr('id');
-    window.open(
-      `/call/${socket.roomid}/${targetUsername}`, 
-      targetUsername, "width=800,height=450"
+    const popupWindow = openPopupCenter(
+      `/call/${socket.roomid}/${targetUsername}`,
+      800, 450
     );
+    popupWindow.focus(); return false;
   })
 
   socket.on('A_USER_CALLING', (data) => {
@@ -353,10 +354,11 @@ $(document).ready(() => {
       $('.modal-footer #btnAnswer').on('click', () => {
         callingSound.pause();
         $('#modalCalling').hide();
-        window.open(
-          `/call/${roomid}/${username}/${callerId}`, 
-          username, "width=800,height=450"
+        const popupWindow = openPopupCenter(
+          `/call/${roomid}/${username}/${callerId}`,
+          800, 450
         );
+        popupWindow.focus(); return false;
       });
       $('.modal-footer #btnCancel').on('click', () => {
         callingSound.pause();

@@ -59,7 +59,7 @@ $.ajax ({
 
 function openStream() {
     const config = {
-      audio: false,
+      audio: true,
       video: { 
         facingMode: "user"
       }
