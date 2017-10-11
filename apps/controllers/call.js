@@ -1,40 +1,35 @@
-'use strict';
-var express = require('express');
-var listAllRoom = require('../common/list-all-room');
+"use strict";
+var express = require("express");
+var listAllRoom = require("../common/list-all-room");
 var router = express.Router();
 
-router.get('/:roomid/:targetUsername', (req, res) => {
-  const {
-    roomid, targetUsername
-  } = req.params;
-  let {
-    username,
-    name,
-    fbid
-  } = req.session.user;
+router.get("/:roomid/:targetUsername", (req, res) => {
+  const { roomid, targetUsername } = req.params;
+  let { username, name, fbid } = req.session.user;
   const target = listAllRoom.getUserInfoInRoom(roomid, targetUsername);
-  res.render('pages/call/index', {
+  res.render("pages/call/index", {
     data: {
-      roomid, username,
-      name, fbid, target
+      roomid,
+      username,
+      name,
+      fbid,
+      target
     }
   });
 });
 
-router.get('/:roomid/:targetUsername/:callerId', (req, res) => {
-  const {
-    roomid, targetUsername, callerId
-  } = req.params;
-  let {
-    username,
-    name,
-    fbid
-  } = req.session.user;
+router.get("/:roomid/:targetUsername/:callerId", (req, res) => {
+  const { roomid, targetUsername, callerId } = req.params;
+  let { username, name, fbid } = req.session.user;
   const target = listAllRoom.getUserInfoInRoom(roomid, targetUsername);
-  res.render('pages/call/answer', {
+  res.render("pages/call/answer", {
     data: {
-      roomid, username,
-      name, fbid, callerId, target
+      roomid,
+      username,
+      name,
+      fbid,
+      callerId,
+      target
     }
   });
 });
