@@ -1,11 +1,11 @@
-'use strict';
-var mongoose = require('mongoose');
+"use strict";
+var mongoose = require("mongoose");
 
 mongoose.connect(process.env.DB_STRING_URL, {
-  useMongoClient: true,
+  useMongoClient: true
   /* other options */
 });
-mongoose.Promise = require('bluebird');
+mongoose.Promise = require("bluebird");
 
 module.exports = {
   mongoose

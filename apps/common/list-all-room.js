@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 let listAllRoom = [];
 
-let checkRoomExists = (roomid) => {
+let checkRoomExists = roomid => {
   let length = listAllRoom.length;
   for (let i = 0; i < length; i++) {
     if (listAllRoom[i].roomid === roomid) {
@@ -15,12 +15,12 @@ let getListRoom = () => {
   return [...listAllRoom];
 };
 
-let getRoomNameById = (roomid) => {
+let getRoomNameById = roomid => {
   let i = checkRoomExists(roomid);
-  return i == -1 ? 'Undefined' : listAllRoom[i].roomname;
+  return i == -1 ? "Undefined" : listAllRoom[i].roomname;
 };
 
-let getListRoomOfUser = (username) => {
+let getListRoomOfUser = username => {
   let listRoom = [];
   let numRoom = listAllRoom.length;
   for (let i = 0; i < numRoom; i++) {
@@ -47,11 +47,11 @@ let checkUserExists = (roomid, username) => {
   return false;
 };
 
-let getListUserOfRoom = (index) => {
+let getListUserOfRoom = index => {
   return [...listAllRoom[index].listUser];
 };
 
-let pushRoom = (room) => {
+let pushRoom = room => {
   listAllRoom.push(room);
 };
 

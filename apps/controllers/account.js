@@ -1,32 +1,32 @@
-'use strict';
-let express = require('express');
-let User = require('../models/user');
-let shortid = require('shortid');
-let jwt = require('../helpers/jwt');
-let bcrypt = require('../helpers/bcrypt');
-let helper = require('../helpers/helper');
+"use strict";
+let express = require("express");
+let User = require("../models/user");
+let shortid = require("shortid");
+let jwt = require("../helpers/jwt");
+let bcrypt = require("../helpers/bcrypt");
+let helper = require("../helpers/helper");
 
 let router = express.Router();
 
-router.get('/register', (req, res) => {
+router.get("/register", (req, res) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect("/");
   }
   req.session._shortidRegister = shortid.generate();
-  res.render('pages/register', {
+  res.render("pages/register", {
     data: {
       _shortid: req.session._shortidRegister
     }
   });
 });
 
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   let params = req.body;
 
   if (params._shortidRegister !== req.session._shortidRegister) {
     return res.json({
       status_code: 403,
-      error: ''
+      error: ""
     });
   }
 
@@ -35,51 +35,52 @@ router.post('/register', (req, res) => {
     return res.json(check);
   }
 
-  User.findOne({ //check exists username
+  User.findOne({
+    //check exists username
+    username: params.username
+  }).exec((err, user) => {
+    if (err || user) {
+      return res.json({
+        status_code: 345,
+        error: "Username already exists"
+      });
+    }
+
+    let name =
+      params.name.trim().length === 0 ? params.username : params.name.trim();
+    var ac = new User({
       username: params.username,
-    })
-    .exec((err, user) => {
-      if (err || user) {
+      password: bcrypt.hashPassword(params.password),
+      name: name,
+      email: params.email,
+      fbid: "",
+      admin: false,
+      secret: shortid.generate()
+    });
+
+    ac.save(err => {
+      if (err) {
         return res.json({
           status_code: 345,
-          error: 'Username already exists'
+          error: "Undefined error"
         });
       }
-
-      let name = params.name.trim().length === 0 ? params.username : params.name.trim();
-      var ac = new User({
-        username: params.username,
-        password: bcrypt.hashPassword(params.password),
-        name: name,
-        email: params.email,
-        fbid: '',
-        admin: false,
-        secret: shortid.generate()
-      });
-
-      ac.save((err) => {
-        if (err) {
-          return res.json({
-            status_code: 345,
-            error: 'Undefined error'
-          });
-        }
-        req.session.newusername = params.username;
-        res.json({
-          status_code: 200,
-        });
+      req.session.newusername = params.username;
+      res.json({
+        status_code: 200
       });
     });
+  });
 });
 
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.user) {
-    return res.redirect('/');
+    return res.redirect("/");
   }
   req.session._shortidLogin = shortid.generate();
   let newusername = req.session.newusername;
   let redirectUrl = req.session.redirectUrl;
-  res.render('pages/login', {
+  res.render("pages/login", {
     data: {
       _shortid: req.session._shortidLogin,
       newusername,
@@ -88,148 +89,169 @@ router.get('/login', (req, res) => {
   });
 });
 
-router.post('/authenticate', (req, res) => {
+router.post("/authenticate", (req, res) => {
   let params = req.body;
   if (params._shortidLogin !== req.session._shortidLogin) {
     return res.json({
       status_code: 345,
-      error: ''
+      error: ""
     });
   }
-  User.findOne({
-    username: params.username,
-  }, (err, user) => {
-    if (err || !user) {
+  User.findOne(
+    {
+      username: params.username
+    },
+    (err, user) => {
+      if (err || !user) {
+        return res.json({
+          status_code: 345,
+          error: "Username or Password do not match"
+        });
+      }
+      if (!bcrypt.comparePassword(params.password, user.password)) {
+        return res.json({
+          status_code: 345,
+          error: "Username or Password do not match"
+        });
+      }
+      let userData = {
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        fbid: user.fbid,
+        admin: user.admin,
+        secret: user.secret
+      };
+      //save user
+      req.session.user = userData;
+      let token = jwt.generateToken(userData);
+      let refreshToken = jwt.generateToken(
+        {
+          username: user.username
+        },
+        86400 * 30
+      ); //second param is expiresIn
       return res.json({
-        status_code: 345,
-        error: 'Username or Password do not match'
+        status_code: 200,
+        token,
+        refreshToken
       });
     }
-    if (!bcrypt.comparePassword(params.password, user.password)) {
-      return res.json({
-        status_code: 345,
-        error: 'Username or Password do not match'
-      });
-    }
-    let userData = {
-      username: user.username,
-      name: user.name,
-      email: user.email,
-      fbid: user.fbid,
-      admin: user.admin,
-      secret: user.secret
-    };
-    //save user
-    req.session.user = userData;
-    let token = jwt.generateToken(userData);
-    let refreshToken = jwt.generateToken({
-      username: user.username
-    }, 86400 * 30); //second param is expiresIn
-    return res.json({
-      status_code: 200,
-      token,
-      refreshToken
-    });
-  });
-
+  );
 });
 
-router.post('/checkToken', (req, res) => {
+router.post("/checkToken", (req, res) => {
   if (!req.body.token) {
     return res.json({
       status_code: 345
     });
   }
 
-  jwt.verifyToken(req.body.token)
-    .then((decoded) => {
-      User.findOne({
-        username: decoded.username,
-        secret: decoded.secret
-      }, (err, user) => {
-        if (err || !user) {
+  jwt
+    .verifyToken(req.body.token)
+    .then(decoded => {
+      User.findOne(
+        {
+          username: decoded.username,
+          secret: decoded.secret
+        },
+        (err, user) => {
+          if (err || !user) {
+            return res.json({
+              status_code: 345
+            });
+          }
+          let userData = {
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            fbid: user.fbid,
+            admin: user.admin,
+            secret: user.secret
+          };
+          req.session.user = userData;
+          let token = jwt.generateToken(userData);
+          let refreshToken = jwt.generateToken(
+            {
+              username: user.username
+            },
+            86400 * 30
+          );
           return res.json({
-            status_code: 345,
+            status_code: 200,
+            token,
+            refreshToken
           });
         }
-        let userData = {
-          username: user.username,
-          name: user.name,
-          email: user.email,
-          fbid: user.fbid,
-          admin: user.admin,
-          secret: user.secret
-        };
-        req.session.user = userData;
-        let token = jwt.generateToken(userData);
-        let refreshToken = jwt.generateToken({
-          username: user.username,
-        }, 86400 * 30);
-        return res.json({
-          status_code: 200,
-          token,
-          refreshToken
-        });
-      });
+      );
     })
-    .catch((err) => { //jshint ignore:line
-      if (err.expiredAt) { //token expired
+    .catch(err => {
+      //jshint ignore:line
+      if (err.expiredAt) {
+        //token expired
         return res.json({
-          status_code: 410, //send code expired
+          status_code: 410 //send code expired
         });
       }
       return res.json({
-        status_code: 345,
+        status_code: 345
       });
     });
 });
 
-router.post('/refreshToken', (req, res) => {
+router.post("/refreshToken", (req, res) => {
   if (!req.body.refreshToken) {
     return res.json({
       status_code: 345
     });
   }
 
-  jwt.verifyToken(req.body.refreshToken)
-    .then((decoded) => {
-      User.findOne({
-        username: decoded.username,
-      }, (err, user) => {
-        if (err || !user) {
+  jwt
+    .verifyToken(req.body.refreshToken)
+    .then(decoded => {
+      User.findOne(
+        {
+          username: decoded.username
+        },
+        (err, user) => {
+          if (err || !user) {
+            return res.json({
+              status_code: 345
+            });
+          }
+          let userData = {
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            fbid: user.fbid,
+            admin: user.admin,
+            secret: user.secret
+          };
+          req.session.user = userData;
+          let token = jwt.generateToken(userData);
+          let refreshToken = jwt.generateToken(
+            {
+              username: user.username
+            },
+            86400 * 30
+          );
           return res.json({
-            status_code: 345,
+            status_code: 200,
+            token,
+            refreshToken
           });
         }
-        let userData = {
-          username: user.username,
-          name: user.name,
-          email: user.email,
-          fbid: user.fbid,
-          admin: user.admin,
-          secret: user.secret
-        };
-        req.session.user = userData;
-        let token = jwt.generateToken(userData);
-        let refreshToken = jwt.generateToken({
-          username: user.username,
-        }, 86400 * 30);
-        return res.json({
-          status_code: 200,
-          token,
-          refreshToken
-        });
-      });
+      );
     })
-    .catch((err) => { //jshint ignore:line
+    .catch(err => {
+      //jshint ignore:line
       return res.json({
-        status_code: 345,
+        status_code: 345
       });
     });
-
 });
 
-router.post('/logout', (req, res) => {
+router.post("/logout", (req, res) => {
   if (req.session.user) {
     req.session.user = undefined;
   }
