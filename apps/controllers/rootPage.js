@@ -42,18 +42,10 @@ router.post('/create-room', (req, res) => {
       error: 'Room already exists'
     });
   }
-  let {
-    roomid,
-    roomname,
-    roomimage,
-    master
-  } = req.body;
-  let room = {
-    roomid,
-    roomname,
-    roomimage,
-    master,
-    listUser: []
+  let { roomid, roomname, roomimage, master } = req.body;
+  let room = { 
+    roomid, roomname, roomimage,
+    master, listUser: [], messages: []
   };
   listAllRoom.pushRoom(room);
   return res.json({

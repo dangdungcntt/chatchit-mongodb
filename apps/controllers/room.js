@@ -1,6 +1,5 @@
 'use strict';
 let express = require('express');
-
 let router = express.Router();
 
 let listAllRoom = require('../common/list-all-room');
@@ -36,7 +35,8 @@ router.get('/:id', (req, res) => {
       roomname,
       username,
       name,
-      fbid
+      fbid,
+      baseAPIUpImg: process.env.API_UPLOAD_IMG
     }
   });
 });

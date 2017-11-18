@@ -7,6 +7,10 @@ module.exports = (io) => {
   let nsCall = io.of('/call');
   let nsListRoom = io.of('/list-room');
 
+  let addZero = (number) => {
+    return number < 10 ? `0${number}` : number;
+  };
+
   nsCall.on('connection', (socket) => {
     console.log('someone connected nsCall, id = ', socket.id);
 
@@ -90,9 +94,6 @@ module.exports = (io) => {
 
       let exists = listAllRoom.checkUserExists(data.roomid, data.username);
       let i = listAllRoom.checkRoomExists(data.roomid);
-      data.listUser = listAllRoom.getListUserOfRoom(i);
-
-      data.listRoom = listAllRoom.getListRoom();
 
       let user = {
         username: socket.username,
@@ -107,6 +108,12 @@ module.exports = (io) => {
         listAllRoom.pushUserToRoom(i, user);
       }
 
+      data.listUser = listAllRoom.getListUserOfRoom(i); //for right side bar
+
+      data.listRoom = listAllRoom.getListRoom(); //for left side bar
+
+      data.listMessages = listAllRoom.getListMessages(data.roomid);
+
       socket.join(data.roomid, () => {
         socket.emit('connect-successfully', data);
         if (!exists) {
@@ -119,24 +126,43 @@ module.exports = (io) => {
     });
 
     socket.on('user-send-messages', (message) => {
-      nsRoom.to(socket.roomid).emit('someone-send-message', {
-        username: socket.username,
-        name: socket.name,
-        message,
-        fbid: socket.fbid
-      });
-    });
-
-    socket.on('user-send-image', (time) => {
-      nsRoom.to(socket.roomid).emit('someone-send-image', {
+      let date = new Date();
+      let time = date.getTime();
+      let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
+      let objMessage = {
+        type: 'message',
         username: socket.username,
         name: socket.name,
         time,
-        fbid: socket.fbid
-      });
+        timeSent,
+        fbid: socket.fbid,
+        message,
+        src: "",
+      }
+      listAllRoom.saveMessage(socket.roomid, objMessage);
+      nsRoom.to(socket.roomid).emit('someone-send-message', objMessage);
+    });
+
+    socket.on('user-send-image', (time) => {
+      let date = new Date();
+      let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
+      let objImg = {
+        type: 'image',
+        username: socket.username,
+        name: socket.name,
+        time,
+        timeSent,
+        fbid: socket.fbid,
+        message: "",
+        src: "/images/img_trans.gif",
+      }
+      listAllRoom.saveMessage(socket.roomid, objImg);
+      nsRoom.to(socket.roomid).emit('someone-send-image', objImg);
     });
 
     socket.on('update-src-for-image', (data) => {
+      // console.log(data);
+      listAllRoom.updateSrcForMessage(socket.roomid, data.time, data.link);
       nsRoom.to(socket.roomid).emit('update-src-for-image', data);
     });
 

@@ -12,8 +12,52 @@ let checkRoomExists = (roomid) => {
 };
 
 let getListRoom = () => {
-  return [...listAllRoom];
+  return listAllRoom.map((room) => {
+    let { messages, listUser, ...roomFiltered } = room;
+    return {
+      ...roomFiltered, countUser: listUser.length
+    };
+  });
 };
+
+let getListMessages = (roomid) => {
+  let length = listAllRoom.length;
+  for (let i = 0; i < length; i++) {
+    if (listAllRoom[i].roomid === roomid) {
+      return listAllRoom[i].messages;
+    }
+  }
+  return [];
+};
+
+let saveMessage = (roomid, objMessage) => {
+  let length = listAllRoom.length;
+  for (let i = 0; i < length; i++) {
+    if (listAllRoom[i].roomid === roomid) {
+      listAllRoom[i].messages.push(objMessage);
+      return;
+    }
+  }
+};
+
+let updateSrcForMessage = (roomid, time, src) => {
+  // console.log(time);
+  // console.log(src);
+  
+  let length = listAllRoom.length;
+  for (let i = 0; i < length; i++) {
+    if (listAllRoom[i].roomid === roomid) {
+      for (let j = listAllRoom[i].messages.length - 1; j >= 0; j--) {
+        let mess = listAllRoom[i].messages[j];
+        // console.log(mess);
+        if (mess.type === "image" && mess.time === time) {
+          mess.src = src;
+        }
+      }
+      return;
+    }
+  }
+}
 
 let getRoomNameById = (roomid) => {
   let i = checkRoomExists(roomid);
@@ -113,5 +157,8 @@ module.exports = {
   pushUserToRoom,
   addUserInRoom,
   removeAUserInRoom,
-  getUserInfoInRoom
+  getUserInfoInRoom,
+  getListMessages,
+  saveMessage,
+  updateSrcForMessage
 };

@@ -1,4 +1,5 @@
 node_modules
+public/upload
 original_icons
 note
 .env

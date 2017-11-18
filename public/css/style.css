@@ -439,6 +439,10 @@ nav ul {
   background: #92fcec
 }
 
+.page-room img.message.message-image {
+  cursor: pointer;
+}
+
 .page-room .input-message {
   float: left;
   font-family: inherit;
@@ -639,3 +643,5 @@ nav ul {
 .page-room .emoji-type-selected {
   display: block;
 }
+
+

@@ -12,7 +12,7 @@ socket.on('send-list-room', (listRoom) => {
 					<div class="crop">
 						<b title="${room.roomname}">${room.roomname}</b>
 						<br>
-						Online <span class="text-muted" id="${room.roomid}">${room.listUser.length}</span>
+						Online <span class="text-muted" id="${room.roomid}">${room.countUser}</span>
 						</div>
 					</div>
 				</a>

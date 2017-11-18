@@ -10,37 +10,19 @@ socket.on('connect-successfully', (data) => {
   socket.roomid = data.roomid;
   data.listUser.forEach((user) => {
     if (itsMe(user.username)) {
-      return;
+      return; 
     }
-    let s = `
-				<a href="#" id="${user.username}" class="list-user-item" title="${user.name}">
-					<div class="user-avatar">
-						<img width="32" height="32" src="${getUrlAvatar(user.fbid)}">
-					</div>
-					<div class="user-info">
-						<div class="user-name">${user.name}</div>
-						<div class="user-status">Online</div>
-					</div>
-				</a>
-			`;
-    $('.list-user').append(s);
+    let userItem = new User(user);
+    $('.list-user').append(userItem.render());
   });
   data.listRoom.forEach((room) => {
-    let s = `
-				<a href="/room/${room.roomid}" class="list-room-item" title="${room.roomname}">
-					<div class="room-logo">
-						<img src="${room.roomimage}">
-					</div>
-					<div class="room-info">
-						<div class="room-name">${room.roomname}</div>
-						<div class="room-id">${room.roomid}</div>
-						<div class="room-detail">
-							Online <span id="online${room.roomid}">${room.listUser.length}</span>
-						</div>
-					</div>
-				</a>
-			`;
-    $('#list-room').append(s);
+    let roomItem = new Room(room);
+    $('#list-room').append(roomItem.render());
+  });
+
+  data.listMessages.forEach(message => {
+    if (message.type === "message") someOneSendMessage(message);
+    else someOneSendImage(message);
   });
   $('.loading').fadeOut(500, () => {
     $('.container').slideDown(600);
@@ -52,6 +34,7 @@ socket.on('connect-successfully', (data) => {
 });
 
 socket.on('a-user-connected', (user) => {
+  //user structure: {username: string, name: string, fbid: string, count: number}
   if (itsMe(user.username)) {
     return;
   }
@@ -60,92 +43,30 @@ socket.on('a-user-connected', (user) => {
   if (!sttRight) {
     show = 'style="display: none;"';
   }
-  let s = `
-			<a href="#" id="${user.username}" class="list-user-item">
-				<div class="user-avatar">
-					<img width="32" height="32" src="${getUrlAvatar(user.fbid)}">
-				</div>
-				<div ${show} class="user-info">
-					<div class="user-name">${user.name}</div>
-					<div class="user-status">Online</div>
-				</div>
-			</a>
-		`;
-  $('.list-user').append(s);
+  let userItem = new User(user);
+  $('.list-user').append(userItem.render());
 });
 
 socket.on('a-user-disconnected', (user) => {
+  //user structure: { username: string, name: string }
   $(`#${user.username}`).remove();
 });
 
-socket.on('someone-send-message', (data) => {
-  let lastMess = $('.wrapper-messages:last-child');
-  let date = new Date();
-  let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
-  if (itsMe(data.username)) {
-    let s1 = `<div id="chatchit" class="message my-color" title="${timeSent}"></div>`;
-    let s2 = `
-					<div class="wrapper-messages my-wrapper-messages box-my-messages clearfix">
-						<div class="my-messages">
-							${s1}
-						</div>
-					</div>
-				`;
-    appendDataForMe(data, s1, s2, lastMess);
-    scrollBox();
-    return;
+socket.on('someone-send-message', (message) => {
+  //message structure: {username: string, name: string, message: string, fbid: string}
+  someOneSendMessage(message);
+  if (!itsMe(message.username)) {
+    chatSound.play();
   }
-  let s1 = `<div id="chatchit" class="message friend-color" title="${timeSent}"></div>`;
-  let s2 = `
-			<div sender="${data.username}" class="wrapper-messages box-friend-messages clearfix">
-				<div class="friend-name">${data.name}</div>
-				<div class="friend-avatar">
-					<img class="avatar" src="${getUrlAvatar(data.fbid)}" />
-				</div>
-				<div class="friend-messages">
-					${s1}
-				</div>
-			</div>
-		`;
-  appendDataForFriend(data, s1, s2, lastMess);
-  chatSound.play();
-  scrollBox();
 });
 
-socket.on('someone-send-image', (data) => {
-  let lastMess = $('.wrapper-messages:last-child');
-  let date = new Date();
-  let timeSent = `${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
-  if (itsMe(data.username)) {
-    let s1 = `<img id="${data.time}" class="message message-image my-image" src="/images/img_trans.gif" alt="image" title="${timeSent}" />`;
-    let s2 = `
-				<div class="wrapper-messages my-wrapper-messages box-my-messages clearfix">
-					<div class="my-messages">
-						${s1}
-					</div>
-				</div>
-			`;
-    appendDataForMe(data, s1, s2, lastMess);
-    scrollBox();
-    return;
-  }
-  let s1 = `<img id="${data.time}" class="message message-image" src="/images/img_trans.gif" alt="image" title="${timeSent}" />`;
-  let s2 = `
-			<div sender="${data.username}" class="wrapper-messages box-friend-messages clearfix">
-				<div class="friend-name">${data.name}</div>
-				<div class="friend-avatar">
-					<img class="avatar" src="${getUrlAvatar(data.fbid)}">
-				</div>
-				<div class="friend-messages">
-					${s1}
-				</div>
-			</div>
-		`;
-  appendDataForFriend(data, s1, s2, lastMess);
-  scrollBox();
+socket.on('someone-send-image', (message) => {
+  //message structure: {username: string, name: string, time: number, fbid: string}
+  someOneSendImage(message);
 });
 
 socket.on('update-src-for-image', (data) => {
+  //data structure: {time: number, link: string}
   let targetImage = $(`#${data.time}`);
   targetImage.css('background', 'none');
   targetImage.attr('src', data.link);
@@ -157,8 +78,7 @@ socket.on('update-src-for-image', (data) => {
     setTimeout(() => {
       scrollBox();
     }, 500);
-  })
-
+  });
 });
 
 socket.on('new-room-created', (room) => {
@@ -166,21 +86,8 @@ socket.on('new-room-created', (room) => {
   if (!sttLeft) {
     show = 'style="display: none;"';
   }
-  let s = `
-			<a href="/room/${room.roomid}" class="list-room-item">
-				<div class="room-logo">
-					<img src="${room.roomimage}">
-				</div>
-				<div ${show} class="room-info">
-					<div class="room-name">${room.roomname}</div>
-					<div class="room-id">${room.roomid}</div>
-					<div class="room-detail">
-						Online <span id="online${room.roomid}">0</span>
-					</div>
-				</div>
-			</a>
-		`;
-  $('#list-room').append(s);
+  let roomItem = new Room(room);
+  $('#list-room').append(roomItem.render());
 });
 
 socket.on('a-user-joined-room', (roomid) => {
@@ -206,9 +113,139 @@ $(document).ready(() => {
     $("#input-message").val('');
   });
 
+  $('#chooseImage').on('change', (e) => {
+    let file = e.target.files[0];
+    uploadFile(file);
+  });
+
+  window.addEventListener("paste", (e) => {
+    retrieveImageFromClipboardAsBlob(e, (imageBlob) => {
+      if (imageBlob) {
+        uploadFile(imageBlob);
+      }
+    });
+  });
+  window.addEventListener("dragover", e => e.preventDefault());
+  window.addEventListener("drop", (e) => {
+    e.preventDefault();
+    uploadFile(e.dataTransfer.files[0]);
+  })
+
   $("#input-message").keyup((event) => {
     if (event.keyCode === 13) {
       $("#btnSend").click();
+    }
+  });
+
+  $(document).on('click', (event) => {
+    if ($(event.target).attr('id') === 'btnEmoji') return;
+    if (!$(event.target).closest('#popupEmoji').length) {
+      if ($('#popupEmoji').is(":visible")) {
+        $('#popupEmoji').hide();
+      }
+    }
+  });
+
+  $('#btnEmoji').on('click', () => {
+    $('#popupEmoji').toggle();
+    $('.tab-emoji-selected').click();
+  });
+
+  $(document).on('click', 'a.emoji-item', (e) => {
+    $('#input-message').val($('#input-message').val() + $(e.target).text());
+    $('#input-message').focus();
+  });
+
+  $('.tab-emoji-item').click((e) => {
+    let _this = e.target;
+    let emojiType = $(_this).attr('emoji-type');
+    $('.tab-emoji-selected').removeClass('tab-emoji-selected');
+    $('.emoji-type-selected').removeClass('emoji-type-selected');
+    $(_this).addClass('tab-emoji-selected');
+    if ($(`#${emojiType}`).length) { //da co noi dung
+      $(`#${emojiType}`).addClass('emoji-type-selected');
+    } else { //chua co
+      $('.content-popupEmoji').css('background', "url('/images/loading-emoji.gif') center center no-repeat");
+      $.ajax({
+        url: '/api/list-emoji',
+        type: 'post',
+        data: {
+          emojiname: emojiType
+        },
+        dataType: 'json'
+      })
+      .then((res) => { //res is an array
+        // console.log(res);
+        let typeEmoji = res[0];
+        $('.content-popupEmoji').append(`<div id="${typeEmoji.name}" class="emoji-type-content emoji-type-selected">`);
+        $('.content-popupEmoji').css('background', 'none');
+        typeEmoji.list.forEach((emoji) => {
+          $(`#${typeEmoji.name}`).append(`<a class="emoji-item" title="${emoji.name}">${emoji.value}</a>`);
+        });
+
+      })
+      .catch((err) => {
+        // alert(err);
+        alert('Cannot load Emoji');
+      });
+    }
+  });
+
+
+  $(document).on('click', 'img.message.message-image', (e) => {
+    let _this = e.target;
+    let src = $(_this).attr("src");
+    let width = _this.naturalWidth;
+    let height = _this.naturalHeight;
+    if (width > 1000) width = 1000;
+    if (height > 600) height = 600;
+    openPopupCenter(src, width, height);
+  });
+
+  //script for video call
+  $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
+    const targetUsername = $(e.target).closest('.list-user-item').attr('id');
+    const popupWindow = openPopupCenter(
+      `/call/${socket.roomid}/${targetUsername}`,
+      800, 450
+    );
+    popupWindow.focus(); return false;
+  })
+
+  socket.on('A_USER_CALLING', (data) => {
+    const {
+      username, fbid, name, target, roomid, callerId
+    } = data;
+    if (itsMe(target.username)) {
+      fillModalCalling(fbid, name);
+      callingSound.loop = true;
+      callingSound.play();
+      $('#modalCalling').show();
+      $('.modal-footer #btnAnswer').on('click', () => {
+        callingSound.pause();
+        $('#modalCalling').hide();
+        const popupWindow = openPopupCenter(
+          `/call/${roomid}/${username}/${callerId}`,
+          800, 450
+        );
+        popupWindow.focus(); return false;
+      });
+      $('.modal-footer #btnCancel').on('click', () => {
+        callingSound.pause();
+        $('#modalCalling').hide();
+        socket.emit('USER_CANCEL_CALL', data);
+      });
+    }
+  });
+  socket.on('A_USER_ENDCALL', (data) => {
+    const {
+      target, name
+    } = data;
+    if (itsMe(target.username)) {
+      if (($('#modalCalling').css('display') === 'block')) {
+        $('.modal-footer #btnCancel').click();
+        alert('Bạn đã lỡ 1 cuộc gọi từ ' + name);
+      }
     }
   });
 
@@ -285,98 +322,6 @@ $(document).ready(() => {
       }, 300);
     }
     sttRight = !sttRight;
-  });
-
-  $('#btnEmoji').click(() => {
-    $('#popupEmoji').toggle();
-    $('.tab-emoji-selected').click();
-  });
-
-  $(document).on('click', 'a.emoji-item', (e) => {
-    $('#input-message').val($('#input-message').val() + $(e.target).text());
-    $('#input-message').focus();
-  });
-
-  $('.tab-emoji-item').click(() => {
-    let emojiType = $(this).attr('emoji-type');
-    $('.tab-emoji-selected').removeClass('tab-emoji-selected');
-    $('.emoji-type-selected').removeClass('emoji-type-selected');
-    $(this).addClass('tab-emoji-selected');
-    if ($(`#${emojiType}`).length) { //da co noi dung
-      $(`#${emojiType}`).addClass('emoji-type-selected');
-    } else { //chua co
-      $('.content-popupEmoji').css('background', "url('/images/loading-emoji.gif') center center no-repeat");
-      $.ajax({
-          url: '/api/list-emoji',
-          type: 'post',
-          data: {
-            emojiname: $(this).attr('emoji-type')
-          },
-          dataType: 'json'
-        })
-        .then((res) => { //res is an array
-          // console.log(res);
-          let typeEmoji = res[0];
-          $('.content-popupEmoji').append(`<div id="${typeEmoji.name}" class="emoji-type-content emoji-type-selected">`);
-          $('.content-popupEmoji').css('background', 'none');
-          typeEmoji.list.forEach((emoji) => {
-            $(`#${typeEmoji.name}`).append(`<a class="emoji-item" title="${emoji.name}">${emoji.value}</a>`);
-          });
-
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
-  });
-
-  $('#chooseImage').on('change', uploadFile);
-
-  //script for video call
-  $('.list-user.scroll-bar').on('click', '.list-user-item', (e) => {
-    const targetUsername = $(e.target).closest('.list-user-item').attr('id');
-    const popupWindow = openPopupCenter(
-      `/call/${socket.roomid}/${targetUsername}`,
-      800, 450
-    );
-    popupWindow.focus(); return false;
-  })
-
-  socket.on('A_USER_CALLING', (data) => {
-    const {
-      username, fbid, name, target, roomid, callerId
-    } = data;
-    if (itsMe(target.username)) {
-      fillModalCalling(fbid, name);
-      callingSound.loop = true;
-      callingSound.play();
-      $('#modalCalling').show();
-      $('.modal-footer #btnAnswer').on('click', () => {
-        callingSound.pause();
-        $('#modalCalling').hide();
-        const popupWindow = openPopupCenter(
-          `/call/${roomid}/${username}/${callerId}`,
-          800, 450
-        );
-        popupWindow.focus(); return false;
-      });
-      $('.modal-footer #btnCancel').on('click', () => {
-        callingSound.pause();
-        $('#modalCalling').hide();
-        socket.emit('USER_CANCEL_CALL', data);
-      });
-    }
-  });
-  socket.on('A_USER_ENDCALL', (data) => {
-    const {
-      target, name
-    } = data;
-    if (itsMe(target.username)) {
-      if (($('#modalCalling').css('display') === 'block')) {
-        $('.modal-footer #btnCancel').click();
-        alert('Bạn đã lỡ 1 cuộc gọi từ ' + name);
-      }
-    }
   });
 });
 
