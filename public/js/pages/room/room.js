@@ -55,6 +55,7 @@ class Message {
     this.fbid = fbid;
     this.message = message;
     this.src = src;
+    this.loaded = src !== "/images/img_trans.gif" ? "loaded" : "";
   }
 
   render() {
@@ -62,7 +63,7 @@ class Message {
   }
 
   imgRender() {
-    return `<img id="${this.time}" class="message message-image my-image loaded" src="${this.src}" alt="image" title="${this.timeSent}" />`;
+    return `<img id="${this.time}" class="message message-image my-image ${this.loaded}" src="${this.src}" alt="image" title="${this.timeSent}" />`;
   }
 
   wrapRender(mess) {
