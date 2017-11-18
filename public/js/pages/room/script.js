@@ -25,7 +25,7 @@ socket.on('connect-successfully', (data) => {
     else someOneSendImage(message);
   });
   $('.loading').fadeOut(500, () => {
-    $('.container').slideDown(600);
+    $('.container').slideDown(600, () => scrollBox());
     setTimeout(() => {
       checkSize($(window).width());
     }, 1000);
