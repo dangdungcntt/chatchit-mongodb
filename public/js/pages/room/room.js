@@ -62,7 +62,7 @@ class Message {
   }
 
   imgRender() {
-    return `<img id="${this.time}" class="message message-image my-image" src="${this.src}" alt="image" title="${this.timeSent}" />`;
+    return `<img id="${this.time}" class="message message-image my-image loaded" src="${this.src}" alt="image" title="${this.timeSent}" />`;
   }
 
   wrapRender(mess) {
@@ -80,7 +80,7 @@ class Message {
   }
 
   friendImgRender() {
-    return `<img id="${this.time}" class="message message-image" src="${this.src}" alt="image" title="${this.timeSent}" />`;
+    return `<img id="${this.time}" class="message message-image loaded" src="${this.src}" alt="image" title="${this.timeSent}" />`;
   }
 
   friendWrapRender(mess) {

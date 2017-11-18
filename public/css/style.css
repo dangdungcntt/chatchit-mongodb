@@ -387,6 +387,10 @@ nav ul {
   border-radius: 10px
 }
 
+.page-room .message-image.loaded {
+  background: none !important;
+}
+
 .page-room .my-image {
   float: right;
   clear: both
