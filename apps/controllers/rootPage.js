@@ -4,10 +4,11 @@ let listAllRoom = require('../common/list-all-room');
 let router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('layout/1column', {
-    page: 'home',
-    data: req.session.user
-  });
+  res.redirect('/list-room');
+  // res.render('layout/1column', {
+  //   page: 'home',
+  //   data: req.session.user
+  // });
 });
 
 
