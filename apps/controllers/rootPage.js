@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
   res.redirect('/list-room');
   // res.render('layout/1column', {
   //   page: 'home',
-  //   data: req.session.user
+  //   data: req.session.user,
+  //   title: 'Home'
   // });
 });
 
@@ -15,7 +16,8 @@ router.get('/', (req, res) => {
 router.get('/list-room', (req, res) => {
   res.render('layout/1column', {
     page: 'list-room',
-    data: req.session.user
+    data: req.session.user,
+    title: 'List room'
   });
 });
 
@@ -31,7 +33,8 @@ router.get('/create-room', (req, res) => {
       username,
       name,
       fbid,
-      message: 'Create Room'
+      message: 'Create Room',
+      title: 'Create room'
     }
   });
 });

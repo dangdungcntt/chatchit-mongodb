@@ -23,7 +23,8 @@ router.get('/:id', (req, res) => {
         username,
         name,
         fbid,
-        message: 'Create ' + roomid + ' room now!'
+        message: 'Create ' + roomid + ' room now!',
+        title: 'Create room'
       }
     });
   }
@@ -36,7 +37,8 @@ router.get('/:id', (req, res) => {
       username,
       name,
       fbid,
-      baseAPIUpImg: process.env.API_UPLOAD_IMG
+      baseAPIUpImg: process.env.API_UPLOAD_IMG,
+      title: roomname
     }
   });
 });
