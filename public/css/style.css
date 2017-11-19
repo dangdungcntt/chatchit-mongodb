@@ -1,3 +1,6 @@
+.fa {
+  vertical-align: bottom;
+}
 /* nav */
 
 nav {
@@ -226,7 +229,7 @@ nav ul {
 
 .page-room .container {
   width: 100%;
-  height: calc(100vh - 48px)
+  height: calc(100vh - 50px)
 }
 
 .page-room .mid {
