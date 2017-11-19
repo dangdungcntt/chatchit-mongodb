@@ -129,12 +129,6 @@ input:not([type="checkbox"]) {
   box-sizing: border-box;
 }
 
-/* .clearfix {
-  clear: both;
-  display: block;
-  overflow: hidden;
-} */
-
 .clearfix:after {
   content: '';
   clear: both;
@@ -155,8 +149,7 @@ input:not([type="checkbox"]) {
 }
 
 .has-menu-bar {
-  margin-top: 50px;
-  height: calc(100vh - 52px);
+  height: calc(100vh - 48px);
   position: relative;
 }
 

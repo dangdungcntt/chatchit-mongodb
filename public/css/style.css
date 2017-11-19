@@ -172,10 +172,6 @@ nav ul {
 
 /* list-room page */
 
-.page-list-room .container {
-  /* margin-top: 50px; */
-}
-
 .page-list-room .text-muted {
   color: #777;
 }
@@ -228,7 +224,6 @@ nav ul {
 }
 
 .page-room .container {
-  /* margin-top: 50px; */
   width: 100%;
   height: calc(100vh - 48px)
 }
