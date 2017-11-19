@@ -5,31 +5,45 @@
         urlAvatar = '/images/default_avatar.jpg';
     }
 %>
-  <nav>
-    <ul>
-      <li class="menu">
-        <a href="/" class="menu-item">Chat Chit</a>
-      </li>
-      <li class="menu">
+  <nav class="clearfix">
+    <div class="navbar-header">
+      <a id="btnToggleMenu" class="open-menu">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </a>
+      <a href="/" class="nav-brand">Chat Chit</a>
+    </div>
+    <ul class="nav-bar">
+      <li>
         <a href="/create-room/" class="menu-item">Create Room</a>
       </li>
-      <li class="menu">
+      <li>
         <a href="/list-room/" class="menu-item">List Room</a>
       </li>
-      <li class="menu menu-right dropdown">
-        <a class="menu-item"><i class="fa fa-caret-down"></i></a>
-        <ul class="dropdown-content">
-          <li><a href="#" class="menu-item">Setting</a></li>
-          <li style="height: 1px; border-bottom: 1px solid #ccc "></li>
-          <li><a id="btnLogout" class="menu-item">Logout</a></li>
+      <li class="menu-right">
+        <ul>
+          <li class="menu-left">
+            <a href="/profile/<%= data.username  %>" class="group-menu-item">
+              <img src="<%= urlAvatar %>" class="avatar-topbar">
+              <span class="user-name-topbar">
+                <%= data.name  %>
+              </span>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a class="menu-item">
+              <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-content">
+              <li>
+                <a href="#" class="menu-item">Setting</a>
+              </li>
+              <li style="height: 1px; border-bottom: 1px solid #ccc "></li>
+              <li>
+                <a id="btnLogout" class="menu-item">Logout</a>
+              </li>
+            </ul>
+          </li>
         </ul>
-      </li>
-      <li class="menu menu-right">
-        <!-- <div class="group-menu-item"> -->
-        <a href="/profile/<%= data.username  %>" class="group-menu-item"><img src="<%= urlAvatar %>" class="avatar-topbar"><span class="user-name-topbar"><%= data.name  %></span></a>
-        <div class="clear"></div>
-        <!-- </div> -->
-
       </li>
     </ul>
   </nav>

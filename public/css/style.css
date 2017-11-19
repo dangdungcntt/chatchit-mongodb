@@ -1,18 +1,36 @@
 /* nav */
 
 nav {
-  position: fixed;
+  position: relative;
   top: 0;
   width: 100%;
   z-index: 10;
+  background-color: #2196F3;
 }
 
 nav ul {
   list-style-type: none;
-  background-color: #2196F3;
+    background-color: #2196F3;
 }
 
-.menu {
+.nav-brand, .open-menu {
+  float: left;
+  padding: 16px 16px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.open-menu {
+  float: right;
+  display: none;
+}
+
+.nav-bar li {
+
+  /* float: left; */
+  /* margin-left: -4px;  */
   display: inline-block;
   position: relative;
 }
@@ -26,15 +44,16 @@ nav ul {
   /*width: 80px;*/
 }
 
-.menu-item:hover,
+.menu-item:hover, .nav-brand:hover, .open-menu:hover,
 .group-menu-item:hover {
   background: #f00;
 }
 
 .group-menu-item {
-  padding: 0px;
+  padding: 0px 16px;
   height: 48px;
   display: inline-block;
+  vertical-align: bottom;
 }
 
 .group-menu-item .user-name-topbar {
@@ -46,8 +65,7 @@ nav ul {
 
 .group-menu-item .avatar-topbar {
   float: left;
-  display: inline-block;
-  margin: 6px;
+  margin: 6px 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -155,7 +173,7 @@ nav ul {
 /* list-room page */
 
 .page-list-room .container {
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .page-list-room .text-muted {
@@ -210,9 +228,9 @@ nav ul {
 }
 
 .page-room .container {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   width: 100%;
-  height: calc(100vh - 50px)
+  height: calc(100vh - 48px)
 }
 
 .page-room .mid {

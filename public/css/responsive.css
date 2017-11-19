@@ -1,0 +1,29 @@
+@media screen and (max-width: 699px) {
+  .open-menu {
+    display: block;
+  }
+  .navbar-header::after {
+    content: "";
+    clear: both;
+    display: block;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
+  .nav-bar {
+    display: none;
+  }
+  .nav-bar li {
+    display: block;
+    float: none;
+  }
+  .menu-right {
+    float: none;
+  }
+  .group-menu-item {
+    display: block;
+  }
+  .dropdown-content {
+    position: relative;
+  }
+}

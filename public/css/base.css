@@ -129,11 +129,11 @@ input:not([type="checkbox"]) {
   box-sizing: border-box;
 }
 
-.clearfix {
+/* .clearfix {
   clear: both;
   display: block;
   overflow: hidden;
-}
+} */
 
 .clearfix:after {
   content: '';

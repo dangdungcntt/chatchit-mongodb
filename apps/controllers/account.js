@@ -24,10 +24,10 @@ router.post('/register', (req, res) => {
   let params = req.body;
 
   //đóng đăng kí
-  return res.json({
-    status_code: 403,
-    error: 'Error'
-  });
+  // return res.json({
+  //   status_code: 403,
+  //   error: 'Error'
+  // });
 
   if (params._shortidRegister !== req.session._shortidRegister) {
     return res.json({
