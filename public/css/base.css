@@ -129,6 +129,12 @@ input:not([type="checkbox"]) {
   box-sizing: border-box;
 }
 
+.clearfix {
+  clear: both;
+  display: block;
+  overflow: hidden;
+}
+
 .clearfix:after {
   content: '';
   clear: both;
