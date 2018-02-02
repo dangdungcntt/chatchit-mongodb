@@ -30,6 +30,6 @@ module.exports = {
       repo : 'git@github.com:dangdungcntt/chatchit-mongodb.git',
       path : '/home/dangdungcntt/chatchit',
       'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js --env production'
-    },
+    }
   }
 };
