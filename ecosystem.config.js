@@ -8,15 +8,7 @@ module.exports = {
     // First application
     {
       name      : 'CHATCHIT',
-      script    : 'index.js',
-      env: {
-	API_UPLOAD_IMG: 'https://api.imgur.com/3',
-	DB_STRING_URL: 'mongodb://dangdungcntt:Getthera1@ds127101.mlab.com:27101/chatchit',
-        COMMON_VARIABLE: 'true'
-      },
-      env_production : {
-        NODE_ENV: 'production'
-      }
+      script    : 'index.js'
     }
   ],
 

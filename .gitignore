@@ -3,6 +3,7 @@ public/upload
 original_icons
 note
 .env
+.idea/*
 # Created by https://www.gitignore.io/api/sublimetext
 
 ### SublimeText ###
