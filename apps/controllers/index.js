@@ -8,11 +8,11 @@ router.use(account)
 
 //mid
 router.use((req, res, next) => {
-  if (!req.session.user) {
-    req.session.redirectUrl = req.url
-    return res.redirect('/login')
-  }
-  next()
+    if (!req.session.user) {
+        req.session.redirectUrl = req.url
+        return res.redirect('/login')
+    }
+    next()
 })
 
 router.use(rootPage)

@@ -1,42 +1,45 @@
 <div class="page-login has-menu-bar">
-  <div class="loading" style="position: absolute; top: 0px; left: 0px; right: 0px; z-index: 10; text-align: center; min-height: 100%; display: none;">
-  </div>
-  <div class="alert-top-right error-alert" id="error-alert">
-    <% if (data.error) { %>
-      <%= data.error %>
-    <% } %>
-  </div>
-  <div class="container">
-    <div class="top" style="text-align: center; padding-top: 20px;">
-      <img width="100" height="100" id="imgLoading" src="/images/img_trans.gif" id="logo">
-      <h1 style="color: #5bc0de;">
-        <% if (data.roomid) { %>
-          <%= data.message%>
-        <% } else { %>
-          <%= 'Create room' %>
+    <div class="loading"
+         style="position: absolute; top: 0px; left: 0px; right: 0px; z-index: 10; text-align: center; min-height: 100%; display: none;">
+    </div>
+    <div class="alert-top-right error-alert" id="error-alert">
+        <% if (data.error) { %>
+        <%= data.error %>
         <% } %>
-      </h1>
     </div>
-    <div class="box-login">
-      <form id="formCreateRoom">
-        <div class="box-input">
-          <label>Room Name</label>
-          <input type="text" id="roomname" class="large-input-text" placeholder="Room Name" required />
-          <br>
-          <label>Room Id</label>
-          <input type="text" id="roomid" class="large-input-text" placeholder="Room Id" value="<% if (data.roomid) { %><%= data.roomid %><% } %>"
-            required />
-          <label>Room Image</label><input type="checkbox" id="chkMyImage">
-          <input type="file" id="roomimage" class="large-input-text" placeholder="Room Id" disabled="disabled" />
+    <div class="container">
+        <div class="top" style="text-align: center; padding-top: 20px;">
+            <img width="100" height="100" id="imgLoading" src="/images/img_trans.gif" id="logo">
+            <h1 style="color: #5bc0de;">
+                <% if (data.roomid) { %>
+                <%= data.message %>
+                <% } else { %>
+                <%= 'Create room' %>
+                <% } %>
+            </h1>
         </div>
-        <div class="box-control">
-          <input type="submit" class="large-btn info btn-2-col" id="btnCreateRoom" value="Create">
-          <input onclick="location.href = '/'" type="button" class="large-btn default btn-2-col" value="Home">
+        <div class="box-login">
+            <form id="formCreateRoom">
+                <div class="box-input">
+                    <label>Room Name</label>
+                    <input type="text" id="roomname" class="large-input-text" placeholder="Room Name" required/>
+                    <br>
+                    <label>Room Id</label>
+                    <input type="text" id="roomid" class="large-input-text" placeholder="Room Id"
+                           value="<% if (data.roomid) { %> <%= data.roomid %> <% } %>"
+                           required/>
+                    <label>Room Image</label><input type="checkbox" id="chkMyImage">
+                    <input type="file" id="roomimage" class="large-input-text" placeholder="Room Id"
+                           disabled="disabled"/>
+                </div>
+                <div class="box-control">
+                    <input type="submit" class="large-btn info btn-2-col" id="btnCreateRoom" value="Create">
+                    <input onclick="location.href = '/'" type="button" class="large-btn default btn-2-col" value="Home">
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 </div>
 <% include ../../base-js %>
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/js/pages/create-room/script.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/js/pages/create-room/script.js"></script>

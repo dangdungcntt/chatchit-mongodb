@@ -1,45 +1,46 @@
 <html>
 
 <head>
-  <title>Đăng nhập ChatChit</title>
-  <link rel="shortcut icon" href="/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Đăng nhập ChatChit</title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
-  <div class="page-login">
+<div class="page-login">
     <div class="loading" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; text-align: center; background: #f9f9f9 url('/images/loading.gif') no-repeat center center;
   min-height:100%;">
     </div>
     <div class="alert-top-right error-alert" id="error-alert"></div>
     <div class="container">
-      <div class="top" style="text-align: center; padding-top: 20px;">
-        <img width="100" height="100" src="/images/logo.png" id="logo" />
-        <h1 style="color: #5bc0de;"> JOIN CHATCHIT </h1>
-      </div>
-      <div class="box-login">
-        <form>
-          <div class="box-input">
-            <input type="hidden" id="_shortidLogin" value="<%= data._shortid %>" />
-            <label>Username</label>
-            <input type="text" class="large-input-text" id="username" placeholder="Username" />
-            <br>
-            <label>Password</label>
-            <input type="password" class="large-input-text" id="password" placeholder="Password" />
-          </div>
-          <div class="box-control">
-            <input type="submit" class="large-btn info btn-2-col" id="btnLogin" value="Login" />
-            <input onclick="location.href = '/register'" type="button" class="large-btn default btn-2-col" id="btnRegister" value="Register"
-            />
-          </div>
-          <div class="text-center"><a href="#">Forgot password?</a></div>
-        </form>
-      </div>
+        <div class="top" style="text-align: center; padding-top: 20px;">
+            <img width="100" height="100" src="/images/logo.png" id="logo"/>
+            <h1 style="color: #5bc0de;"> JOIN CHATCHIT </h1>
+        </div>
+        <div class="box-login">
+            <form>
+                <div class="box-input">
+                    <input type="hidden" id="_shortidLogin" value="<%= data._shortid %>"/>
+                    <label>Username</label>
+                    <input type="text" class="large-input-text" id="username" placeholder="Username"/>
+                    <br>
+                    <label>Password</label>
+                    <input type="password" class="large-input-text" id="password" placeholder="Password"/>
+                </div>
+                <div class="box-control">
+                    <input type="submit" class="large-btn info btn-2-col" id="btnLogin" value="Login"/>
+                    <input onclick="location.href = '/register'" type="button" class="large-btn default btn-2-col"
+                           id="btnRegister" value="Register"
+                    />
+                </div>
+                <div class="text-center"><a href="#">Forgot password?</a></div>
+            </form>
+        </div>
     </div>
-  </div>
-  <% include ../../base-js %>
-    <script type="text/javascript" src="/js/pages/login/script.js"></script>
+</div>
+<% include ../../base-js %>
+<script type="text/javascript" src="/js/pages/login/script.js"></script>
 </body>
 
 </html>
