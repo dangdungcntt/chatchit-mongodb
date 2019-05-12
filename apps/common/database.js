@@ -1,10 +1,10 @@
 'use strict';
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 mongoose.connect(process.env.DB_STRING_URL, {
-    useMongoClient: true,
-    /* other options */
+  useMongoClient: true
 });
+
 mongoose.Promise = require('bluebird');
 
 module.exports = {
