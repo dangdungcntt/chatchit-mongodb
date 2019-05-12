@@ -8,5 +8,5 @@ mongoose.connect(process.env.DB_STRING_URL, {
 mongoose.Promise = require('bluebird');
 
 module.exports = {
-  mongoose
+    mongoose
 };

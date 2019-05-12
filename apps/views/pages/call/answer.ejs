@@ -2,42 +2,42 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Cuộc gọi video - <%= data.target.name %> -  ChatChit</title>
-  <link rel="shortcut icon" href="/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/css/call.css">
-  <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-  <script src="/js/pages/call/peer.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cuộc gọi video - <%= data.target.name %> - ChatChit</title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/call.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <script src="/js/pages/call/peer.js"></script>
 </head>
 
 <body>
-    <video id="remoteStream"></video>
-    <video id="localStream" muted></video>
-    <div class="target">
-      <div class="target-info">
-        <img id="avatar" src="/images/img_trans.gif" alt="avatar" />
+<video id="remoteStream"></video>
+<video id="localStream" muted></video>
+<div class="target">
+    <div class="target-info">
+        <img id="avatar" src="/images/img_trans.gif" alt="avatar"/>
         <p id="name"></p>
         <p id="status">Đang gọi</p>
         <p id="end-time">Kết thúc sau <span id="time"></span> giây</p>
         <img src="/images/loading-pink-16.gif" alt="loading">
-      </div>
     </div>
-  <% include ../../base-js %>
-  <script>
-      let data = {
+</div>
+<% include ../../base-js %>
+<script>
+    let data = {
         roomid: '<%= data.roomid %>',
         username: '<%= data.username %>',
         name: '<%= data.name %>',
         fbid: '<%= data.fbid %>',
         callerId: '<%= data.callerId %>',
         target: <%- JSON.stringify(data.target) %>
-      }
-    </script>
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/js/pages/call/script.js"></script>
-  <script type="text/javascript" src="/js/pages/call/answer.js"></script>
+    }
+</script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/js/pages/call/script.js"></script>
+<script type="text/javascript" src="/js/pages/call/answer.js"></script>
 </body>
 </html>
 

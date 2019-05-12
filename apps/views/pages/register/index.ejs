@@ -1,48 +1,48 @@
 <html>
 
 <head>
-  <title>Đăng kí ChatChit</title>
-  <link rel="shortcut icon" href="/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Đăng kí ChatChit</title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
-  <div class="page-login">
+<div class="page-login">
     <div class="alert-top-right error-alert" id="error-alert"></div>
     <div class="container">
-      <div class="top" style="text-align: center; padding-top: 20px;">
-        <img width="100" height="100" src="/images/logo.png" id="logo" />
-        <h1 style="color: #5bc0de;"> JOIN CHATCHIT </h1>
-      </div>
-      <div class="box-login">
-        <form>
-          <div class="box-input">
-            <input type="hidden" id="_shortidRegister" value="<%= data._shortid %>" />
-            <label>Username</label><label class="require"> *</label>
-            <input type="text" class="large-input-text txt" id="username" placeholder="Username" required />
-            <br />
-            <label>Password</label><label class="require"> *</label>
-            <input type="password" class="large-input-text" id="password" placeholder="Password" required />
-            <br />
-            <label>Re-Password</label><label class="require"> *</label>
-            <input type="password" class="large-input-text" id="repassword" placeholder="Re-Password" />
-            <br />
-            <label>Full name</label>
-            <input type="text" class="large-input-text" id="name" placeholder="Full name" />
-            <br />
-            <label>Email</label>
-            <input type="email" class="large-input-text" id="email" placeholder="Email" />
-          </div>
-          <div class="box-control">
-            <input type="submit" class="large-btn info btn-1-col" id="btnSubmitRegister" value="Register" />
-          </div>
-          <div class="text-center"><label>Have an account,</label> <a href="/login">login now.</a></div>
-        </form>
-      </div>
+        <div class="top" style="text-align: center; padding-top: 20px;">
+            <img width="100" height="100" src="/images/logo.png" id="logo"/>
+            <h1 style="color: #5bc0de;"> JOIN CHATCHIT </h1>
+        </div>
+        <div class="box-login">
+            <form>
+                <div class="box-input">
+                    <input type="hidden" id="_shortidRegister" value="<%= data._shortid %>"/>
+                    <label>Username</label><label class="require"> *</label>
+                    <input type="text" class="large-input-text txt" id="username" placeholder="Username" required/>
+                    <br/>
+                    <label>Password</label><label class="require"> *</label>
+                    <input type="password" class="large-input-text" id="password" placeholder="Password" required/>
+                    <br/>
+                    <label>Re-Password</label><label class="require"> *</label>
+                    <input type="password" class="large-input-text" id="repassword" placeholder="Re-Password"/>
+                    <br/>
+                    <label>Full name</label>
+                    <input type="text" class="large-input-text" id="name" placeholder="Full name"/>
+                    <br/>
+                    <label>Email</label>
+                    <input type="email" class="large-input-text" id="email" placeholder="Email"/>
+                </div>
+                <div class="box-control">
+                    <input type="submit" class="large-btn info btn-1-col" id="btnSubmitRegister" value="Register"/>
+                </div>
+                <div class="text-center"><label>Have an account,</label> <a href="/login">login now.</a></div>
+            </form>
+        </div>
     </div>
     <% include ../../base-js %>
-      <script type="text/javascript" src="/js/pages/register/script.js"></script>
+    <script type="text/javascript" src="/js/pages/register/script.js"></script>
 </body>
 
 </html>
